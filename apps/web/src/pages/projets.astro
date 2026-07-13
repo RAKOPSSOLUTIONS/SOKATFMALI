@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects, projectFilters } from "../data/projects";
+import { IMG } from "../data/stitch";
+---
+
+<BaseLayout title="Nos Projets" description="Les réalisations stratégiques de SOKATF SARL au Mali : BTP, IT, mines et agro-industrie.">
+  <!-- Hero -->
+  <section class="relative h-[420px] md:h-[500px] flex items-center overflow-hidden">
+    <img src={IMG.projHero} alt="Complexe minier industriel au Mali" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-navy-900/70"></div>
+    <div class="container-max relative z-10">
+      <div class="max-w-3xl">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">Nos Réalisations Stratégiques</h1>
+        <p class="text-lg text-slate-200 leading-relaxed border-l-4 border-gold-soft pl-6 max-w-2xl">
+          Découvrez comment SOKATF SARL transforme le paysage industriel du Mali à travers des projets
+          d'envergure en BTP, IT, Mines et Agro-industrie.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters + gallery -->
+  <section class="section container-max">
+    <div class="flex flex-wrap justify-center gap-3 mb-14">
+      {
+        projectFilters.map((f, i) => (
+          <button
+            type="button"
+            data-filter={f.key}
+            class:list={[
+              "px-5 py-2.5 rounded-md text-[13px] font-semibold uppercase tracking-wider border transition-colors",
+              i === 0 ? "bg-navy-800 text-white border-navy-800" : "bg-white text-ink-soft border-line hover:border-navy-800",
+            ]}
+          >
+            {f.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="project-grid">
+      {
+        projects.map((p) => (
+          <a
+            href="/contact"
+            data-category={p.category}
+            class="project-card reveal group relative h-[500px] rounded-lg overflow-hidden"
+          >
+            <img src={IMG[p.img]} alt={p.title} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-navy-900/95 via-navy-900/30 to-transparent"></div>
+            <div class="absolute inset-0 p-7 flex flex-col justify-end">
+              <span class="self-start px-2.5 py-1 rounded bg-gold-deep text-white text-[10px] font-bold uppercase tracking-widest mb-3">{p.badge}</span>
+              <h3 class="text-xl font-bold text-white mb-1">{p.title}</h3>
+              <p class="text-sm text-slate-300 mb-4">{p.client}</p>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold text-gold-soft group-hover:gap-3 transition-all">
+                Voir les détails <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-navy-800 py-20">
+    <div class="container-max text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-5 text-balance">Prêt à bâtir l'avenir avec nous ?</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto mb-10">
+        SOKATF SARL accompagne les grands donneurs d'ordres publics et privés dans leurs défis industriels les plus complexes.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/contact" class="btn-gold">Démarrer un Projet</a>
+        <a href="/a-propos" class="btn-outline-white">Consulter notre Brochure</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const chips = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll(".project-card");
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const f = (chip as HTMLElement).dataset.filter;
+        chips.forEach((c) => {
+          const on = c === chip;
+          c.classList.toggle("bg-navy-800", on);
+          c.classList.toggle("text-white", on);
+          c.classList.toggle("border-navy-800", on);
+          c.classList.toggle("bg-white", !on);
+          c.classList.toggle("text-ink-soft", !on);
+          c.classList.toggle("border-line", !on);
+        });
+        cards.forEach((card) => {
+          const show = f === "all" || (card as HTMLElement).dataset.category === f;
+          (card as HTMLElement).style.display = show ? "" : "none";
+        });
+      });
+    });
+  </script>
+</BaseLayout>

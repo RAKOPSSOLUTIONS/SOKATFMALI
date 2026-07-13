@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Our Sectors | SOKATF-SARL - Multi-Sector Excellence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Hanken+Grotesk:wght@600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sector-card:hover .icon-container {
+            transform: scale(1.1) rotate(2deg);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#f9f9fb",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "on-secondary-fixed": "#002107",
+                        "on-tertiary-fixed": "#241a00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#00531c",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-container": "#a18000",
+                        "inverse-surface": "#2f3132",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#444748",
+                        "tertiary-container": "#241a00",
+                        "primary-container": "#1c1b1b",
+                        "surface-tint": "#5f5e5e",
+                        "outline": "#747878",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-primary-container": "#858383",
+                        "surface-variant": "#e2e2e4",
+                        "background": "#f9f9fb",
+                        "on-surface": "#1a1c1d",
+                        "error": "#ba1a1a",
+                        "tertiary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8ea",
+                        "secondary-fixed": "#72fe88",
+                        "primary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#00732a",
+                        "inverse-primary": "#c8c6c5",
+                        "outline-variant": "#c4c7c7",
+                        "surface-container": "#eeeef0",
+                        "surface-container-highest": "#e2e2e4",
+                        "surface-bright": "#f9f9fb",
+                        "secondary-container": "#6ffb85",
+                        "surface-container-low": "#f3f3f5",
+                        "tertiary-fixed": "#ffe08b",
+                        "inverse-on-surface": "#f0f0f2",
+                        "tertiary-fixed-dim": "#f1c100",
+                        "primary": "#000000",
+                        "secondary-fixed-dim": "#53e16f",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-background": "#1a1c1d",
+                        "surface-dim": "#d9dadc",
+                        "secondary": "#006e28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "container-max": "1280px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-xl": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-50 bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline">
+<nav class="flex justify-between items-center max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-inverse-primary">SOKATF-SARL</span>
+</div>
+<!-- Desktop Nav -->
+<ul class="hidden md:flex items-center gap-8">
+<li><a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary font-bold pb-1" href="#">Sectors</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Projects</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Compliance</a></li>
+<li><a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+<div class="flex items-center gap-4">
+<button class="hidden md:block bg-primary text-on-primary px-6 py-2 font-label-md rounded hover:opacity-90 transition-all active:scale-95">Get a Quote</button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+</header>
+<main class="w-full">
+<!-- Hero Section -->
+<section class="relative h-[409px] md:h-[512px] flex items-center justify-center overflow-hidden bg-primary">
+<div class="absolute inset-0 opacity-40">
+<div class="w-full h-full bg-cover bg-center" data-alt="A cinematic, wide-angle shot of a bustling West African commercial hub featuring modern steel skyscrapers, heavy construction machinery, and green agricultural fields in the distance. The lighting is golden hour, casting warm glows and long shadows, creating a high-contrast corporate look. The aesthetic is clean, professional, and reflects multi-sector industrial growth with a palette of deep blacks, charcoal, and vibrant green accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCAAXPm8PvYJpxgp_nlg8QHvbyc8sFNAAmxoDBch_3gLem8Oq63FJaRpe6fErAZUk8AtDhv2Wjlq2IRFmzoFsBSMBtuKf8Xuhyd75RSzM27ZqQaOIrxvvbsfRPkoVEj4cg3gIsg5jY0xO4d5cg-siiu3GxYz0tZ8MUoC_jbsbw48dBb2Ei-kNKLE0v2fERab8q2tlsPpUJNwiednLGXbAmExhfhTXFD81u-ThM48irjnDNR2nq5DhyELKZg2RMOLLE07YgVA0J2fUk')"></div>
+</div>
+<div class="relative z-10 text-center px-margin-mobile">
+<h1 class="font-headline-xl text-headline-xl text-white mb-4">Industrial Excellence</h1>
+<p class="font-body-lg text-body-lg text-primary-fixed max-w-2xl mx-auto">Operating at the intersection of trade, infrastructure, and technology across West Africa.</p>
+</div>
+</section>
+<!-- Sectors Bento Grid -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-24">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+<div class="max-w-2xl">
+<span class="text-secondary font-label-md uppercase tracking-widest block mb-4">Our Ecosystem</span>
+<h2 class="font-headline-lg text-headline-lg md:text-headline-xl text-on-surface leading-tight">Strategic solutions for a developing continent.</h2>
+</div>
+<div class="md:text-right">
+<p class="font-body-md text-on-surface-variant max-w-sm ml-auto">SOKATF-SARL manages a diverse portfolio of essential services, ensuring quality and reliability in every operation.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Commerce Général - Large Card -->
+<div class="md:col-span-8 group sector-card bg-surface-container-lowest border border-outline-variant p-10 flex flex-col justify-between transition-all hover:border-primary">
+<div>
+<div class="icon-container w-16 h-16 bg-surface-container-high flex items-center justify-center mb-8 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-primary">shopping_cart</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Commerce Général</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed max-w-lg">Providing global supply chain solutions and local distribution networks. We bridge international markets with West African demand through rigorous quality control and efficient logistics management.</p>
+</div>
+<div class="mt-12 flex items-center text-secondary font-label-md">
+                        Explore Trade <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+</div>
+</div>
+<!-- BTP & Construction - Tall Card -->
+<div class="md:col-span-4 group sector-card bg-surface-container-lowest border border-outline-variant p-10 flex flex-col transition-all hover:border-primary">
+<div class="icon-container w-16 h-16 bg-surface-container-high flex items-center justify-center mb-8 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-primary">architecture</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">BTP &amp; Construction</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">Infrastructure development, civil engineering, and residential construction projects delivered with institutional-grade precision and durability.</p>
+<div class="mt-auto pt-12">
+<div class="h-32 w-full bg-surface-variant overflow-hidden rounded-sm">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A close-up, sharp professional photograph of a construction site featuring a modern architectural blueprint held against a background of steel beams and a bright blue sky. The image is clean, highlighting the precision and strength of large-scale civil engineering. The style is bright and high-key with charcoal and metallic grey tones dominant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuEFx8lpZLMV_ybfRljRvB3K1UoYxQ7Twh2aa9nvA_83G37f0TJ4vSQi6-pRtGE6XdbChVZIs2-QJfVHSpn-EA6y03TcTfug-VSvaKAij2ZQkzZL2_KISM5epsh7nLY-gpZgqo6ws2NK53H72ZIo6bDNyGRuLI4txFZ4AVbO8v9dhNYR1pqwUf7AZXUH0X4G-14KzKk0MhT3oiTxLAzXOmndm4ZUVE9r47-H-oMUs6TO15IC8_OiLzF9uAnE4pdkQK_9G1qkFAhqc"/>
+</div>
+</div>
+</div>
+<!-- Sécurité & Gardiennage -->
+<div class="md:col-span-4 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-primary">security</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px] mb-3">Sécurité &amp; Gardiennage</h3>
+<p class="font-body-sm text-on-surface-variant">Elite security personnel and surveillance systems designed to protect assets and personnel in high-risk environments.</p>
+</div>
+<!-- Informatique (IT) - Highlighted with Color -->
+<div class="md:col-span-4 group sector-card bg-primary text-on-primary p-8 transition-all hover:opacity-95">
+<div class="icon-container w-12 h-12 bg-on-primary-container/20 flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-on-primary">terminal</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px] mb-3">Informatique &amp; IT</h3>
+<p class="font-body-sm text-primary-fixed-dim">Enterprise software solutions, network infrastructure, and digital transformation consulting for the modern African enterprise.</p>
+</div>
+<!-- Agro-business -->
+<div class="md:col-span-4 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-secondary">agriculture</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[20px] mb-3">Agro-business</h3>
+<p class="font-body-sm text-on-surface-variant">Modernizing the agricultural value chain through industrial-scale processing, sustainable farming practices, and market access.</p>
+</div>
+<!-- Nettoyage -->
+<div class="md:col-span-3 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-primary">sanitizer</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[18px] mb-2">Nettoyage</h3>
+<p class="font-body-sm text-on-surface-variant">Professional sanitation and industrial cleaning services for corporate and commercial spaces.</p>
+</div>
+<!-- Représentation Commerciale -->
+<div class="md:col-span-3 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-primary">handshake</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[18px] mb-2">Représentation</h3>
+<p class="font-body-sm text-on-surface-variant">Acting as the strategic local partner for international brands looking to enter the West African market.</p>
+</div>
+<!-- Produits Pétroliers -->
+<div class="md:col-span-3 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-error">oil_barrel</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[18px] mb-2">Produits Pétroliers</h3>
+<p class="font-body-sm text-on-surface-variant">Logistics and distribution of refined petroleum products to power regional industry and transport.</p>
+</div>
+<!-- Restauration -->
+<div class="md:col-span-3 group sector-card bg-surface-container-lowest border border-outline-variant p-8 transition-all hover:border-primary">
+<div class="icon-container w-12 h-12 bg-surface-container-high flex items-center justify-center mb-6 transition-transform duration-300">
+<span class="material-symbols-outlined text-3xl text-primary">restaurant</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-[18px] mb-2">Restauration</h3>
+<p class="font-body-sm text-on-surface-variant">Premium catering services and culinary management for corporate events and institutional facilities.</p>
+</div>
+<!-- Prestations de Services - Full Width Callout -->
+<div class="md:col-span-12 group sector-card bg-surface-container border border-outline-variant p-10 flex flex-col md:flex-row items-center justify-between gap-8 transition-all hover:border-primary">
+<div class="flex items-center gap-8">
+<div class="icon-container w-20 h-20 bg-surface-container-lowest flex items-center justify-center rounded-full transition-transform duration-300">
+<span class="material-symbols-outlined text-5xl text-primary">support_agent</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md mb-2">Prestations de Services</h3>
+<p class="font-body-md text-on-surface-variant max-w-xl">Tailored auxiliary services including recruitment, facility management, and logistics consulting designed to streamline your operations.</p>
+</div>
+</div>
+<button class="whitespace-nowrap bg-on-surface text-surface px-8 py-4 font-label-md rounded uppercase tracking-widest hover:bg-secondary transition-all">Inquire Now</button>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-surface-container-low py-24">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
+<h2 class="font-headline-xl text-headline-xl mb-6">Partnering for Growth</h2>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto mb-12">Join the numerous organizations that trust SOKATF-SARL for their critical infrastructure and service needs.</p>
+<div class="flex flex-col md:flex-row justify-center gap-4">
+<a class="px-10 py-5 bg-primary text-on-primary font-label-md rounded-sm uppercase tracking-widest hover:bg-opacity-90 transition-all" href="#">Corporate Profile</a>
+<a class="px-10 py-5 border border-primary text-primary font-label-md rounded-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all" href="#">Contact Sales</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 bg-primary dark:bg-primary-container border-t border-on-primary-fixed-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md font-black text-on-primary block mb-4">SOKATF-SARL</span>
+<p class="font-body-sm text-primary-fixed-dim mb-6">Multi-sector excellence in West Africa. Reliable foundations for a growing future.</p>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-md text-on-primary mb-2">Core Sectors</span>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">General Trade</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">BTP &amp; Construction</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Agribusiness</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-md text-on-primary mb-2">Company</span>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">About Us</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Our Projects</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Contact Support</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-md text-on-primary mb-2">Legal</span>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Privacy Policy</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Terms of Service</a>
+<a class="font-body-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Compliance</a>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-12 pt-8 border-t border-white/10">
+<p class="font-label-sm text-label-sm text-primary-fixed-dim text-center">© 2024 SOKATF-SARL. All rights reserved. Multi-sector excellence in West Africa.</p>
+</div>
+</footer>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.sector-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,179 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site, contactSubjects } from "../data/site";
+import { IMG } from "../data/stitch";
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
+---
+
+<BaseLayout title="Contact" description="Contactez les experts de SOKATF SARL à Bamako, Mali. Demande de devis, information et carrières.">
+  <!-- Hero -->
+  <section class="relative bg-navy-800 overflow-hidden">
+    <img src={IMG.contactHero} alt="Vue aérienne de Bamako au coucher du soleil" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+    <div class="container-max relative z-10 py-24 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-5 text-balance">Contactez nos Experts</h1>
+      <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        Une expertise industrielle de classe mondiale au service du développement du Mali.
+        Nous sommes à votre écoute pour concrétiser vos ambitions.
+      </p>
+    </div>
+  </section>
+
+  <!-- Form + sidebar -->
+  <section class="section container-max">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <!-- Form -->
+      <div class="lg:col-span-8 card p-7 md:p-10">
+        <h2 class="text-2xl font-bold text-navy-900 mb-8">Demande de Devis & Information</h2>
+        <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-6" novalidate>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+          <div>
+            <label class="field-label" for="c-name">Nom Complet</label>
+            <input id="c-name" name="name" class="field" placeholder="Ex: Jean Dupont" required />
+            <p class="text-[12px] text-rose-600 mt-1 hidden" data-err="name"></p>
+          </div>
+          <div>
+            <label class="field-label" for="c-company">Entreprise</label>
+            <input id="c-company" name="company" class="field" placeholder="Votre organisation" />
+          </div>
+          <div>
+            <label class="field-label" for="c-email">Email Professionnel</label>
+            <input id="c-email" name="email" type="email" class="field" placeholder="contact@entreprise.com" required />
+            <p class="text-[12px] text-rose-600 mt-1 hidden" data-err="email"></p>
+          </div>
+          <div>
+            <label class="field-label" for="c-phone">Téléphone</label>
+            <input id="c-phone" name="phone" type="tel" class="field" placeholder="+223 ..." />
+          </div>
+          <div class="md:col-span-2">
+            <label class="field-label" for="c-sector">Secteur d'Intérêt</label>
+            <select id="c-sector" name="sector" class="field">
+              {contactSubjects.map((s) => <option value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="field-label" for="c-message">Votre Message</label>
+            <textarea id="c-message" name="message" rows="5" class="field" placeholder="Décrivez votre projet ou votre demande spécifique..." required></textarea>
+            <p class="text-[12px] text-rose-600 mt-1 hidden" data-err="message"></p>
+          </div>
+          <div class="md:col-span-2" data-feedback hidden>
+            <div class="rounded-md px-4 py-3 text-sm text-center font-semibold" data-feedback-inner></div>
+          </div>
+          <div class="md:col-span-2 flex justify-end">
+            <button type="submit" data-submit class="btn-gold"><span data-submit-label>ENVOYER LA DEMANDE</span></button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-4 flex flex-col gap-6">
+        <div class="bg-navy-800 text-white rounded-lg p-8">
+          <h3 class="text-xl font-bold mb-6">Siège Social</h3>
+          <div class="space-y-5">
+            {[
+              { icon: "location_on", bold: site.hq.city, sub: site.hq.address },
+              { icon: "phone_in_talk", bold: site.phoneDisplay, sub: site.hq.phoneLabel },
+              { icon: "mail", bold: site.email, sub: site.hq.emailLabel },
+              { icon: "badge", bold: site.nif, sub: "NIF" },
+              { icon: "gavel", bold: site.rccm, sub: "RCCM" },
+            ].map((r) => (
+              <div class="flex gap-4">
+                <span class="material-symbols-outlined text-gold-soft">{r.icon}</span>
+                <div>
+                  <div class="font-semibold">{r.bold}</div>
+                  <div class="text-sm text-slate-400">{r.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="bg-gold-bright text-navy-900 rounded-lg p-8">
+          <h3 class="text-xl font-bold mb-3">Rejoignez-nous</h3>
+          <p class="text-sm text-navy-900/80 mb-5 leading-relaxed">
+            Vous souhaitez participer à l'émergence industrielle du Mali ? Consultez nos offres d'emploi.
+          </p>
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider hover:gap-3 transition-all">
+            Découvrir les carrières <span class="material-symbols-outlined text-[18px]">arrow_right_alt</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <section class="relative h-[450px] overflow-hidden">
+    <img src={IMG.mapBamako} alt="Carte de Bamako indiquant le siège de SOKATF SARL" class="absolute inset-0 w-full h-full object-cover grayscale contrast-75" />
+    <div class="absolute inset-0 grid place-items-center">
+      <div class="bg-white/90 backdrop-blur rounded-lg shadow-xl p-6 text-center max-w-xs">
+        <span class="material-symbols-outlined fill text-4xl text-gold-deep">location_on</span>
+        <h4 class="text-lg font-bold text-navy-900 mt-2">SOKATF SARL</h4>
+        <p class="text-[13px] text-ink-soft mb-4">Immeuble Assan Thiero, Hamdallaye ACI 2000, Bamako</p>
+        <a href="#" class="btn-navy w-full !py-2.5 text-[13px]">ITINÉRAIRE</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RH & Talents -->
+  <section class="section bg-[#f2f4f6]">
+    <div class="container-max grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="eyebrow mb-3">RH & Talents</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy-900 mb-5 text-balance">Bâtissons le futur industriel du Mali ensemble</h2>
+        <p class="text-ink-soft leading-relaxed mb-8">
+          SOKATF SARL valorise l'excellence, l'innovation et l'intégrité. Nous recherchons des talents passionnés
+          par les défis techniques et le développement économique continental.
+        </p>
+        <ul class="space-y-4 mb-8">
+          {
+            ["Programmes de formation continue", "Environnement multiculturel et dynamique", "Mobilité interne sur nos différents sites industriels"].map((b) => (
+              <li class="flex items-center gap-3 text-ink">
+                <span class="material-symbols-outlined fill text-gold-deep">check_circle</span>{b}
+              </li>
+            ))
+          }
+        </ul>
+        <a href="#" class="btn-navy">Voir tous les postes</a>
+      </div>
+      <div class="relative">
+        <img src={IMG.careersTeam} alt="Équipe d'ingénieurs et cadres de SOKATF en réunion" class="w-full h-[500px] object-cover rounded-lg shadow-xl" />
+        <div class="absolute -bottom-6 -left-6 bg-gold-bright text-navy-900 rounded-lg p-6 shadow-xl">
+          <div class="text-4xl font-extrabold">500+</div>
+          <div class="text-sm font-semibold">Collaborateurs à travers le pays</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ apiUrl }}>
+    const form = document.getElementById("contact-form");
+    const fbWrap = form.querySelector("[data-feedback]");
+    const fb = form.querySelector("[data-feedback-inner]");
+    const btn = form.querySelector("[data-submit]");
+    const lbl = form.querySelector("[data-submit-label]");
+    function feedback(ok, msg) {
+      fb.textContent = msg;
+      fb.classList.remove("bg-emerald-50", "text-emerald-700", "bg-rose-50", "text-rose-700");
+      fb.classList.add(ok ? "bg-emerald-50" : "bg-rose-50", ok ? "text-emerald-700" : "text-rose-700");
+      fbWrap.hidden = false;
+    }
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      form.querySelectorAll("[data-err]").forEach((el) => { el.textContent = ""; el.classList.add("hidden"); });
+      fbWrap.hidden = true;
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload.source = "/contact";
+      btn.disabled = true; const o = lbl.textContent; lbl.textContent = "Envoi…";
+      try {
+        const res = await fetch(`${apiUrl}/api/quote`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) { form.reset(); feedback(true, "Merci ! Votre demande a bien été envoyée."); }
+        else if (res.status === 422 && data.errors) {
+          for (const [f, m] of Object.entries(data.errors)) { const el = form.querySelector(`[data-err="${f}"]`); if (el) { el.textContent = m; el.classList.remove("hidden"); } }
+          feedback(false, "Veuillez corriger les champs indiqués.");
+        } else feedback(false, "Une erreur est survenue. Réessayez plus tard.");
+      } catch { feedback(false, "Impossible de joindre le serveur. Vérifiez que l'API est démarrée."); }
+      finally { btn.disabled = false; lbl.textContent = o; }
+    });
+  </script>
+</BaseLayout>

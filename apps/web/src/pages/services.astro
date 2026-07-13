@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { services } from "../data/services";
+import { IMG } from "../data/stitch";
+
+const stats = [
+  { value: "10+", label: "Pôles d'Activité" },
+  { value: "500+", label: "Employés Qualifiés" },
+  { value: "150+", label: "Projets Livrés" },
+  { value: "98%", label: "Satisfaction Client" },
+];
+---
+
+<BaseLayout title="Nos Services" description="Les dix pôles d'excellence de SOKATF SARL : commerce, BTP, sécurité, produits pétroliers, agro-business, IT et plus.">
+  <!-- Hero -->
+  <section class="bg-navy-800 text-white">
+    <div class="container-max py-24 md:py-28 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-balance">
+        Expertise Multisectorielle<br /><span class="text-gold-soft">au Service de l'Émergence</span>
+      </h1>
+      <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        SOKATF SARL déploie des solutions industrielles et commerciales de classe mondiale pour accompagner
+        le développement durable du Mali. Découvrez nos dix pôles d'excellence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services grid -->
+  <section class="section container-max">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        services.map((s) =>
+          s.featured ? (
+            <div class="reveal relative lg:col-span-2 min-h-[400px] rounded-lg overflow-hidden group">
+              <img src={IMG.oilRefinery} alt="Raffinerie pétrolière au coucher du soleil" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div class="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent"></div>
+              <div class="absolute inset-0 p-10 flex flex-col justify-end">
+                <span class="self-start px-3 py-1 rounded bg-gold-deep text-white text-[12px] font-semibold uppercase tracking-widest mb-4">Secteur Stratégique</span>
+                <h3 class="text-3xl font-extrabold text-white mb-3">{s.n}. {s.title}</h3>
+                <p class="text-slate-200 max-w-xl mb-6">{s.description}</p>
+                <a href="/contact" class="btn-white self-start">Consulter l'offre</a>
+              </div>
+            </div>
+          ) : (
+            <a href="/contact" class="reveal card card-hover p-8 flex flex-col group">
+              <span class="icon-tile mb-6"><span class="material-symbols-outlined text-[28px]">{s.icon}</span></span>
+              <h3 class="text-xl font-bold text-navy-900 mb-3">{s.title}</h3>
+              <p class="text-ink-soft text-[15px] leading-relaxed mb-6">{s.description}</p>
+              <span class="link-gold mt-auto text-sm">En savoir plus <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+            </a>
+          ),
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-navy-800 py-20">
+    <div class="container-max grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+      {
+        stats.map((s) => (
+          <div>
+            <div class="text-4xl font-extrabold text-gold-soft">{s.value}</div>
+            <div class="text-[13px] uppercase tracking-widest text-slate-400 mt-2">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,32 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+.next/
+.astro/
+out/
+build/
+
+# env
+.env
+.env.*
+!.env.example
+
+# database (sqlite dev)
+*.db
+*.db-journal
+apps/api/prisma/dev.db*
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="fr" class="scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary": "#000000",
+                        "surface-variant": "#e0e3e5",
+                        "surface-dim": "#d8dadc",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "on-primary-container": "#7c839b",
+                        "outline": "#76777d",
+                        "on-tertiary-container": "#79849a",
+                        "primary-container": "#131b2e",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed": "#111c2d",
+                        "tertiary-fixed": "#d8e3fb",
+                        "secondary-fixed": "#ffe088",
+                        "secondary": "#735c00",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "background": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#e9c349",
+                        "tertiary-container": "#111c2d",
+                        "on-surface-variant": "#45464d",
+                        "error-container": "#ffdad6",
+                        "on-surface": "#191c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#241a00",
+                        "outline-variant": "#c6c6cd",
+                        "surface": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-primary": "#bec6e0",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#fed65b",
+                        "surface-tint": "#565e74",
+                        "on-background": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary-container": "#745c00",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "section-padding-mobile": "40px",
+                        "gutter": "24px",
+                        "section-padding-desktop": "80px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "caption": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar Navigation Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-8">
+<div class="font-headline-md text-headline-md font-bold text-primary">SOKATF SARL</div>
+<nav class="hidden md:flex items-center gap-6">
+<a href="#" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Accueil</a>
+<a href="#" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">À Propos</a>
+<a href="#" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Services</a>
+<a href="#" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">Projets</a>
+<a href="#" class="font-label-md text-label-md text-secondary border-b-2 border-secondary pb-1 font-bold">Partenaires</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block font-label-md text-label-md text-on-surface-variant px-3">FR</button>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 font-label-md text-label-md font-bold rounded-lg hover:bg-secondary transition-all active:scale-95 duration-150">Contactez-nous</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[60vh] min-h-[500px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-primary-container/60 z-10"></div>
+<div class="w-full h-full" data-alt="A cinematic wide shot of a modern glass skyscraper reflecting a dramatic sunset sky in Bamako, Mali. The industrial architecture is sleek and corporate, with clean lines and a premium executive feel. The lighting is warm and golden, contrasting with deep blue shadows, creating a sense of international prestige and authority." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCnMYwa7zGPaMO5M90RgDrDXKMgYIHGc0AoFd-GbIvqyOuasgS7LhycT5vz42SpLKh26Vu9P_6kKaH27Cf79nMuHLsp9WuQI4woTix1I5Nw-y_tntUW2yz90Vta1WXrl9EFd5pCbIYSMjZvP0g8eWtmkK4KcyaJmhDhumXe4VxI7zdJvT_dsWX_eN4NHJMtlXfaRNcgGWjjCbFcVeO7toJfzET5HRG_wZaOqVsXPs4_3ikURcv1bvnCcaNIKrg-75K46PETMjxnnDE&quot;); background-attachment: fixed; background-position: center center; background-size: cover;"></div>
+</div>
+<div class="relative z-20 max-w-container-max mx-auto px-gutter w-full">
+<div class="max-w-3xl">
+<span class="inline-block px-4 py-1 mb-6 bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded-full">ALLIANCES STRATÉGIQUES</span>
+<h1 class="font-display-lg text-display-lg text-white mb-6">Un Réseau de Confiance International</h1>
+<p class="font-body-lg text-body-lg text-surface-variant/90 leading-relaxed mb-8">
+                        Chez SOKATF SARL, nous bâtissons l'avenir industriel du Mali en collaboration avec les leaders mondiaux et les institutions de référence. Notre réseau de partenaires est le socle de notre excellence opérationnelle.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Partners Categories Section -->
+<section class="py-section-padding-desktop px-gutter max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+<div class="executive-border pl-6">
+<h2 class="font-headline-md text-headline-md text-primary mb-2">Nos Collaborations</h2>
+<p class="text-on-surface-variant max-w-xl">Une synergie entre expertise locale et standards internationaux pour des projets d'envergure nationale.</p>
+</div>
+</div>
+<!-- Institutions Gouvernementales -->
+<div class="mb-20">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-secondary">account_balance</span>
+<h3 class="font-headline-sm text-headline-sm text-primary uppercase tracking-wider">Institutions Gouvernementales</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<!-- Partner Card Loop placeholder -->
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">domain</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">account_balance</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">gavel</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Compagnies Minières & Industrielles -->
+<div class="mb-20">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-secondary">precision_manufacturing</span>
+<h3 class="font-headline-sm text-headline-sm text-primary uppercase tracking-wider">Secteur Minier &amp; Industriel</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">factory</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors" data-original-icon="mining">circle</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">construction</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Partenaires Internationaux & ONG -->
+<div class="mb-20">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-secondary">public</span>
+<h3 class="font-headline-sm text-headline-sm text-primary uppercase tracking-wider">International &amp; ONG</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">language</span>
+</div>
+</div>
+<div class="bg-white border border-outline-variant/30 p-8 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 shadow-sm hover:shadow-md h-40 group cursor-pointer">
+<div class="w-24 h-24 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-outline-variant group-hover:text-secondary transition-colors">handshake</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section: Devenir Partenaire -->
+<section class="bg-primary-container py-section-padding-desktop relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-10">
+
+</div>
+<div class="max-w-container-max mx-auto px-gutter relative z-10">
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="font-display-lg text-display-lg text-white mb-6">Devenir Partenaire</h2>
+<p class="font-body-lg text-body-lg text-surface-variant/80 mb-8">
+                            Vous souhaitez rejoindre notre écosystème et contribuer au développement industriel du Mali ? Nous sommes constamment à la recherche de partenaires visionnaires partageant nos valeurs d'intégrité et de performance.
+                        </p>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+                                Accessibilité à des projets d'envergure
+                            </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+                                Expertise technique partagée
+                            </li>
+<li class="flex items-center gap-3 text-white">
+<span class="material-symbols-outlined text-secondary">check_circle</span>
+                                Vision long terme et stabilité
+                            </li>
+</ul>
+<button class="bg-secondary text-primary font-label-md text-label-md font-bold px-10 py-4 rounded-lg hover:opacity-90 transition-all transform hover:-translate-y-1 shadow-lg">Soumettre une Proposition</button>
+</div>
+<div class="bg-surface-container-lowest/5 backdrop-blur-lg border border-white/10 p-8 rounded-xl">
+<form class="space-y-6">
+<div>
+<label class="block text-white font-label-md text-label-md mb-2">Nom de l'Organisation</label>
+<input class="w-full bg-white/10 border-white/20 text-white rounded-lg focus:ring-secondary focus:border-secondary p-3" placeholder="Ex: Global Logistics SA" type="text">
+</div>
+<div>
+<label class="block text-white font-label-md text-label-md mb-2">Secteur d'Activité</label>
+<select class="w-full bg-white/10 border-white/20 text-white rounded-lg focus:ring-secondary focus:border-secondary p-3 appearance-none">
+<option class="bg-primary-container">Exploitation Minière</option>
+<option class="bg-primary-container">Logistique &amp; Transport</option>
+<option class="bg-primary-container">Construction &amp; BTP</option>
+<option class="bg-primary-container">Autre</option>
+</select>
+</div>
+<div>
+<label class="block text-white font-label-md text-label-md mb-2">Message</label>
+<textarea class="w-full bg-white/10 border-white/20 text-white rounded-lg focus:ring-secondary focus:border-secondary p-3 h-32" placeholder="Décrivez votre vision de partenariat..."></textarea>
+</div>
+<button class="w-full border-2 border-white text-white font-label-md text-label-md font-bold py-4 hover:bg-white hover:text-primary transition-all" type="submit">Envoyer la demande</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial Highlight -->
+<section class="py-section-padding-desktop bg-surface">
+<div class="max-w-container-max mx-auto px-gutter text-center">
+<div class="mb-8">
+<span class="material-symbols-outlined text-5xl text-secondary-fixed-dim">format_quote</span>
+</div>
+<blockquote class="font-headline-md text-headline-md text-primary max-w-4xl mx-auto italic mb-8">
+                    "La collaboration avec SOKATF SARL a été déterminante pour la réussite de nos opérations logistiques au Mali. Leur professionnalisme et leur connaissance du terrain sont exceptionnels."
+                </blockquote>
+<div class="flex items-center justify-center gap-4">
+<div class="w-12 h-12 rounded-full bg-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a senior executive male in a crisp business suit, looking confident and smiling warmly against a blurred corporate office background. High-end lighting, clear skin detail, executive style, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKDSlVVV05ldYSr3n3c6Yg2D8l-JNvxZKCeI_SbYdjg1H3wd1zyqUMriv_6dotMOk5GSg3OhO5u2al2Q0iO7QbZ7ZSmtIJVxMtNkAGwlusYDGGE3dAxwj8Vz60twW82CtOT-DN0L5Vc8xb96TQ-Il6ePOZIdRq7Ox6FqsN6rkTcR7JwEv3FsLf7LX013WmKqnu7Y2TaNomLee9Uul3U52RHtsKYnxyr5FUMZ-oAVkeHUFty7RfQVb3iy5hoEZELbY3fhiwQBQoDy4">
+</div>
+<div class="text-left">
+<p class="font-bold text-primary">Jean-Pierre Dubois</p>
+<p class="text-on-surface-variant font-caption text-caption">Directeur Opérations, Mines Africa Global</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-padding-desktop px-gutter border-t border-white/10 bg-primary-container text-secondary-fixed">
+<div class="max-w-container-max mx-auto">
+<div class="grid md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-sm text-headline-sm font-bold text-white mb-6">SOKATF SARL</div>
+<p class="text-surface-variant/80 max-w-sm font-body-md text-body-md mb-6">
+                        Excellence industrielle, intégrité et vision pour un Mali prospère. Nous transformons les défis en opportunités.
+                    </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 border border-white/20 flex items-center justify-center rounded hover:border-secondary hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 border border-white/20 flex items-center justify-center rounded hover:border-secondary hover:text-secondary transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-label-md text-label-md mb-6 uppercase tracking-widest">Navigation</h4>
+<ul class="space-y-4">
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Accueil</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Services</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Projets</a></li>
+<li class=""><a class="text-secondary-fixed font-bold" href="#">Partenaires</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-label-md text-label-md mb-6 uppercase tracking-widest">Légal</h4>
+<ul class="space-y-4">
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Mentions Légales</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Politique de Confidentialité</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Plan du Site</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Carriéres</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
+<p class="font-caption text-caption text-surface-variant/60">© 2024 SOKATF SARL. Tous droits réservés. Leader Industriel au Mali.</p>
+<p class="font-caption text-caption text-surface-variant/60">Design par Executive Global Solutions</p>
+</div>
+</div>
+</footer>
+<script>
+        // Simple reveal on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+            observer.observe(section);
+        });
+
+        // Initialize first section immediately
+        window.addEventListener('DOMContentLoaded', () => {
+             const firstSection = document.querySelector('section');
+             if(firstSection) {
+                firstSection.classList.remove('opacity-0', 'translate-y-10');
+                firstSection.classList.add('opacity-100', 'translate-y-0');
+             }
+        });
+    </script>
+
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        try {
+            try {
+                tailwind.config = {
+                    darkMode: "class",
+                    theme: {
+                        extend: {
+                            "colors": {
+                                "tertiary-fixed-dim": "#bcc7de",
+                                "primary-fixed-dim": "#bec6e0",
+                                "primary": "#000000",
+                                "surface-variant": "#e0e3e5",
+                                "surface-dim": "#d8dadc",
+                                "on-tertiary-fixed-variant": "#3c475a",
+                                "on-primary-container": "#7c839b",
+                                "outline": "#76777d",
+                                "on-tertiary-container": "#79849a",
+                                "primary-container": "#131b2e",
+                                "surface-container-high": "#e6e8ea",
+                                "on-tertiary-fixed": "#111c2d",
+                                "tertiary-fixed": "#d8e3fb",
+                                "secondary-fixed": "#ffe088",
+                                "secondary": "#735c00",
+                                "inverse-on-surface": "#eff1f3",
+                                "tertiary": "#000000",
+                                "on-error": "#ffffff",
+                                "surface-container": "#eceef0",
+                                "on-secondary": "#ffffff",
+                                "on-primary-fixed-variant": "#3f465c",
+                                "background": "#f7f9fb",
+                                "surface-container-lowest": "#ffffff",
+                                "secondary-fixed-dim": "#e9c349",
+                                "tertiary-container": "#111c2d",
+                                "on-surface-variant": "#45464d",
+                                "error-container": "#ffdad6",
+                                "on-surface": "#191c1e",
+                                "inverse-surface": "#2d3133",
+                                "on-primary-fixed": "#131b2e",
+                                "on-tertiary": "#ffffff",
+                                "on-secondary-fixed": "#241a00",
+                                "outline-variant": "#c6c6cd",
+                                "surface": "#f7f9fb",
+                                "on-secondary-fixed-variant": "#574500",
+                                "surface-bright": "#f7f9fb",
+                                "inverse-primary": "#bec6e0",
+                                "error": "#ba1a1a",
+                                "secondary-container": "#fed65b",
+                                "surface-tint": "#565e74",
+                                "on-background": "#191c1e",
+                                "on-error-container": "#93000a",
+                                "primary-fixed": "#dae2fd",
+                                "surface-container-low": "#f2f4f6",
+                                "on-secondary-container": "#745c00",
+                                "surface-container-highest": "#e0e3e5",
+                                "on-primary": "#ffffff"
+                            },
+                            "borderRadius": {
+                                "DEFAULT": "0.125rem",
+                                "lg": "0.25rem",
+                                "xl": "0.5rem",
+                                "full": "0.75rem"
+                            },
+                            "spacing": {
+                                "base": "8px",
+                                "section-padding-mobile": "40px",
+                                "gutter": "24px",
+                                "section-padding-desktop": "80px",
+                                "container-max": "1280px"
+                            },
+                            "fontFamily": {
+                                "headline-sm": ["Inter"],
+                                "headline-md": ["Inter"],
+                                "body-lg": ["Inter"],
+                                "label-md": ["Inter"],
+                                "caption": ["Inter"],
+                                "display-lg": ["Inter"],
+                                "body-md": ["Inter"],
+                                "display-lg-mobile": ["Inter"]
+                            },
+                            "fontSize": {
+                                "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                                "headline-md": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                                "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                                "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                            }
+                        },
+                    },
+                }
+            } catch (_e) {}
+        } catch (_e) {}
+    </script>
+<meta charset="utf-8"/>
+<style>
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #131b2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s;
+        }
+        .loader-logo {
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.4s forwards 0.1s;
+        }
+        .loader-bar-container {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .loader-bar {
+            position: absolute;
+            height: 100%;
+            background: #ffe088;
+            width: 0;
+            animation: progress 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes progress {
+            to { width: 100%; }
+        }
+        .preloader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        /* Page Reveal Animation */
+        .content-fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-out 0.1s;
+        }
+        .content-visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- Premium Preloader -->
+<div id="preloader">
+<div class="loader-logo">SOKATF SARL</div>
+<div class="loader-bar-container">
+<div class="loader-bar"></div>
+</div>
+</div>
+<div class="content-fade-in" id="page-content">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center h-20 px-gutter max-w-container-max mx-auto bg-surface/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="font-headline-md text-headline-md font-bold text-primary">SOKATF SARL</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Accueil</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">À Propos</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Services</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Projets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Partenaires</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 font-bold font-label-md text-label-md" href="#">Contactez-nous</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-secondary-container text-on-secondary-container px-6 py-2 font-bold hover:opacity-90 transition-all text-label-md">FR</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[50vh] flex items-center justify-center overflow-hidden bg-primary-container">
+<div class="absolute inset-0 opacity-40">
+<div class="w-full h-full bg-cover bg-center bg-fixed transition-transform duration-500 ease-in-out hover:scale-105" data-alt="A high-altitude aerial view of Bamako Mali showing modern industrial infrastructure and the Niger River at sunset." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKF46bxiaYD3SFCnkaDbFjTEAsV1FXJxvcxWHdzSRW7aKPy6nStNlbLHymo11ooRJ2m9PLbwkD9hHvrHI1ddKulazUj-nEJjmzltZmf7kI8Sf-Pp2cA-cVJCW_AwB991DrAvyf9eFfY8sKYm5ApMlLh3c_Z-NZjCsrrnZZVzYOu7Xn-ELQzv4fMul2jVrBijH1Gzn_iTTaWfZ82eGLIZcwwDRDSvze9Kj9q5RDxN--NPWh3kMWfnH64BfhVi6rrcXpvGVoGVfcR44");'></div>
+</div>
+<div class="relative z-10 text-center px-gutter max-w-4xl">
+<h1 class="text-white font-display-lg text-display-lg md:text-display-lg mb-4">Contactez nos Experts</h1>
+<p class="text-primary-fixed-dim font-body-lg text-body-lg max-w-2xl mx-auto">
+            Une expertise industrielle de classe mondiale au service du développement du Mali. Nous sommes à votre écoute pour concrétiser vos ambitions.
+        </p>
+</div>
+</section>
+<!-- Main Content: Bento Layout -->
+<section class="max-w-container-max mx-auto px-gutter py-section-padding-desktop" id="contact-form-section">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Contact Form (Bento Main) -->
+<div class="lg:col-span-8 bg-white border border-outline-variant/30 p-8 md:p-12 shadow-sm">
+<h2 class="font-headline-md text-headline-md text-primary mb-8">Demande de Devis &amp; Information</h2>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Nom Complet</label>
+<input class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Ex: Jean Dupont" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Entreprise</label>
+<input class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Votre organisation" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Email Professionnel</label>
+<input class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="contact@entreprise.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Téléphone</label>
+<input class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="+223 ..." type="tel"/>
+</div>
+<div class="md:col-span-2 flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Secteur d'Intérêt</label>
+<select class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white">
+<option>Construction &amp; BTP</option>
+<option>Énergie &amp; Mines</option>
+<option>Logistique &amp; Transport</option>
+<option>Commerce International</option>
+<option>Autre</option>
+</select>
+</div>
+<div class="md:col-span-2 flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant">Votre Message</label>
+<textarea class="border border-outline-variant p-3 focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="Décrivez votre projet ou votre demande spécifique..." rows="5"></textarea>
+</div>
+<div class="md:col-span-2 flex justify-end mt-4">
+<button class="bg-secondary text-white px-10 py-4 font-bold text-label-md hover:scale-[1.02] active:scale-95 transition-all shadow-md hover:shadow-[0_0_20px_rgba(115,92,0,0.4)] duration-500 ease-in-out" type="submit">
+                        ENVOYER LA DEMANDE
+                    </button>
+</div>
+</form>
+</div>
+<!-- Info Sidebar (Bento Stack) -->
+<div class="lg:col-span-4 flex flex-col gap-8">
+<!-- Headquarters Card -->
+<div class="bg-primary-container text-white p-8 border border-white/10">
+<h3 class="font-headline-sm text-headline-sm text-secondary-fixed mb-6">Siège Social</h3>
+<div class="space-y-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed">location_on</span>
+<div>
+<p class="font-bold">Bamako, Mali</p>
+<p class="text-surface-variant/80 font-body-md">Quartier du Fleuve, Avenue de l'Indépendance</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed">phone_in_talk</span>
+<div>
+<p class="font-bold">+223 20 22 XX XX</p>
+<p class="text-surface-variant/80 font-body-md">Standard Groupe</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary-fixed">mail</span>
+<div>
+<p class="font-bold">contact@sokatf.ml</p>
+<p class="text-surface-variant/80 font-body-md">Département Commercial</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Careers CTA Card -->
+<div class="bg-secondary-container p-8 border border-secondary/20">
+<h3 class="font-headline-sm text-headline-sm text-on-secondary-container mb-4">Rejoignez-nous</h3>
+<p class="text-on-secondary-container/80 mb-6 font-body-md">
+                    Vous souhaitez participer à l'émergence industrielle du Mali ? Consultez nos offres d'emploi.
+                </p>
+<a class="inline-flex items-center gap-2 font-bold text-primary group border-b-2 border-primary pb-1" href="#">
+                    DÉCOUVRIR LES CARRIÈRES
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Map Section -->
+<section class="w-full h-[450px] bg-surface-container overflow-hidden">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center relative" data-location="Bamako, Mali">
+<div class="absolute inset-0 bg-cover bg-center grayscale contrast-75 transition-transform duration-500 ease-in-out hover:scale-105" data-alt="A clean professional stylized map of Bamako Mali highlighting the central business district." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBcl5PQ-asXE9DljYAbiNc0ZpfEGASxEoTz0M3xWKRB1bOzPyEgIvVaBxR26pK91-Ze2G7mzJ4Ci12fxf-KBVPgOdapF4dAxTdNoxJEnk-Bwcbtzw6qIvl9xguczLq9s4do4fgjrQAhB2UFiY9RwExZXL8VtVSLPdioL99osw3s5n4Zt9y9VGX7BpuwnLhQlcwL7cc6rjIzKw-baTeEEm-_ZMJuNQ9tW65DzpZ6ZmmFuJdaB2f_cbApKVwTq4jQ6s-4vzSG6AL4sXw");'></div>
+<div class="relative z-10 glass-panel p-6 border border-white/40 shadow-xl max-w-xs text-center bg-white/10 backdrop-blur-md">
+<span class="material-symbols-outlined text-4xl text-secondary mb-2" data-weight="fill">location_on</span>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-1">SOKATF SARL</h4>
+<p class="text-caption font-caption text-on-surface-variant mb-4">Centre d'Affaires Prestige, Bamako</p>
+<button class="bg-primary text-white text-caption font-label-md px-4 py-2 w-full hover:shadow-[0_0_20px_rgba(115,92,0,0.4)] duration-500 ease-in-out">ITINÉRAIRE</button>
+</div>
+</div>
+</section>
+<!-- Careers Expansion Section -->
+<section class="bg-surface-container-low py-section-padding-desktop">
+<div class="max-w-container-max mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="">
+<span class="text-secondary font-label-md tracking-widest block mb-4">RH &amp; TALENTS</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">Bâtissons le futur industriel du Mali ensemble</h2>
+<p class="text-on-surface-variant mb-8 font-body-lg">
+                SOKATF SARL valorise l'excellence, l'innovation et l'intégrité. Nous recherchons des talents passionnés par les défis techniques et le développement économique continental.
+            </p>
+<div class="space-y-4 mb-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">check_circle</span>
+<span class="font-body-md">Programmes de formation continue</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">check_circle</span>
+<span class="font-body-md">Environnement multiculturel et dynamique</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">check_circle</span>
+<span class="font-body-md">Mobilité interne sur nos différents sites industriels</span>
+</div>
+</div>
+<button class="border-2 border-primary text-primary px-8 py-3 font-bold hover:bg-primary hover:text-white transition-all text-label-md hover:shadow-[0_0_20px_rgba(115,92,0,0.4)] duration-500 ease-in-out">VOIR TOUS LES POSTES</button>
+</div>
+<div class="relative h-[500px] overflow-hidden">
+<div class="w-full h-full bg-cover bg-center shadow-2xl transition-transform duration-500 ease-in-out hover:scale-105" data-alt="A diverse team of professional African engineers and executives." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1pcGVautu9fggTujgKa-qd6TmGwgWV6CThRL1eHdayxjn6QtrtNgqcXJfRqwa8X4DEevbguzrUAOVQYL_hJYmGwEELV28nK9c6t6s4H6bfs05kLBL2cjq7hkfs7yT8MsiRpcPaFO7xG-mcDB_JUd_k5ydcraa3WcYcTD07Y7on7RckaGL0YYP6GS5F0Nui6BFjIbHthreu66jMWifmFDAxRvn2ohhTnlM-Orp3hdVi9P1tVZ7ZRKsIlbyXkODX_i-oBX5YhkY6Uk");'></div>
+<div class="absolute -bottom-6 -left-6 bg-secondary text-white p-8 max-w-[200px]">
+<p class="text-display-lg font-display-lg leading-none mb-1">500+</p>
+<p class="font-label-md">Collaborateurs à travers le pays</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-padding-desktop px-gutter border-t border-white/10 bg-primary-container text-secondary-fixed">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+<div class="md:col-span-1">
+<div class="font-headline-sm text-headline-sm font-bold text-white mb-6">SOKATF SARL</div>
+<p class="text-surface-variant/60 font-body-md">L'excellence au cœur de l'industrie malienne. Leader diversifié pour une croissance durable.</p>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6 uppercase tracking-wider">Navigation</h4>
+<ul class="space-y-3">
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Accueil</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Secteurs d'Activité</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">RSE &amp; Impact</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Actualités</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6 uppercase tracking-wider">Liens Utiles</h4>
+<ul class="space-y-3">
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Mentions Légales</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Politique de Confidentialité</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block" href="#">Plan du Site</a></li>
+<li class=""><a class="text-surface-variant/80 hover:text-white transition-colors hover:translate-x-1 inline-block font-bold text-secondary-fixed" href="#">Carrières</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-label-md mb-6 uppercase tracking-wider">Suivez-nous</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">link</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">public</span>
+</a>
+<a class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-secondary transition-all" href="#">
+<span class="material-symbols-outlined text-sm">groups</span>
+</a>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="font-body-md text-body-md">© 2024 SOKATF SARL. Tous droits réservés. Leader Industriel au Mali.</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">verified_user</span>
+<span class="font-caption text-caption uppercase tracking-widest opacity-60">Corporate Excellence</span>
+</div>
+</div>
+</footer>
+</div>
+<script>
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        const content = document.getElementById('page-content');
+        
+        // Optimized preloader: reduce delay to 400ms for faster page access
+        setTimeout(() => {
+            preloader.classList.add('preloader-hidden');
+            content.classList.add('content-visible');
+            
+            // Cleanup from DOM after transition
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 300);
+        }, 400);
+    });
+
+    // Optional: Intersection Observer for other elements if needed
+    const observerOptions = {
+        threshold: 0.1
+    };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+        observer.observe(el);
+    });
+</script>
+</body></html>

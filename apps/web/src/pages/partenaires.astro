@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { partnerCategories, partnerSectors, testimonial } from "../data/partners";
+import { IMG } from "../data/stitch";
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
+---
+
+<BaseLayout title="Nos Partenaires" description="Le réseau de partenaires de confiance de SOKATF SARL : institutions, industriels et acteurs internationaux.">
+  <!-- Hero -->
+  <section class="relative h-[60vh] min-h-[460px] flex items-center overflow-hidden">
+    <img src={IMG.partHero} alt="Gratte-ciel moderne à Bamako au coucher du soleil" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-navy-900/65"></div>
+    <div class="container-max relative z-10">
+      <div class="max-w-3xl">
+        <span class="inline-block px-3 py-1 rounded bg-gold-bright text-navy-900 text-[12px] font-bold uppercase tracking-widest mb-6">Alliances Stratégiques</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6 text-balance">Un Réseau de Confiance International</h1>
+        <p class="text-lg text-slate-200 leading-relaxed max-w-2xl">
+          Chez SOKATF SARL, nous bâtissons l'avenir industriel du Mali en collaboration avec les leaders mondiaux
+          et les institutions de référence. Notre réseau de partenaires est le socle de notre excellence opérationnelle.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collaborations -->
+  <section class="section container-max">
+    <div class="border-l-4 border-gold pl-6 mb-14">
+      <h2 class="text-3xl font-bold text-navy-900 mb-2">Nos Collaborations</h2>
+      <p class="text-ink-soft max-w-xl">Une synergie entre expertise locale et standards internationaux pour des projets d'envergure nationale.</p>
+    </div>
+
+    <div class="space-y-14">
+      {
+        partnerCategories.map((cat) => (
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span class="material-symbols-outlined text-gold-deep">{cat.icon}</span>
+              <h3 class="text-sm font-semibold uppercase tracking-widest text-navy-900">{cat.heading}</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+              {cat.cards.map((c) => (
+                <div class="reveal card card-hover h-36 grid place-items-center text-center gap-3 group">
+                  <span class="material-symbols-outlined text-4xl text-slate-300 group-hover:text-gold-deep transition-colors">{c.icon}</span>
+                  <span class="text-[13px] font-semibold text-ink-soft">{c.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Devenir partenaire -->
+  <section class="bg-navy-800 py-20">
+    <div class="container-max grid md:grid-cols-2 gap-14 items-center">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-5">Devenir Partenaire</h2>
+        <p class="text-slate-300 leading-relaxed mb-8 max-w-lg">
+          Vous souhaitez rejoindre notre écosystème et contribuer au développement industriel du Mali ? Nous sommes
+          constamment à la recherche de partenaires visionnaires partageant nos valeurs d'intégrité et de performance.
+        </p>
+        <ul class="space-y-4 mb-8">
+          {
+            ["Accessibilité à des projets d'envergure", "Expertise technique partagée", "Vision long terme et stabilité"].map((b) => (
+              <li class="flex items-center gap-3 text-slate-200">
+                <span class="material-symbols-outlined fill text-gold-soft">check_circle</span>{b}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="rounded-lg border border-white/10 bg-white/5 backdrop-blur-lg p-7 md:p-8">
+        <form id="partner-form" class="space-y-4" novalidate>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+          <div>
+            <label class="block text-[13px] font-semibold text-slate-300 mb-1.5" for="p-org">Nom de l'Organisation</label>
+            <input id="p-org" name="name" class="w-full px-4 py-3 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-gold-soft" placeholder="Ex: Global Logistics SA" required />
+            <p class="text-[12px] text-rose-300 mt-1 hidden" data-err="name"></p>
+          </div>
+          <div>
+            <label class="block text-[13px] font-semibold text-slate-300 mb-1.5" for="p-email">Email</label>
+            <input id="p-email" name="email" type="email" class="w-full px-4 py-3 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-gold-soft" placeholder="contact@organisation.com" required />
+            <p class="text-[12px] text-rose-300 mt-1 hidden" data-err="email"></p>
+          </div>
+          <div>
+            <label class="block text-[13px] font-semibold text-slate-300 mb-1.5" for="p-sector">Secteur d'Activité</label>
+            <select id="p-sector" name="sector" class="w-full px-4 py-3 rounded-md bg-navy-800 border border-white/15 text-white focus:outline-none focus:border-gold-soft">
+              {partnerSectors.map((s) => <option class="bg-navy-800">{s}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="block text-[13px] font-semibold text-slate-300 mb-1.5" for="p-message">Message</label>
+            <textarea id="p-message" name="message" rows="4" class="w-full px-4 py-3 rounded-md bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-gold-soft" placeholder="Décrivez votre vision de partenariat..." required></textarea>
+            <p class="text-[12px] text-rose-300 mt-1 hidden" data-err="message"></p>
+          </div>
+          <div data-feedback class="hidden rounded-md px-4 py-3 text-sm text-center font-semibold"></div>
+          <button type="submit" data-submit class="btn-outline-white w-full"><span data-submit-label>Envoyer la demande</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="section container-max text-center max-w-3xl">
+    <span class="material-symbols-outlined text-5xl text-gold-dim mb-4">format_quote</span>
+    <blockquote class="text-2xl md:text-3xl font-medium text-navy-900 italic leading-snug mb-8 text-balance">
+      "{testimonial.quote}"
+    </blockquote>
+    <div class="flex items-center justify-center gap-4">
+      <img src={IMG.testimonialAuthor} alt={testimonial.author} class="h-14 w-14 rounded-full object-cover" />
+      <div class="text-left">
+        <div class="font-bold text-navy-900">{testimonial.author}</div>
+        <div class="text-sm text-ink-soft">{testimonial.role}</div>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ apiUrl }}>
+    const form = document.getElementById("partner-form");
+    const fb = form.querySelector("[data-feedback]");
+    const btn = form.querySelector("[data-submit]");
+    const lbl = form.querySelector("[data-submit-label]");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      form.querySelectorAll("[data-err]").forEach((el) => { el.textContent = ""; el.classList.add("hidden"); });
+      fb.classList.add("hidden");
+      const payload = Object.fromEntries(new FormData(form).entries());
+      payload.company = payload.name;
+      payload.message = `[Partenariat] ${payload.message}`;
+      payload.source = "/partenaires";
+      btn.disabled = true; const o = lbl.textContent; lbl.textContent = "Envoi…";
+      try {
+        const res = await fetch(`${apiUrl}/api/contact`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          fb.textContent = "Merci ! Votre proposition a bien été envoyée."; fb.classList.remove("hidden");
+          fb.classList.add("bg-emerald-500/20", "text-emerald-200");
+        } else if (res.status === 422 && data.errors) {
+          for (const [f, m] of Object.entries(data.errors)) { const el = form.querySelector(`[data-err="${f}"]`); if (el) { el.textContent = m; el.classList.remove("hidden"); } }
+          fb.textContent = "Veuillez corriger les champs indiqués."; fb.classList.remove("hidden"); fb.classList.add("bg-rose-500/20", "text-rose-200");
+        } else { fb.textContent = "Une erreur est survenue."; fb.classList.remove("hidden"); fb.classList.add("bg-rose-500/20", "text-rose-200"); }
+      } catch { fb.textContent = "Impossible de joindre le serveur."; fb.classList.remove("hidden"); fb.classList.add("bg-rose-500/20", "text-rose-200"); }
+      finally { btn.disabled = false; lbl.textContent = o; }
+    });
+  </script>
+</BaseLayout>

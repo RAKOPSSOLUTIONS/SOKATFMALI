@@ -1,0 +1,22 @@
+{
+  "name": "sokatf-portail",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portail multiservices SOKATF-SARL — Astro frontend + Next.js backend/admin",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter \"./apps/*\" run dev",
+    "dev:web": "pnpm --filter @sokatf/web run dev",
+    "dev:api": "pnpm --filter @sokatf/api run dev",
+    "build": "pnpm -r --filter \"./apps/*\" run build",
+    "build:web": "pnpm --filter @sokatf/web run build",
+    "build:api": "pnpm --filter @sokatf/api run build",
+    "db:push": "pnpm --filter @sokatf/api run db:push",
+    "db:seed": "pnpm --filter @sokatf/api run db:seed",
+    "db:studio": "pnpm --filter @sokatf/api run db:studio",
+    "setup": "pnpm install && pnpm --filter @sokatf/api run db:push && pnpm --filter @sokatf/api run db:seed"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@11.5.0"
+}

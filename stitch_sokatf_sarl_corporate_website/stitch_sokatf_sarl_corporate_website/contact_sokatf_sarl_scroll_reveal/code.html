@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Hub | Get in Touch</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#111c2d",
+                    "on-secondary-fixed-variant": "#574500",
+                    "surface-variant": "#e0e3e5",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary": "#000000",
+                    "on-primary-container": "#7c839b",
+                    "on-primary-fixed": "#131b2e",
+                    "primary": "#000000",
+                    "tertiary-container": "#111c2d",
+                    "primary-fixed-dim": "#bec6e0",
+                    "surface-container": "#eceef0",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-fixed-dim": "#bcc7de",
+                    "on-secondary-fixed": "#241a00",
+                    "on-tertiary-container": "#79849a",
+                    "inverse-surface": "#2d3133",
+                    "surface-tint": "#565e74",
+                    "background": "#f7f9fb",
+                    "on-secondary-container": "#745c00",
+                    "on-surface": "#191c1e",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#e9c349",
+                    "outline": "#76777d",
+                    "surface-bright": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "secondary-fixed": "#ffe088",
+                    "surface-container-highest": "#e0e3e5",
+                    "surface-dim": "#d8dadc",
+                    "primary-container": "#131b2e",
+                    "tertiary-fixed": "#d8e3fb",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary": "#ffffff",
+                    "secondary-container": "#fed65b",
+                    "inverse-on-surface": "#eff1f3",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f7f9fb",
+                    "inverse-primary": "#bec6e0",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "on-background": "#191c1e",
+                    "on-surface-variant": "#45464d",
+                    "secondary": "#735c00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "section-padding-desktop": "80px",
+                    "section-padding-mobile": "40px",
+                    "gutter": "24px",
+                    "container-max": "1280px"
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        
+        /* Scroll Reveal Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fade-in-up 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-gray-50 group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Shared Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaecf1] px-4 lg:px-40 py-3 bg-white z-50">
+<div class="flex items-center gap-4 text-[#111318]">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">Contact Hub</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Contact</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Locations</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Support</a>
+</div>
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 bg-[#eaecf1] text-[#111318] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-surface-variant transition-colors">
+<div class="text-[#111318]" data-icon="Bell" data-size="20px" data-weight="regular">
+<span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+</div>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 bg-[#eaecf1] text-[#111318] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-surface-variant transition-colors">
+<div class="text-[#111318]" data-icon="User" data-size="20px" data-weight="regular">
+<span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+</div>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-outline-variant" data-alt="A professional headshot of a friendly support representative in a bright, modern corporate office environment. High-key lighting highlights clean, minimalist aesthetics with a soft-focus background of glass partitions and lush green office plants. The mood is welcoming and professional, using a clean light-mode color palette." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCujQ06m_f9nPOL6WdxBedLWuhxHAOo1UvYWGCq2CJyTuGmyN77DJ6qy0lHmMWRd2jnpBvDFGztJ7tY6Ezselw9vphvCKsFUN7K2wNuzscfKZEA4z95UpR9d_9HF4egv9BZbV6R-8_BwtaCvQsHoThAjoOj9OYwUuq9c-JwyUP7Sp24_wD53TB1VgaW2_XXGZoZGJ5knZmxIwiiZgm1DPBk5fRTr30K04A0XQDJ4KZEoX9pOLm8XN8_f6layzi_3ucJe0UDBH1zJsM");'></div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<div class="px-4 lg:px-40 py-12 bg-white">
+<div class="max-w-[960px] mx-auto animate-fade-in-up">
+<div class="flex flex-wrap justify-between gap-3 mb-8">
+<div class="flex min-w-72 flex-col gap-3">
+<p class="text-[#111318] text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em]">Get in Touch</p>
+<p class="text-[#5d6a89] text-lg font-normal leading-normal max-w-xl">We're here to help and answer any question you might have. Our team is available 24/7 to provide the support you need.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Form & Info Section -->
+<div class="px-4 lg:px-40 pb-20">
+<div class="max-w-[960px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left: Contact Form -->
+<div class="lg:col-span-2 space-y-6 reveal">
+<div class="p-6 bg-white rounded-xl shadow-sm border border-outline-variant">
+<div class="mb-8">
+<h3 class="text-[#111318] text-xl font-bold mb-2">Send us a message</h3>
+<p class="text-[#5d6a89] text-sm">Fill out the form below and we'll get back to you within 24 hours.</p>
+</div>
+<form class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<p class="text-[#111318] text-sm font-semibold">Full Name</p>
+<input class="form-input flex w-full rounded border border-[#d5d9e2] bg-gray-50 h-12 px-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="John Doe" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<p class="text-[#111318] text-sm font-semibold">Email Address</p>
+<input class="form-input flex w-full rounded border border-[#d5d9e2] bg-gray-50 h-12 px-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com" required="" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<p class="text-[#111318] text-sm font-semibold">Subject</p>
+<select class="form-select flex w-full rounded border border-[#d5d9e2] bg-gray-50 h-12 px-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+<option>General Inquiry</option>
+<option>Technical Support</option>
+<option>Billing Question</option>
+<option>Partnership</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<p class="text-[#111318] text-sm font-semibold">Message</p>
+<textarea class="form-textarea flex w-full rounded border border-[#d5d9e2] bg-gray-50 min-h-[150px] p-4 text-base focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="How can we help you?"></textarea>
+</div>
+<button class="w-full md:w-auto px-8 py-3 bg-slate-900 text-white font-bold rounded hover:bg-black transition-colors flex items-center justify-center gap-2" type="submit">
+<span>Submit Message</span>
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</form>
+</div>
+</div>
+<!-- Right: Info Cards -->
+<div class="space-y-6">
+<div class="reveal delay-100 p-6 bg-white rounded-xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-primary-container rounded">
+<span class="material-symbols-outlined text-white">location_on</span>
+</div>
+<h4 class="font-bold text-[#111318]">Our Office</h4>
+</div>
+<p class="text-[#5d6a89] text-sm leading-relaxed">
+                                123 Tech Plaza, Suite 500<br/>
+                                San Francisco, CA 94105<br/>
+                                United States
+                            </p>
+</div>
+<div class="reveal delay-200 p-6 bg-white rounded-xl shadow-sm border border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-primary-container rounded">
+<span class="material-symbols-outlined text-white">call</span>
+</div>
+<h4 class="font-bold text-[#111318]">Phone &amp; Email</h4>
+</div>
+<div class="space-y-2">
+<p class="text-[#5d6a89] text-sm">+1 (555) 000-1234</p>
+<p class="text-[#5d6a89] text-sm">support@contacthub.io</p>
+</div>
+</div>
+<div class="reveal delay-300 p-6 bg-white rounded-xl shadow-sm border border-outline-variant overflow-hidden">
+<h4 class="font-bold text-[#111318] mb-4">Current Availability</h4>
+<div class="flex items-center gap-2 text-green-600 font-medium text-sm">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+</span>
+                                Average response: &lt; 2 hours
+                            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Map Section -->
+<div class="px-4 lg:px-40 py-20 bg-surface-container reveal">
+<div class="max-w-[960px] mx-auto">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-black text-[#111318] mb-4">Global Presence</h2>
+<p class="text-[#5d6a89] max-w-2xl mx-auto">From our headquarters in San Francisco to our remote hubs worldwide, we're building a connected future.</p>
+</div>
+<div class="rounded-2xl overflow-hidden h-[450px] shadow-lg border-4 border-white relative group">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A stylized, high-contrast monochrome world map with glowing dots representing office locations. The map is presented in a clean, minimalist aesthetic with subtle shadows and elegant typography. The lighting is soft and ambient, creating a sophisticated corporate atmosphere in line with a modern light-mode UI design system." data-location="San Francisco" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC72hj8nu1DpcnlVO6Q9ZN2x96lebEO5B3m4UoLSfX-_3kk1ghYsnlRpm9PBbMOxCVs5IT_EC27Go1D3pyZwYc5vot4i0o9r1f7XhB7Fb2qQ-hCZxC7r4SUyTwTXUwURf4bd6-hLMIA2SHXD8ZlwpI5Rw54-WMnG3xWpNkOBydXDYs2UlcM-ischzMMWp81yxaCkyt6elqq7Frqi1THkSUkxnGQWPpmq9Fo3SqDv6Gtt_2Wz3DQFUT7AmiHOG4-eAtip3gAWVk62dQ");'></div>
+<div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500"></div>
+<!-- Marker Overlay Example -->
+<div class="absolute top-1/2 left-1/3 p-4 bg-white rounded-lg shadow-xl border border-outline-variant animate-bounce">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-bold text-sm">Headquarters</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="px-4 lg:px-40 py-12 border-t border-solid border-b-[#eaecf1] bg-white">
+<div class="max-w-[960px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4 text-[#111318]">
+<div class="size-5 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] text-base font-bold leading-tight">Contact Hub</h2>
+</div>
+<div class="flex gap-8 text-[#5d6a89] text-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Cookie Settings</a>
+</div>
+<div class="text-[#5d6a89] text-xs">
+                    © 2024 Contact Hub Inc. All rights reserved.
+                </div>
+</div>
+</footer>
+</div>
+</div>
+<script>
+    // Scroll Reveal Interaction Observer Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const observerOptions = {
+            root: null, // use viewport
+            threshold: 0.15, // trigger when 15% of element is visible
+            rootMargin: '0px 0px -50px 0px' // slightly before it enters the view fully
+        };
+
+        const revealCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Once animated, we don't need to observe it anymore
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(revealCallback, observerOptions);
+
+        revealElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add staggered delay processing if .delay-X classes exist
+        const delays = [100, 200, 300, 400, 500];
+        delays.forEach(delay => {
+            document.querySelectorAll(`.delay-${delay}`).forEach(el => {
+                el.style.transitionDelay = `${delay}ms`;
+            });
+        });
+    });
+
+    // Form submission micro-interaction
+    const form = document.querySelector('form');
+    if(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span><span>Sending...</span>`;
+            
+            setTimeout(() => {
+                btn.classList.remove('bg-slate-900');
+                btn.classList.add('bg-green-600');
+                btn.innerHTML = `<span class="material-symbols-outlined">check_circle</span><span>Message Sent!</span>`;
+                form.reset();
+                
+                setTimeout(() => {
+                    btn.classList.add('bg-slate-900');
+                    btn.classList.remove('bg-green-600');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    }
+</script>
+</body></html>

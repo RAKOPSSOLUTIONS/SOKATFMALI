@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#131b2e",
+                        "on-primary": "#ffffff",
+                        "background": "#f7f9fb",
+                        "primary-container": "#131b2e",
+                        "tertiary-container": "#111c2d",
+                        "surface-container": "#eceef0",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#45464d",
+                        "inverse-surface": "#2d3133",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "secondary": "#735c00",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-tertiary-fixed": "#111c2d",
+                        "surface-tint": "#565e74",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary": "#000000",
+                        "secondary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#191c1e",
+                        "inverse-on-surface": "#eff1f3",
+                        "outline-variant": "#c6c6cd",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#fed65b",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#76777d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae2fd",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed": "#241a00",
+                        "primary": "#000000",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "inverse-primary": "#bec6e0",
+                        "on-background": "#191c1e",
+                        "on-tertiary-container": "#79849a",
+                        "secondary-fixed": "#ffe088",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "surface": "#f7f9fb",
+                        "on-secondary-container": "#745c00",
+                        "tertiary-fixed": "#d8e3fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            animation: fade-in-up 0.8s ease-out forwards;
+        }
+
+        /* Stagger utilities for 6 items */
+        .stagger-1 { animation-delay: 0.1s !important; }
+        .stagger-2 { animation-delay: 0.2s !important; }
+        .stagger-3 { animation-delay: 0.3s !important; }
+        .stagger-4 { animation-delay: 0.4s !important; }
+        .stagger-5 { animation-delay: 0.5s !important; }
+        .stagger-6 { animation-delay: 0.6s !important; }
+    </style>
+</head>
+<body class="bg-surface">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- Header (Shared) -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaecf1] px-4 md:px-10 py-3 mb-8">
+<div class="flex items-center gap-4 text-[#111318]">
+<div class="size-4">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">Partner Portal</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Home</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Partners</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Benefits</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 px-4 bg-slate-900 text-gray-50 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-800 transition-all active:scale-95">
+<span class="truncate">Login</span>
+</button>
+</div>
+</header>
+<!-- Partners Section -->
+<h2 class="text-[#111318] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 reveal">Nos Partenaires</h2>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-6 p-4">
+<!-- Partner 1 -->
+<div class="flex flex-col gap-3 reveal stagger-1 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A sleek corporate tech logo presented on a clean, professional white background with subtle depth and modern aesthetic. The lighting is soft and even, highlighting premium branding details in a high-key architectural environment with a minimalist approach." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCmhXyK-mST2-0sE2yU3TgPVsQzchvG-ej8d7V8g2qvrzFy1FASokiUVTsjePmqSUx2hnz-ndDKTM3TYOAl2a2GKRMptsnKttVtvbpvivq1EL9TAZ8q5-uoL3B-4dtWq-1WxVgA8GR8KvDVRT1x0FmLLHZymeU2OSfO7Zzy6D8ykRW0gidphO8U5dXQZFbtSyC0Bbnd5ATvZpN8rQPDMaOr0nEqNrRz5qLG6uzJcdTCsh2ZgJuIo5YR_mfTQSBIRqWfsyd07xNiE9U");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Innovation Labs</p>
+</div>
+<!-- Partner 2 -->
+<div class="flex flex-col gap-3 reveal stagger-2 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A modern financial services company logo displayed in a minimalist professional setting. The image uses a clean, light-mode palette with subtle blue accents and sharp geometric lines, conveying trust and technological sophistication in a corporate gallery style." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCSEMD5YhT3zekiAk6QZeoLbnrX3X2VjdKhU1sgO-at2vdD86l021Z4hz_Y22HCI6gjbunyWxTMGcR7cXlhin5BiN73aiODisCPhqeDSlGdiDNmJxRgZCBwWhLD0ieee_M91IDuquxGkNl7RR2PA4F4tksoOIXXRwaiqmkGGtPVbnzpH5lFz96Bvr0qZnbVATVzoqfIXjB7D2UR7ADEf8ScP46Y92oJ5MiuFYtNIs_KuRq6O2-zEAVJOtyah34UjZlLwJ_5hztnkI");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Global Finance</p>
+</div>
+<!-- Partner 3 -->
+<div class="flex flex-col gap-3 reveal stagger-3 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A clean, high-tech engineering firm logo placed on a pristine surface with soft diffused lighting. The aesthetic is contemporary and minimal, featuring a monochromatic color scheme with elegant shadow play that emphasizes precision and modern industrial design." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZFDi-1D6dXWGbLSeLDBfi9Mj8fkv__22XQhlrA4leu0HF7L_PqoqBIFVNrvpT6mHghZtUq9HPGctEoKBPkO2fYaP6Y7ntQM-T1TMOqrrCP8QuSGKMrp9Wq1ojt44cFqOmyEmdNX8cSEKBqYFdOV4CSmR3hyXuc5WPBTjFykRBPVOoZhCIBkyoqtc4Ox8Y19EsO7sNwJS99XyJ486gHp8hv-iP2-L5hmyLIWI9MQ8lB4PI037wDKPJTFLnunnkNTvvmdNv7MhgK8s");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Tech Dynamics</p>
+</div>
+<!-- Partner 4 -->
+<div class="flex flex-col gap-3 reveal stagger-4 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A minimalist sustainable energy logo presented in a bright, airy workspace environment. The visual style is clean and focused, utilizing a palette of off-whites and greys with a single crisp accent color, reflecting modern eco-conscious business values." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDeySeyFc0QyP4Fg9JpOKuoolUyOL2zdeqD-q1rpCKjH6yogIKwX8OfnW7ciwBXp4NyHihRbG4MBAay-Mhppm95sHBjUmswCWVcMzPFi-AE7EY7pQpNpujzTUO6UiXVMy_Bmt1IcTuLHOaN8_xHmjStuZNyYuZ4YkOcFcWyGom76YNG1s97iUllH4FuXnT9MPHZGKGJd_3ak4yYKWN4QAEuKPOSH4DkKni-SLtPGAlUXPTHFlE6qlK-THz9o1j96g8Owdt2tM0yQVU");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Eco Grid</p>
+</div>
+<!-- Partner 5 -->
+<div class="flex flex-col gap-3 reveal stagger-5 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A creative agency logo shown in a stylish, minimalist studio setting with natural light and soft shadows. The overall mood is sophisticated and artistic, maintaining a high-key light mode aesthetic that blends professional clarity with creative flair." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjEu60oPvyi8H4x5sumSjcaJ3Nd7GGE_9N0B1xTaDppw0uh-Wsru1vusQOICSziItV2yd20165Tr9neYmZwnGWdVcGCysp31_Q1u-eRrgrU57urDexIPZfttotuK3KjicrjxTnnxOtQethnjn_D5OAmUD3ZDX0b9ETGfQL5bTgIWIDWl9i1MHIEiqrRhKFrE6ez9MqJHNuNAaRBP9XrlHMFSNF8wLi7azgOVfbhPU5XqWap97wOsnWpAQBxcxt-Csa-pOb65CnwiE");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Creative Pulse</p>
+</div>
+<!-- Partner 6 -->
+<div class="flex flex-col gap-3 reveal stagger-6 group">
+<div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded shadow-sm group-hover:shadow-md transition-shadow duration-300" data-alt="A logistics and infrastructure company logo presented on a clean architectural background. The lighting is bright and professional, creating a sense of reliability and global scale through minimalist composition and a disciplined corporate color palette." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCy3hxTb-vzoHT4Vc_NSM7KPeGR_FHRQHj63BMyJlnyW7G9mCvd8_tKU6zLEOt07NsWiyDpMFsfNInZ-JQ3yo9h97484AE2ucOUSE4eBSCxsiqs1VkvR6qmBQHM6e2v-nJVHiwLLzNO-P-Fv0PB13XxmqURHL9o51mftHVg6NJHN-QcsLfb43CPWnbRzXN2snLF2BJFfVGDoSQVy4VIHaIOBon-JQ3DhiczCMCdWG1mqybgqMZEBcfKbyR-H3OV_KWISoCyZTR67Fc");'>
+</div>
+<p class="text-xs font-semibold uppercase tracking-wider text-on-surface-variant px-1">Logistics Core</p>
+</div>
+</div>
+<!-- Call to Action Section -->
+<div class="@container reveal">
+<div class="flex flex-col justify-end gap-6 px-4 py-10 @[480px]:gap-8 @[480px]:px-10 @[480px]:py-20 bg-surface-container-low rounded-xl my-10 border border-outline-variant/30">
+<div class="flex flex-col gap-2 text-center">
+<h1 class="text-[#111318] tracking-light text-[32px] font-bold leading-tight @[480px]:text-4xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] max-w-[720px] mx-auto">
+                                Devenir Partenaire
+                            </h1>
+<p class="text-[#111318] text-base font-normal leading-normal max-w-[720px] mx-auto">Rejoignez notre réseau et développez votre activité avec nous. Profitez d'outils exclusifs et d'une visibilité accrue.</p>
+</div>
+<div class="flex flex-1 justify-center">
+<div class="flex justify-center">
+<button class="flex min-w-[180px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 @[480px]:h-14 @[480px]:px-8 bg-slate-900 text-gray-50 text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base hover:shadow-lg hover:scale-105 active:scale-95 transition-all">
+<span class="truncate">Postuler maintenant</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Shared) -->
+<footer class="flex flex-col gap-6 px-5 py-10 text-center @container border-t border-outline-variant/20">
+<div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+<a class="text-[#5d6a89] text-sm font-normal leading-normal min-w-40 hover:text-primary transition-colors" href="#">Mentions Légales</a>
+<a class="text-[#5d6a89] text-sm font-normal leading-normal min-w-40 hover:text-primary transition-colors" href="#">Confidentialité</a>
+</div>
+<p class="text-[#5d6a89] text-sm font-normal leading-normal">© 2023 Partner Portal. Tous droits réservés.</p>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Intersection Observer for Reveal System
+    document.addEventListener('DOMContentLoaded', () => {
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Once animated, we don't need to observe it anymore
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        // Targeted elements to reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Interactive hover effects for partner cards
+        const partnerCards = document.querySelectorAll('.group');
+        partnerCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('div[style*="background-image"]');
+                if (img) img.style.transform = 'scale(1.02)';
+            });
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('div[style*="background-image"]');
+                if (img) img.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+</body></html>

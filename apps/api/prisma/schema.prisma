@@ -1,0 +1,72 @@
+// SOKATF-SARL backend data model.
+//
+// Dev uses SQLite (zero-setup). To move to Postgres for production, change
+// `provider` to "postgresql" and point DATABASE_URL at your instance, then
+// run `pnpm --filter @sokatf/api db:push`. Note: SQLite has no native enums,
+// so status/type fields are plain strings validated in application code
+// (see src/lib/constants.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// A contact-form message or a "request a quote" submission from the site.
+model Lead {
+  id        String   @id @default(cuid())
+  type      String   @default("CONTACT") // CONTACT | QUOTE
+  status    String   @default("NEW") // NEW | IN_PROGRESS | CLOSED
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  sector    String? // slug of the sector of interest
+  budget    String? // free-text budget range (quotes)
+  message   String
+  source    String? // page/path the lead came from
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type, status])
+  @@index([createdAt])
+}
+
+/// A business sector shown on the public site and managed in the admin.
+model Sector {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  tagline     String // short one-liner for cards
+  description String // longer copy for the sector detail
+  icon        String   @default("business_center") // Material Symbols name
+  accent      String   @default("primary") // token key: primary | secondary | tertiary-fixed-dim | error
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, order])
+}
+
+/// A reference project / realisation used to build credibility.
+model Project {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  sector      String? // slug of the related sector
+  description String
+  imageUrl    String?
+  location    String?
+  year        Int?
+  status      String   @default("COMPLETED") // PLANNED | IN_PROGRESS | COMPLETED
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([featured])
+}

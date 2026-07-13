@@ -1,0 +1,20 @@
+{
+  "name": "@sokatf/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SOKATF-SARL design system — shared Tailwind preset (colors, typography, spacing)",
+  "main": "preset.cjs",
+  "types": "preset.d.ts",
+  "exports": {
+    ".": {
+      "types": "./preset.d.ts",
+      "default": "./preset.cjs"
+    },
+    "./fonts": "./fonts.cjs"
+  },
+  "files": [
+    "preset.cjs",
+    "preset.d.ts",
+    "fonts.cjs"
+  ]
+}

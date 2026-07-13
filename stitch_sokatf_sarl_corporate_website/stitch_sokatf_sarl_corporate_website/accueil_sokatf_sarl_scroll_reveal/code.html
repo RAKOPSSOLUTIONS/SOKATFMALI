@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f4f6",
+                        "error-container": "#ffdad6",
+                        "on-background": "#191c1e",
+                        "on-surface-variant": "#45464d",
+                        "secondary": "#735c00",
+                        "secondary-container": "#fed65b",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "surface": "#f7f9fb",
+                        "inverse-primary": "#bec6e0",
+                        "surface-dim": "#d8dadc",
+                        "primary-container": "#131b2e",
+                        "tertiary-fixed": "#d8e3fb",
+                        "primary-fixed": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "outline": "#76777d",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-fixed": "#ffe088",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary-container": "#745c00",
+                        "on-surface": "#191c1e",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#e9c349",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed": "#241a00",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#79849a",
+                        "background": "#f7f9fb",
+                        "surface-tint": "#565e74",
+                        "on-primary-fixed": "#131b2e",
+                        "primary": "#000000",
+                        "tertiary-container": "#111c2d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container": "#eceef0",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary-fixed": "#111c2d",
+                        "on-secondary-fixed-variant": "#574500",
+                        "outline-variant": "#c6c6cd",
+                        "surface-variant": "#e0e3e5",
+                        "tertiary": "#000000",
+                        "on-primary-container": "#7c839b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-padding-mobile": "40px",
+                        "base": "8px",
+                        "section-padding-desktop": "80px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "caption": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Scroll Reveal Core Styles */
+        .reveal {
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-up { transform: translateY(40px); }
+        .reveal-left { transform: translateX(-40px); }
+        .reveal-right { transform: translateX(40px); }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                transition: opacity 0.3s ease-in-out !important;
+                transform: none !important;
+            }
+        }
+
+        /* Staggered Delay Helpers */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+
+        /* Custom Hover Effects */
+        .hover-lift {
+            transition: transform 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-20 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+<!-- Shared Component: TopAppBar (Immediate Viewport - No Reveal) -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaecf1] px-4 lg:px-10 py-3">
+<div class="flex items-center gap-4 text-[#111318]">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">Design Agency</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden md:flex items-center gap-9">
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Work</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Services</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">About</a>
+<a class="text-[#111318] text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Contact</a>
+</div>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 px-4 bg-slate-900 text-gray-50 text-sm font-bold leading-normal tracking-[0.015em] hover:bg-slate-800 transition-all active:scale-95">
+<span class="truncate">Get Started</span>
+</button>
+</div>
+</header>
+<div class="@container">
+<div class="@[480px]:p-4">
+<!-- Hero Section (Visible on Load) -->
+<div class="flex min-h-[480px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 @[480px]:rounded items-center justify-center p-4 relative overflow-hidden" data-alt="A cinematic wide shot of a high-end, minimalist design studio interior at dusk with floor-to-ceiling windows overlooking a modern skyline. The lighting is moody and sophisticated with warm amber glows reflecting off polished surfaces. Large digital screens display vibrant motion graphics. The aesthetic is ultra-modern, clean, and luxurious, matching a premium light-mode brand identity." style='background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.7) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB4LDcHVUZxKYNL2TpWnuLrfxMQ1_Lo4zko0AsZT8HOiDZcD0G9YNjQqlqXDTkqhrfh_LJvVf7ZLlnyVi286js-Q8lR48Y-pVBxZpcYH14s3jEXhUxcUtmyoxYxtcT_OOTDNOQXD13tafwQI5-3IP6OjgUOJ6zHIzKHDKb3GQX4-zWnRsM7iSAcnDkIizSpYeooIZdJE8b3VlXGoWVy85xO4KmQ2wjJk4h4w7uPwqBxOolPN9J_Jck7kS7CNumz5uPVUxA6cPGZTmY");'>
+<div class="flex flex-col gap-2 text-center z-10">
+<h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em] animate-fade-in">
+                                    Elevating Brands Through Motion
+                                </h1>
+<h2 class="text-white/90 text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal animate-fade-in delay-100">
+                                    Experience the intersection of design and technology.
+                                </h2>
+</div>
+<button class="z-10 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 px-4 @[480px]:h-12 @[480px]:px-5 bg-slate-50 text-slate-900 text-sm font-bold leading-normal tracking-[0.015em] @[480px]:text-base @[480px]:font-bold @[480px]:leading-normal @[480px]:tracking-[0.015em] hover:bg-white transition-all active:scale-95 shadow-lg">
+<span class="truncate">Explore Work</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Services Section -->
+<h2 class="reveal reveal-up text-[#111318] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-10">Our Services</h2>
+<div class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4 p-4">
+<div class="reveal reveal-up delay-100 flex flex-1 gap-3 rounded-xl border border-[#d5d9e2] bg-white p-6 flex-col hover-lift shadow-sm">
+<div class="text-primary w-12 h-12 flex items-center justify-center bg-primary-fixed rounded-lg" data-icon="palette" data-size="24px" data-weight="regular">
+<span class="material-symbols-outlined">palette</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] text-lg font-bold leading-tight">Visual Identity</h2>
+<p class="text-[#5d6a89] text-sm font-normal leading-normal">Crafting unique brand stories that resonate with modern audiences through systematic design thinking.</p>
+</div>
+</div>
+<div class="reveal reveal-up delay-200 flex flex-1 gap-3 rounded-xl border border-[#d5d9e2] bg-white p-6 flex-col hover-lift shadow-sm">
+<div class="text-primary w-12 h-12 flex items-center justify-center bg-primary-fixed rounded-lg" data-icon="code" data-size="24px" data-weight="regular">
+<span class="material-symbols-outlined">code</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] text-lg font-bold leading-tight">Web Development</h2>
+<p class="text-[#5d6a89] text-sm font-normal leading-normal">Building high-performance, accessible, and scalable digital products using cutting-edge frameworks.</p>
+</div>
+</div>
+<div class="reveal reveal-up delay-300 flex flex-1 gap-3 rounded-xl border border-[#d5d9e2] bg-white p-6 flex-col hover-lift shadow-sm">
+<div class="text-primary w-12 h-12 flex items-center justify-center bg-primary-fixed rounded-lg" data-icon="play_arrow" data-size="24px" data-weight="regular">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-[#111318] text-lg font-bold leading-tight">Motion Design</h2>
+<p class="text-[#5d6a89] text-sm font-normal leading-normal">Bringing static designs to life with meaningful interactions and atmospheric animated experiences.</p>
+</div>
+</div>
+</div>
+<!-- Featured Projects (Custom Reveal Section) -->
+<h2 class="reveal reveal-up text-[#111318] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-10">Featured Projects</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+<div class="reveal reveal-left flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-video w-full rounded-xl overflow-hidden relative shadow-md">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A premium close-up of a mobile application interface showing abstract financial data visualizations in a dark-to-light gradient. The UI elements are sleek, with glassmorphism effects and sharp typography. The color palette features deep blacks, crisp whites, and subtle electric blue highlights. The mood is precise, professional, and technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5Vq-jorFE5htFeDkedDe59hOJp7tP1LhI_1kj4WIszQMT8vw73W6YJfq1KMXCrv6mBKoXPorlf46YhqmGPyUkda_ohLHEQnpT14th_ShjVlFSWy4qCopsuIJ8J-4GaKqDvHzLIuvhEIkB2TR8zGL4RNGraFfFb_XYQNCK8fuLW8o_M1G8sPspwvuD8Trr4CDH7cHylXa9KOCrzsUmJcKvJKGLM8wNo4r-ThFgTgiwDgH7GMSRHUUA1wuEkUGd2qFD_ekuKrXrqUM"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white px-6 py-2 rounded-full font-bold text-sm shadow-xl">View Case Study</span>
+</div>
+</div>
+<div class="px-1">
+<h3 class="text-lg font-bold text-on-surface">NeoFinance Brand Reveal</h3>
+<p class="text-sm text-outline">Motion Identity &amp; Strategy</p>
+</div>
+</div>
+<div class="reveal reveal-right flex flex-col gap-3 group cursor-pointer">
+<div class="aspect-video w-full rounded-xl overflow-hidden relative shadow-md">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="An artistic rendering of a 3D procedural landscape made of liquid metal, reflecting a bright, high-key studio environment. The light-mode aesthetic is emphasized by white backgrounds and soft grey shadows. Splashes of vibrant primary red define the composition. The style is minimalist yet complex, evoking a sense of fluid motion and modern digital craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIzPxY_i6HSJs9WRQsXRN12JayF61dSupNF8Kmyeh9Pw36MX0wcy94kYDtfRrb07hZ1p1EC3YLK2FfVPhXxHilMEHwXJk9TxUHfQNIir4VNkCiIHUJk94IFo3bgZfNlEuvysIkqD4vVE75EPl-LZaKxPZuRAZ5UcznHt1VnX_M9RN8bXMNYBzzVzjnRwrHdsa5tmrzKGOwOEvIn8l4qY8-Cmr2ouCr_JNEiXSaKXhhDBJjGmBd-z_z6Uv4JCVhqkiRoEydv4M4Des"/>
+<div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="bg-white px-6 py-2 rounded-full font-bold text-sm shadow-xl">View Case Study</span>
+</div>
+</div>
+<div class="px-1">
+<h3 class="text-lg font-bold text-on-surface">Flux Flow Campaign</h3>
+<p class="text-sm text-outline">CGI &amp; Creative Direction</p>
+</div>
+</div>
+</div>
+<!-- Stats Section -->
+<div class="reveal reveal-up mt-12 mb-20 p-8 rounded-2xl bg-surface-container flex flex-wrap justify-center md:justify-around gap-8 text-center border border-outline-variant">
+<div class="flex flex-col items-center">
+<span class="text-4xl font-black text-primary">120+</span>
+<span class="text-sm font-medium text-outline uppercase tracking-widest">Projects Done</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-4xl font-black text-primary">45</span>
+<span class="text-sm font-medium text-outline uppercase tracking-widest">Design Awards</span>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-4xl font-black text-primary">12</span>
+<span class="text-sm font-medium text-outline uppercase tracking-widest">Global Partners</span>
+</div>
+</div>
+<!-- Footer (Implicit Bottom Area) -->
+<footer class="reveal reveal-up mt-auto border-t border-solid border-b-[#eaecf1] px-10 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4 text-[#111318]">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-[#111318] text-lg font-bold leading-tight">Design Agency</h2>
+</div>
+<div class="flex gap-6 text-sm text-outline">
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">LinkedIn</a>
+<a class="hover:text-primary transition-colors" href="#">Instagram</a>
+</div>
+<p class="text-xs text-outline-variant">© 2024 Design Agency. Built for impact.</p>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: stop observing once revealed
+                    // observer.unobserve(entry.target);
+                } else {
+                    // Remove if you want things to disappear when scrolling back up
+                    // entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        // Targeted elements
+        const revealElements = document.querySelectorAll('.reveal');
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Micro-interaction for project cards
+        const projectCards = document.querySelectorAll('.group');
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                if (img) img.style.transform = 'scale(1.1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                if (img) img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Sticky Header effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('bg-white/80', 'backdrop-blur-md', 'shadow-sm', 'sticky', 'top-0', 'z-50');
+            } else {
+                header.classList.remove('bg-white/80', 'backdrop-blur-md', 'shadow-sm', 'sticky', 'top-0', 'z-50');
+            }
+        });
+    });
+</script>
+</body></html>

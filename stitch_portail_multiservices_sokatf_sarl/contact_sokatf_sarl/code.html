@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact Us | SOKATF-SARL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Hanken+Grotesk:wght@600;700;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#f9f9fb",
+                      "on-tertiary-fixed-variant": "#584400",
+                      "on-secondary-fixed": "#002107",
+                      "on-tertiary-fixed": "#241a00",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#00531c",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-tertiary-container": "#a18000",
+                      "inverse-surface": "#2f3132",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#444748",
+                      "tertiary-container": "#241a00",
+                      "primary-container": "#1c1b1b",
+                      "surface-tint": "#5f5e5e",
+                      "outline": "#747878",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-primary-container": "#858383",
+                      "surface-variant": "#e2e2e4",
+                      "background": "#f9f9fb",
+                      "on-surface": "#1a1c1d",
+                      "error": "#ba1a1a",
+                      "tertiary": "#000000",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e8e8ea",
+                      "secondary-fixed": "#72fe88",
+                      "primary-fixed": "#e5e2e1",
+                      "on-secondary-container": "#00732a",
+                      "inverse-primary": "#c8c6c5",
+                      "outline-variant": "#c4c7c7",
+                      "surface-container": "#eeeef0",
+                      "surface-container-highest": "#e2e2e4",
+                      "surface-bright": "#f9f9fb",
+                      "secondary-container": "#6ffb85",
+                      "surface-container-low": "#f3f3f5",
+                      "tertiary-fixed": "#ffe08b",
+                      "inverse-on-surface": "#f0f0f2",
+                      "tertiary-fixed-dim": "#f1c100",
+                      "primary": "#000000",
+                      "secondary-fixed-dim": "#53e16f",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#474646",
+                      "on-background": "#1a1c1d",
+                      "surface-dim": "#d9dadc",
+                      "secondary": "#006e28"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "container-max": "1280px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "body-sm": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-link {
+            border-bottom: 2px solid #006e28;
+            color: #006e28;
+            font-weight: 700;
+        }
+        .form-input-focus:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 1px #000000;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md">
+<!-- TopNavBar Shell -->
+<header class="bg-surface dark:bg-surface-container-highest w-full sticky top-0 z-50 border-b border-outline-variant dark:border-outline flat no shadows">
+<nav class="flex justify-between items-center max-w-container-max mx-auto px-margin-desktop h-20">
+<div class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-inverse-primary">
+                SOKATF-SARL
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Sectors</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">About Us</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Projects</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Compliance</a>
+<a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim border-b-2 border-secondary font-bold pb-1" href="#">Contact</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded font-label-md text-label-md hover:bg-opacity-90 active:scale-95 duration-150 transition-all">
+                Get a Quote
+            </button>
+</nav>
+</header>
+<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="relative bg-surface py-20 px-margin-mobile md:px-margin-desktop overflow-hidden border-b border-outline-variant">
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<span class="inline-block bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm mb-6">
+                        WEST AFRICA FOCUS
+                    </span>
+<h1 class="font-headline-xl text-headline-xl mb-6 text-primary">
+                        Reliable Partnership for Multi-Sector Excellence.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Our regional experts are ready to assist with your general trade, agribusiness, or construction needs across West Africa.
+                    </p>
+</div>
+<div class="relative h-96 rounded-xl overflow-hidden shadow-sm">
+<div class="absolute inset-0 bg-primary/5 z-10 pointer-events-none"></div>
+<img class="w-full h-full object-cover" data-alt="A professional aerial view of a bustling West African metropolitan business district, featuring modern glass-and-steel skyscrapers alongside lush greenery. The lighting is crisp and bright, conveying a sense of corporate stability and institutional strength. The color palette emphasizes clean whites, deep architectural shadows, and vibrant emerald green accents from the local flora, reflecting the corporate modernism of SOKATF-SARL." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBznV1FtexLA93b0cCzfsUYok4QrI4Wfys-CiZIeBzFb1GVe4wAqjj7cyjmskNF3xw6fU1q9x-NLO5BF3p2IAUZh1rb8ThbL1ugUqxyun3c1iPbaSEeH3qKtjIsaFTbdH65hC3nws4rLFtLh7MHXwJU2gE9w28eq7UCqgedvOZd1KS2xmjAO2p90bxSixXlWcDahrJV2ZCqkffFO8vlVCz4EAu9-1BGHaIAzuO4uUym_2l8q6e-BHvNrwFMCud0f5gHLQOQkpvZpUs"/>
+</div>
+</div>
+</section>
+<!-- Contact & Locations Grid -->
+<section class="max-w-container-max mx-auto py-24 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Form -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-8 md:p-12 border border-outline-variant rounded-lg">
+<div class="mb-10">
+<h2 class="font-headline-lg text-headline-lg mb-2">Send us a Message</h2>
+<p class="font-body-md text-on-surface-variant">We respond to all inquiries within 24 business hours.</p>
+</div>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Full Name</label>
+<input class="border border-outline-variant p-4 bg-surface rounded focus:ring-0 form-input-focus transition-all" placeholder="John Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Email Address</label>
+<input class="border border-outline-variant p-4 bg-surface rounded focus:ring-0 form-input-focus transition-all" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Subject</label>
+<select class="border border-outline-variant p-4 bg-surface rounded focus:ring-0 form-input-focus transition-all">
+<option>General Inquiry</option>
+<option>Get a Quote</option>
+<option>Agribusiness Partnership</option>
+<option>BTP & Construction Project</option>
+<option>Security Services</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Message</label>
+<textarea class="border border-outline-variant p-4 bg-surface rounded focus:ring-0 form-input-focus transition-all" placeholder="How can we help you?" rows="5"></textarea>
+</div>
+<button class="w-full md:w-auto px-10 py-4 bg-primary text-on-primary font-label-md text-label-md uppercase tracking-widest hover:bg-on-surface transition-colors flex items-center justify-center gap-2" type="submit">
+                            Send Inquiry
+                            <span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</form>
+</div>
+<!-- Right: Info & Locations -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Contact Cards Bento -->
+<div class="grid grid-cols-1 gap-6">
+<!-- Head Office -->
+<div class="p-8 border border-outline-variant bg-surface-container-high rounded-lg relative overflow-hidden group">
+<div class="flex items-start gap-4 mb-4">
+<span class="material-symbols-outlined text-secondary text-[32px]">location_on</span>
+<div>
+<h3 class="font-headline-md text-headline-md mb-1">Regional Headquarters</h3>
+<p class="text-on-surface-variant font-body-sm">
+                                        Immeuble SOKATF, BP 2450<br/>
+                                        Plateau District, Abidjan<br/>
+                                        Côte d'Ivoire
+                                    </p>
+</div>
+</div>
+<div class="flex gap-4 pt-4 border-t border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">phone</span>
+<span class="font-label-md">+225 27 22 00 00</span>
+</div>
+</div>
+</div>
+<!-- Secondary Branch -->
+<div class="p-8 border border-outline-variant bg-surface-container rounded-lg">
+<div class="flex items-start gap-4 mb-4">
+<span class="material-symbols-outlined text-primary text-[32px]">corporate_fare</span>
+<div>
+<h3 class="font-headline-md text-headline-md mb-1">Lomé Branch</h3>
+<p class="text-on-surface-variant font-body-sm">
+                                        Cité de l'Union, Lot 14<br/>
+                                        Lomé, Togo
+                                    </p>
+</div>
+</div>
+<div class="flex gap-4 pt-4 border-t border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">alternate_email</span>
+<span class="font-label-md">togo@sokatf-sarl.com</span>
+</div>
+</div>
+</div>
+<!-- General Contact -->
+<div class="bg-primary p-8 rounded-lg text-on-primary">
+<h3 class="font-headline-md text-headline-md mb-6">Connect Globally</h3>
+<div class="space-y-4">
+<a class="flex items-center gap-3 hover:opacity-80 transition-opacity" href="mailto:info@sokatf-sarl.com">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-body-md">info@sokatf-sarl.com</span>
+</a>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-body-md">Mon - Fri: 08:00 - 18:00 GMT</span>
+</div>
+<div class="flex gap-4 pt-4">
+<button class="w-10 h-10 border border-on-primary-container rounded-full flex items-center justify-center hover:bg-on-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+<button class="w-10 h-10 border border-on-primary-container rounded-full flex items-center justify-center hover:bg-on-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">public</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Map Section (Asymmetric / Modern) -->
+<section class="max-w-container-max mx-auto mb-24 px-margin-mobile md:px-margin-desktop">
+<div class="relative h-[500px] w-full rounded-xl overflow-hidden grayscale border border-outline-variant">
+<div class="absolute inset-0 bg-gradient-to-r from-surface/80 to-transparent z-10 pointer-events-none md:flex items-center p-12">
+<div class="hidden md:block max-w-xs bg-white p-6 border border-outline-variant shadow-xl">
+<h4 class="font-headline-md text-headline-md mb-4">Global Reach</h4>
+<p class="font-body-sm text-on-surface-variant mb-4">We maintain physical presence and strategic logistics hubs across the ECOWAS region to ensure operational efficiency.</p>
+<button class="text-secondary font-label-md flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            View All Hubs <span class="material-symbols-outlined">arrow_right_alt</span>
+</button>
+</div>
+</div>
+<div class="w-full h-full" data-location="Abidjan, Côte d'Ivoire" style="">
+<img class="w-full h-full object-cover" data-alt="A sophisticated minimalist map rendering of West Africa, focusing on the Gulf of Guinea. The map uses a clean, high-contrast monochrome style with subtle glowing markers over key cities like Abidjan, Accra, and Lomé. The background is a soft off-white, with state borders outlined in fine silver strokes. The image evokes a sense of strategic logistics, connectivity, and professional regional authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMqLICy2HNOA8GqPv5cF3e6lCq5Mit6r2uuUxCYtl_zxFsCjVjxMCQrdkyAQclGDbUvavMRoYrORJlSfmtvd5t7rLPJ_zHPTkRbVfyMybyzGfW-2MybJiQKtiYtSOD3w9KXlEa91cqYxIE8kDnyJSOMCsWrwW1ZgLUpER5T_iomaWZppSYOu-dy4SF9zIkYJ3KMp1i7VDgsjOpkc9jXkIh4_7YlehU-4vaemgeGqfyE376rE675pRUpwah8LKLMm_G9wuU6s5uQP4"/>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-primary dark:bg-primary-container py-24 text-center px-margin-mobile">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline-xl text-headline-xl text-on-primary mb-6">Ready to scale your business in West Africa?</h2>
+<p class="font-body-lg text-on-primary-container mb-10">Our consultants are ready to discuss bespoke solutions for your logistics, trade, and infrastructure requirements.</p>
+<div class="flex flex-col md:flex-row items-center justify-center gap-4">
+<button class="w-full md:w-auto px-12 py-5 bg-secondary text-white font-label-md text-label-md uppercase tracking-widest hover:bg-opacity-90 transition-all">
+                        Request a Partnership
+                    </button>
+<button class="w-full md:w-auto px-12 py-5 border border-on-primary text-on-primary font-label-md text-label-md uppercase tracking-widest hover:bg-on-primary hover:text-primary transition-all">
+                        Download Brochure
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="bg-primary dark:bg-primary-container w-full py-12 border-t border-on-primary-fixed-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin-desktop">
+<div class="space-y-4">
+<div class="font-headline-md text-headline-md font-black text-on-primary">SOKATF-SARL</div>
+<p class="font-body-sm text-body-sm text-primary-fixed-dim max-w-xs">
+                    Multidisciplinary excellence providing strategic services across West Africa since 2018.
+                </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-on-primary uppercase tracking-widest">Sectors</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">General Trade</a></li>
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">BTP & Construction</a></li>
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Security Services</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-on-primary uppercase tracking-widest">Company</h4>
+<ul class="space-y-2">
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Agribusiness</a></li>
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">IT Solutions</a></li>
+<li><a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white transition-colors hover:underline" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-md text-label-md text-on-primary uppercase tracking-widest">Newsletter</h4>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim">Stay updated with regional insights.</p>
+<div class="flex border-b border-on-primary-fixed-variant pb-1">
+<input class="bg-transparent border-none focus:ring-0 text-white placeholder-primary-fixed-dim w-full text-sm" placeholder="Email address" type="email"/>
+<button class="text-on-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-desktop mt-12 pt-8 border-t border-on-primary-fixed-variant flex flex-col md:flex-row justify-between gap-4">
+<p class="font-label-sm text-label-sm text-primary-fixed-dim">© 2024 SOKATF-SARL. All rights reserved. Multi-sector excellence in West Africa.</p>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white" href="#">LinkedIn</a>
+<a class="font-label-sm text-label-sm text-primary-fixed-dim hover:text-white" href="#">Twitter</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple form interaction
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = 'Message Sent';
+                btn.classList.replace('bg-primary', 'bg-secondary');
+                this.reset();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-secondary', 'bg-primary');
+                    btn.disabled = false;
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+</body></html>

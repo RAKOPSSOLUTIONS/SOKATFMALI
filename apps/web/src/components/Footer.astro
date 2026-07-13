@@ -1,0 +1,81 @@
+---
+import { site, footer } from "../data/site";
+---
+
+<footer class="bg-navy-800 text-slate-300 border-t border-white/10">
+  <div class="container-max py-16">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+      <!-- Brand -->
+      <div class="md:col-span-4">
+        <div class="text-xl font-extrabold tracking-tight text-white mb-4">
+          SOKATF <span class="text-gold-soft">SARL</span>
+        </div>
+        <p class="text-sm text-slate-400 max-w-xs leading-relaxed">{site.blurb}</p>
+        <div class="flex gap-3 mt-6">
+          {
+            ["public", "mail", "handshake"].map((ic) => (
+              <a href="#" class="h-10 w-10 rounded-full grid place-items-center bg-white/5 border border-white/10 text-white hover:text-navy-900 hover:bg-gold-soft transition-colors" aria-label={ic}>
+                <span class="material-symbols-outlined text-[18px]">{ic}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="md:col-span-2 md:col-start-6">
+        <h4 class="text-[13px] font-semibold text-white uppercase tracking-widest mb-5">Navigation</h4>
+        <ul class="space-y-3">
+          {
+            footer.navigation.map((l) => (
+              <li>
+                <a href={l.href} class="text-sm text-slate-400 hover:text-gold-soft transition-colors">{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="md:col-span-2">
+        <h4 class="text-[13px] font-semibold text-white uppercase tracking-widest mb-5">Services</h4>
+        <ul class="space-y-3">
+          {
+            footer.services.map((s) => (
+              <li><a href="/services" class="text-sm text-slate-400 hover:text-gold-soft transition-colors">{s}</a></li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="md:col-span-2">
+        <h4 class="text-[13px] font-semibold text-white uppercase tracking-widest mb-5">Contact</h4>
+        <ul class="space-y-3 text-sm text-slate-400">
+          <li>{site.hq.city}</li>
+          <li>{site.hq.address}</li>
+          <li><a class="hover:text-gold-soft transition-colors" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a></li>
+          <li><a class="hover:text-gold-soft transition-colors" href={`mailto:${site.email}`}>{site.email}</a></li>
+        </ul>
+        <ul class="space-y-1 text-[12px] text-slate-500 mt-4 pt-4 border-t border-white/10">
+          <li>NIF : {site.nif}</li>
+          <li>RCCM : {site.rccm}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-[13px] text-slate-500 text-center md:text-left">
+        © 2024 {site.name}. Tous droits réservés. Leader Industriel au Mali.
+      </p>
+      <div class="flex items-center gap-5">
+        <span class="flex items-center gap-2 text-[12px] uppercase tracking-widest text-slate-500">
+          <span class="material-symbols-outlined text-[16px] text-gold-soft">verified_user</span> ISO 9001 Certified
+        </span>
+        <span class="flex items-center gap-2 text-[12px] uppercase tracking-widest text-slate-500">
+          <span class="material-symbols-outlined text-[16px] text-gold-soft">workspace_premium</span> Corporate Excellence
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
