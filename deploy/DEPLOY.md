@@ -3,9 +3,7 @@
 Guide de mise en production sur un VPS Linux (Ubuntu/Debian) avec **nginx** en
 reverse proxy et **pm2** pour le backend.
 
-> **Domaine** : ce guide utilise `sokatf.com` (cohérent avec votre email
-> `contact@sokatf.com`). Vous aviez écrit `sofatf.com` — si c'est le bon
-> domaine, remplacez `sokatf.com` partout (fichier nginx + commande certbot).
+> **Domaine** : `sokatf.com` (et `www.sokatf.com`).
 
 ## Architecture & ports
 
