@@ -39,10 +39,10 @@ sudo apt install -y certbot python3-certbot-nginx
 ## 2. Cloner le projet
 
 ```bash
-sudo mkdir -p /var/www && cd /var/www
+sudo mkdir -p /var/www/apis && cd /var/www/apis
 sudo git clone https://github.com/RAKOPSSOLUTIONS/SOKATFMALI.git sokatf
-sudo chown -R $USER:$USER /var/www/sokatf
-cd /var/www/sokatf
+sudo chown -R $USER:$USER /var/www/apis/sokatf
+cd /var/www/apis/sokatf
 ```
 
 ## 3. Variables d'environnement
@@ -104,7 +104,7 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-> Ajustez la ligne `root /var/www/sokatf/apps/web/dist;` si vous avez cloné ailleurs.
+> Ajustez la ligne `root /var/www/apis/sokatf/apps/web/dist;` si vous avez cloné ailleurs.
 
 ## 7. Certificat SSL (Let's Encrypt)
 
@@ -122,7 +122,7 @@ certbot remplit les lignes `ssl_certificate*` et gère le renouvellement auto.
 ## Mettre à jour (déploiement d'une nouvelle version)
 
 ```bash
-cd /var/www/sokatf
+cd /var/www/apis/sokatf
 git pull
 pnpm install
 pnpm --filter @sokatf/api db:push     # si le schéma a changé
