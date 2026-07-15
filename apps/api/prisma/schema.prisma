@@ -134,3 +134,15 @@ model Payment {
 
   @@index([invoiceId])
 }
+
+/// Singleton settings applied to devis/factures (branding & defaults).
+model Setting {
+  id             String   @id @default("singleton")
+  companyName    String   @default("SOKATF SARL")
+  logoUrl        String?
+  defaultTaxRate Float    @default(18)
+  paymentTerms   String? // conditions par défaut (affichées sur les documents)
+  bankDetails    String? // RIB / IBAN / Mobile Money
+  documentFooter String? // mention de bas de page
+  updatedAt      DateTime @updatedAt
+}

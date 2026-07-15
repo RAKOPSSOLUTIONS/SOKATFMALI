@@ -1,8 +1,12 @@
 import Link from "next/link";
+import { getSettings } from "@/lib/settings";
 import { DocumentForm } from "../../../_components/DocumentForm";
 import { createInvoice } from "../../../finance-actions";
 
-export default function NewFacturePage() {
+export const dynamic = "force-dynamic";
+
+export default async function NewFacturePage() {
+  const s = await getSettings();
   const today = new Date().toISOString().slice(0, 10);
   const due = new Date();
   due.setDate(due.getDate() + 30);
@@ -16,7 +20,7 @@ export default function NewFacturePage() {
         action={createInvoice}
         submitLabel="Créer la facture"
         kind="facture"
-        doc={{ date: today, secondDate: due.toISOString().slice(0, 10), taxRate: 18 }}
+        doc={{ date: today, secondDate: due.toISOString().slice(0, 10), taxRate: s.defaultTaxRate, notes: s.paymentTerms ?? undefined }}
       />
     </div>
   );

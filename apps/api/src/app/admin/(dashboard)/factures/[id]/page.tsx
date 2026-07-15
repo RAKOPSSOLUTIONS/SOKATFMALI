@@ -14,6 +14,7 @@ import {
 } from "@/lib/finance";
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
+import { getSettings } from "@/lib/settings";
 import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment, sendInvoiceEmail } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
@@ -33,6 +34,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
   const paid = inv.payments.reduce((s, p) => s + p.amount, 0);
   const balance = total - paid;
   const today = new Date().toISOString().slice(0, 10);
+  const settings = await getSettings();
 
   return (
     <div className="space-y-6">
@@ -71,7 +73,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
         </form>
       </div>
 
-      <DocumentView doc={inv} kind="FACTURE" paid={paid} />
+      <DocumentView doc={inv} kind="FACTURE" paid={paid} settings={settings} />
 
       {/* Payments (not printed) */}
       <div className="print:hidden card p-6 max-w-4xl">

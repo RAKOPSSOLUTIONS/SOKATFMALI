@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { QUOTE_STATUSES, STATUS_LABEL, parseItems, computeTotals, waLink, docSummary } from "@/lib/finance";
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
+import { getSettings } from "@/lib/settings";
 import { setQuoteStatus, deleteQuote, convertQuoteToInvoice, sendQuoteEmail } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,7 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
   if (!quote) notFound();
 
   const { total } = computeTotals(parseItems(quote.items), quote.taxRate, quote.discount);
+  const settings = await getSettings();
 
   return (
     <div className="space-y-6">
@@ -65,7 +67,7 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
         </form>
       </div>
 
-      <DocumentView doc={quote} kind="DEVIS" />
+      <DocumentView doc={quote} kind="DEVIS" settings={settings} />
     </div>
   );
 }

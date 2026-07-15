@@ -17,7 +17,24 @@ type Doc = {
   notes?: string | null;
 };
 
-export function DocumentView({ doc, kind, paid = 0 }: { doc: Doc; kind: "DEVIS" | "FACTURE"; paid?: number }) {
+type Settings = {
+  logoUrl?: string | null;
+  bankDetails?: string | null;
+  paymentTerms?: string | null;
+  documentFooter?: string | null;
+};
+
+export function DocumentView({
+  doc,
+  kind,
+  paid = 0,
+  settings,
+}: {
+  doc: Doc;
+  kind: "DEVIS" | "FACTURE";
+  paid?: number;
+  settings?: Settings;
+}) {
   const items = parseItems(doc.items);
   const { subtotal, discount, tax, total } = computeTotals(items, doc.taxRate, doc.discount);
   const balance = total - paid;
@@ -30,7 +47,11 @@ export function DocumentView({ doc, kind, paid = 0 }: { doc: Doc; kind: "DEVIS" 
       <div className="flex flex-col sm:flex-row justify-between gap-6 pb-8 border-b-2 border-primary">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <span className="h-9 w-9 rounded bg-primary grid place-items-center text-on-primary font-black">S</span>
+            {settings?.logoUrl ? (
+              <img src={settings.logoUrl} alt={COMPANY.name} className="h-10 w-auto object-contain" />
+            ) : (
+              <span className="h-9 w-9 rounded bg-primary grid place-items-center text-on-primary font-black">S</span>
+            )}
             <span className="font-headline-md text-headline-md font-black text-primary">{COMPANY.name}</span>
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xs">{COMPANY.tagline}</p>
@@ -112,10 +133,26 @@ export function DocumentView({ doc, kind, paid = 0 }: { doc: Doc; kind: "DEVIS" 
         </div>
       )}
 
+      {/* Payment details (invoices) */}
+      {kind === "FACTURE" && settings?.bankDetails && (
+        <div className="mt-6 p-4 rounded-lg bg-surface-container-low">
+          <div className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Coordonnées de paiement</div>
+          <p className="font-body-sm text-body-sm text-on-surface whitespace-pre-wrap">{settings.bankDetails}</p>
+        </div>
+      )}
+
+      {/* Terms */}
+      {settings?.paymentTerms && (
+        <div className="mt-4">
+          <div className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Conditions</div>
+          <p className="font-body-sm text-body-sm text-on-surface-variant whitespace-pre-wrap">{settings.paymentTerms}</p>
+        </div>
+      )}
+
       {/* Footer */}
       <div className="mt-10 pt-4 border-t border-outline-variant text-center font-label-sm text-label-sm text-on-surface-variant">
         {COMPANY.name} — NIF : {COMPANY.nif} · RCCM : {COMPANY.rccm}
-        <div className="mt-1">Merci de votre confiance.</div>
+        <div className="mt-1">{settings?.documentFooter || "Merci de votre confiance."}</div>
       </div>
     </div>
   );

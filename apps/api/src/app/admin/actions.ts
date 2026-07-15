@@ -148,3 +148,24 @@ export async function deleteProject(formData: FormData) {
   await prisma.project.delete({ where: { id } });
   revalidatePath("/admin/projects");
 }
+
+// --- Settings ----------------------------------------------------------
+
+export async function updateSettings(formData: FormData) {
+  const num = Number(formData.get("defaultTaxRate"));
+  const str = (k: string) => String(formData.get(k) ?? "").trim() || null;
+  const data = {
+    companyName: String(formData.get("companyName") ?? "SOKATF SARL").trim() || "SOKATF SARL",
+    logoUrl: str("logoUrl"),
+    defaultTaxRate: Number.isFinite(num) ? num : 18,
+    paymentTerms: str("paymentTerms"),
+    bankDetails: str("bankDetails"),
+    documentFooter: str("documentFooter"),
+  };
+  await prisma.setting.upsert({
+    where: { id: "singleton" },
+    create: { id: "singleton", ...data },
+    update: data,
+  });
+  revalidatePath("/admin/parametres");
+}
