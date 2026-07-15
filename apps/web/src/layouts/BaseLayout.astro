@@ -2,6 +2,7 @@
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site";
+import { IMG } from "../data/stitch";
 import "../styles/global.css";
 
 interface Props {
@@ -13,6 +14,46 @@ const {
   description = "SOKATF SARL — Spécialiste du commerce général au Mali : import, distribution et approvisionnement à travers tous les secteurs (BTP, agro-industrie, énergie, sécurité, IT et plus).",
 } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
+
+const origin = Astro.site ?? new URL("https://sokatf.com");
+const canonical = new URL(Astro.url.pathname, origin).href;
+const ogImage = new URL(IMG.heroHome, origin).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  legalName: "SOKATF SARL",
+  url: origin.href,
+  logo: new URL("/favicon.svg", origin).href,
+  image: ogImage,
+  description,
+  email: site.email,
+  telephone: site.phoneTel,
+  foundingDate: String(site.since),
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.hq.address,
+    addressLocality: "Bamako",
+    addressCountry: "ML",
+  },
+  areaServed: { "@type": "Country", name: "Mali" },
+  knowsAbout: [
+    "Commerce général",
+    "Import-export",
+    "Distribution",
+    "Approvisionnement",
+    "BTP & Génie Civil",
+    "Agro-industrie",
+    "Produits pétroliers",
+    "Sécurité & Gardiennage",
+    "Solutions IT",
+  ],
+  identifier: [
+    { "@type": "PropertyValue", name: "NIF", value: site.nif },
+    { "@type": "PropertyValue", name: "RCCM", value: site.rccm },
+  ],
+};
 ---
 
 <!doctype html>
@@ -22,7 +63,23 @@ const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.t
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sokatf.com/sitemap.xml
