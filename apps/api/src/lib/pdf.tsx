@@ -34,7 +34,7 @@ type PdfDoc = {
 type PdfSettings = { bankDetails?: string | null; paymentTerms?: string | null; documentFooter?: string | null } | null | undefined;
 
 const s = StyleSheet.create({
-  page: { padding: 40, fontSize: 10, color: "#1e293b", fontFamily: "Helvetica" },
+  page: { paddingTop: 40, paddingHorizontal: 40, paddingBottom: 70, fontSize: 10, color: "#1e293b", fontFamily: "Helvetica" },
   row: { flexDirection: "row" },
   between: { flexDirection: "row", justifyContent: "space-between" },
   headerBox: { borderBottomWidth: 2, borderBottomColor: NAVY, paddingBottom: 12, marginBottom: 16 },
@@ -52,7 +52,7 @@ const s = StyleSheet.create({
   grand: { flexDirection: "row", justifyContent: "space-between", paddingTop: 4, marginTop: 4, borderTopWidth: 2, borderTopColor: NAVY },
   bold: { fontFamily: "Helvetica-Bold", color: NAVY },
   bankBox: { marginTop: 12, padding: 8, backgroundColor: "#f8fafc" },
-  footer: { marginTop: 28, paddingTop: 8, borderTopWidth: 1, borderTopColor: LINE, textAlign: "center", fontSize: 8, color: GREY },
+  footer: { position: "absolute", bottom: 24, left: 40, right: 40, paddingTop: 8, borderTopWidth: 1, borderTopColor: LINE, textAlign: "center", fontSize: 8, color: GREY },
 });
 
 function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "FACTURE"; settings: PdfSettings; paid: number }) {
@@ -131,7 +131,7 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
           <View style={s.section}><Text style={s.label}>Conditions</Text><Text style={s.small}>{settings.paymentTerms}</Text></View>
         ) : null}
 
-        <View style={s.footer}>
+        <View style={s.footer} fixed>
           <Text>{COMPANY.name} — NIF : {COMPANY.nif} · RCCM : {COMPANY.rccm}</Text>
           <Text style={{ marginTop: 2 }}>{settings?.documentFooter || "Merci de votre confiance."}</Text>
         </View>
