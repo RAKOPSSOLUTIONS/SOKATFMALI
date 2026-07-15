@@ -67,7 +67,7 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
       <Page size="A4" style={s.page}>
         <View style={[s.between, s.headerBox]}>
           <View>
-            <Image src={logoDataUri("colors")} style={{ width: LOGO_W, height: LOGO_W / logoAspect("colors"), marginBottom: 6 }} />
+            <Image src={logoDataUri("black")} style={{ width: LOGO_W, height: LOGO_W / logoAspect("black"), marginBottom: 6 }} />
             <Text style={s.small}>{COMPANY.tagline}</Text>
             <Text style={s.small}>{COMPANY.address}</Text>
             <Text style={s.small}>Tél : {COMPANY.phone}</Text>

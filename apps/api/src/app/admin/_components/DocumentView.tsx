@@ -48,7 +48,7 @@ export function DocumentView({
       <div className="flex flex-col sm:flex-row justify-between gap-6 pb-8 border-b-2 border-primary">
         <div>
           <div className="mb-3">
-            <img src={settings?.logoUrl || logoDataUri("colors")} alt={COMPANY.name} className="h-10 w-auto object-contain" />
+            <img src={settings?.logoUrl || logoDataUri("black")} alt={COMPANY.name} className="h-10 w-auto object-contain" />
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xs">{COMPANY.tagline}</p>
           <p className="font-body-sm text-body-sm text-on-surface-variant mt-2">{COMPANY.address}</p>
