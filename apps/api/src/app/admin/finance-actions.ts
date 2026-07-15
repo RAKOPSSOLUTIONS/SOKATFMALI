@@ -16,6 +16,8 @@ import {
   type LineItem,
 } from "@/lib/finance";
 import { sendMail } from "@/lib/mailer";
+import { renderDocumentPDF } from "@/lib/pdf";
+import { getSettings } from "@/lib/settings";
 
 function parseDate(v: FormDataEntryValue | null): Date | null {
   const s = String(v ?? "").trim();
@@ -50,6 +52,26 @@ function docFromForm(fd: FormData) {
   };
 }
 
+/** Auto-add the document's client to the address book (deduplicated). */
+async function ensureClient(d: ReturnType<typeof docFromForm>) {
+  const name = d.clientName?.trim();
+  if (!name || name === "Client") return;
+  let existing = null;
+  if (d.clientEmail) existing = await prisma.client.findFirst({ where: { email: d.clientEmail } });
+  if (!existing) existing = await prisma.client.findFirst({ where: { name } });
+  if (existing) return;
+  await prisma.client.create({
+    data: {
+      name,
+      company: d.clientCompany,
+      email: d.clientEmail,
+      phone: d.clientPhone,
+      address: d.clientAddress,
+    },
+  });
+  revalidatePath("/admin/clients");
+}
+
 // ---------------- Quotes (devis) ----------------
 
 export async function createQuote(fd: FormData) {
@@ -64,6 +86,7 @@ export async function createQuote(fd: FormData) {
       validUntil: parseDate(fd.get("validUntil")),
     },
   });
+  await ensureClient(data);
   revalidatePath("/admin/devis");
   redirect(`/admin/devis/${q.id}`);
 }
@@ -146,6 +169,7 @@ export async function createInvoice(fd: FormData) {
       dueDate: parseDate(fd.get("dueDate")),
     },
   });
+  await ensureClient(data);
   revalidatePath("/admin/factures");
   redirect(`/admin/factures/${inv.id}`);
 }
@@ -261,10 +285,12 @@ export async function sendQuoteEmail(fd: FormData) {
   if (!q || !q.clientEmail) return;
   const items = parseItems(q.items);
   const totals = computeTotals(items, q.taxRate, q.discount);
+  const pdf = await renderDocumentPDF(q, "DEVIS", await getSettings(), 0);
   await sendMail({
     to: q.clientEmail,
     subject: `Devis ${q.number} — SOKATF SARL`,
     text: docEmailText("DEVIS", q.number, q.clientName, items, totals),
+    attachments: [{ filename: `${q.number}.pdf`, content: pdf }],
   });
   if (q.status === "DRAFT") await prisma.quote.update({ where: { id }, data: { status: "SENT" } });
   revalidatePath(`/admin/devis/${id}`);
@@ -273,14 +299,17 @@ export async function sendQuoteEmail(fd: FormData) {
 export async function sendInvoiceEmail(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
-  const inv = await prisma.invoice.findUnique({ where: { id } });
+  const inv = await prisma.invoice.findUnique({ where: { id }, include: { payments: true } });
   if (!inv || !inv.clientEmail) return;
   const items = parseItems(inv.items);
   const totals = computeTotals(items, inv.taxRate, inv.discount);
+  const paid = inv.payments.reduce((sum, p) => sum + p.amount, 0);
+  const pdf = await renderDocumentPDF(inv, "FACTURE", await getSettings(), paid);
   await sendMail({
     to: inv.clientEmail,
     subject: `Facture ${inv.number} — SOKATF SARL`,
     text: docEmailText("FACTURE", inv.number, inv.clientName, items, totals),
+    attachments: [{ filename: `${inv.number}.pdf`, content: pdf }],
   });
   if (inv.status === "DRAFT") await prisma.invoice.update({ where: { id }, data: { status: "SENT" } });
   revalidatePath(`/admin/factures/${id}`);
@@ -350,6 +379,7 @@ export async function sendInvoiceReminder(fd: FormData) {
   const paid = inv.payments.reduce((s, p) => s + p.amount, 0);
   const balance = total - paid;
   if (balance <= 0.5) return;
+  const pdf = await renderDocumentPDF(inv, "FACTURE", await getSettings(), paid);
   await sendMail({
     to: inv.clientEmail,
     subject: `Rappel — Facture ${inv.number} — SOKATF SARL`,
@@ -358,6 +388,7 @@ export async function sendInvoiceReminder(fd: FormData) {
 Total TTC : ${formatFCFA(total)}
 Déjà réglé : ${formatFCFA(paid)}
 Reste à payer : ${formatFCFA(balance)}`,
+    attachments: [{ filename: `${inv.number}.pdf`, content: pdf }],
   });
   revalidatePath("/admin/finances");
   revalidatePath(`/admin/factures/${id}`);

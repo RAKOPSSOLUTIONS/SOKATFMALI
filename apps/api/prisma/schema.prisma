@@ -135,6 +135,18 @@ model Payment {
   @@index([invoiceId])
 }
 
+/// A back-office user with a role.
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("commercial") // admin | comptable | commercial
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
 /// A reusable client (address book) for devis/factures.
 model Client {
   id        String   @id @default(cuid())

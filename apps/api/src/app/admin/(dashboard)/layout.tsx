@@ -1,16 +1,18 @@
-import { cookies } from "next/headers";
 import { Sidebar } from "./_components/Sidebar";
 import { logoutAction } from "../actions";
-import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
+import { getSession } from "@/lib/session";
+import { canAccess, ROLE_LABEL } from "@/lib/auth";
+import { ADMIN_NAV } from "@/lib/adminNav";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Middleware already gates this, but read the session for display.
-  const token = (await cookies()).get(SESSION_COOKIE)?.value;
-  const session = await verifySessionToken(token);
+  // Middleware already gates this, but read the session for display + nav filtering.
+  const session = await getSession();
+  const role = session?.role ?? "commercial";
+  const items = ADMIN_NAV.filter((i) => canAccess(role, i.href));
 
   return (
     <div className="min-h-screen flex bg-surface">
@@ -25,11 +27,10 @@ export default async function DashboardLayout({
             SOKATF
           </div>
         </div>
-        <Sidebar />
+        <Sidebar items={items} />
         <div className="mt-auto pt-4 border-t border-outline-variant">
-          <p className="font-label-sm text-label-sm text-on-surface-variant px-4 mb-2 truncate">
-            {session?.email}
-          </p>
+          <p className="font-label-md text-label-md text-primary px-4 truncate">{session?.name || session?.email}</p>
+          <p className="font-label-sm text-label-sm text-secondary px-4 mb-2">{ROLE_LABEL[role] ?? role}</p>
           <form action={logoutAction}>
             <button
               type="submit"

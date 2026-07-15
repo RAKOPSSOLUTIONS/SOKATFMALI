@@ -28,6 +28,9 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
       {/* Action bar (hidden when printing) */}
       <div className="print:hidden flex flex-wrap items-center gap-3">
         <Link href="/admin/devis" className="font-label-md text-label-md text-on-surface-variant hover:text-primary mr-auto">← Devis</Link>
+        <a href={`/admin/devis/${quote.id}/pdf`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2">
+          <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+        </a>
         <PrintButton />
         <Link href={`/admin/devis/${quote.id}/edit`} className="btn-outline py-2">
           <span className="material-symbols-outlined text-[18px]">edit</span> Modifier

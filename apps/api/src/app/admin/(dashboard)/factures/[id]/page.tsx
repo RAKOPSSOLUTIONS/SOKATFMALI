@@ -40,6 +40,9 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
     <div className="space-y-6">
       <div className="print:hidden flex flex-wrap items-center gap-3">
         <Link href="/admin/factures" className="font-label-md text-label-md text-on-surface-variant hover:text-primary mr-auto">← Factures</Link>
+        <a href={`/admin/factures/${inv.id}/pdf`} target="_blank" rel="noopener noreferrer" className="btn-outline py-2">
+          <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span> PDF
+        </a>
         <PrintButton />
         <Link href={`/admin/factures/${inv.id}/edit`} className="btn-outline py-2">
           <span className="material-symbols-outlined text-[18px]">edit</span> Modifier

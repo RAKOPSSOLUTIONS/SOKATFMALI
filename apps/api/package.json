@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "@react-pdf/renderer": "^4.1.6",
     "@sokatf/tokens": "workspace:*",
     "jose": "^5.9.6",
     "next": "^15.1.4",

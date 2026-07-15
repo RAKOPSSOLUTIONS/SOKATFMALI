@@ -7,9 +7,12 @@ import { prisma } from "@/lib/prisma";
 import {
   SESSION_COOKIE,
   SESSION_MAX_AGE,
+  ROLES,
   checkCredentials,
   createSessionToken,
+  type Role,
 } from "@/lib/auth";
+import { hashPassword, verifyPassword } from "@/lib/password";
 import { LEAD_STATUSES, PROJECT_STATUSES } from "@/lib/constants";
 
 // --- Auth --------------------------------------------------------------
@@ -20,15 +23,24 @@ export async function loginAction(
   _prev: LoginState,
   formData: FormData,
 ): Promise<LoginState> {
-  const email = String(formData.get("email") ?? "");
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   const next = String(formData.get("next") ?? "/admin") || "/admin";
 
-  if (!checkCredentials(email, password)) {
+  let role: Role;
+  let name: string;
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (user && user.active && verifyPassword(password, user.passwordHash)) {
+    role = (ROLES.includes(user.role as Role) ? user.role : "commercial") as Role;
+    name = user.name;
+  } else if (checkCredentials(email, password)) {
+    role = "admin";
+    name = "Administrateur";
+  } else {
     return { error: "Identifiants invalides." };
   }
 
-  const token = await createSessionToken(email);
+  const token = await createSessionToken(email, role, name);
   const jar = await cookies();
   jar.set(SESSION_COOKIE, token, {
     httpOnly: true,
@@ -201,4 +213,50 @@ export async function deleteClient(fd: FormData) {
   if (!id) return;
   await prisma.client.delete({ where: { id } });
   revalidatePath("/admin/clients");
+}
+
+// --- Users (admin only — enforced by middleware) -----------------------
+
+export async function createUser(fd: FormData) {
+  const name = String(fd.get("name") ?? "").trim();
+  const email = String(fd.get("email") ?? "").trim().toLowerCase();
+  const password = String(fd.get("password") ?? "");
+  const role = String(fd.get("role") ?? "commercial");
+  if (!name || !email || password.length < 4) return;
+  try {
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        role: ROLES.includes(role as Role) ? role : "commercial",
+        passwordHash: hashPassword(password),
+        active: true,
+      },
+    });
+  } catch {
+    // ignore duplicate email
+  }
+  revalidatePath("/admin/utilisateurs");
+}
+
+export async function updateUser(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const role = String(fd.get("role") ?? "commercial");
+  const password = String(fd.get("password") ?? "");
+  const data: { name: string; role: string; active: boolean; passwordHash?: string } = {
+    name: String(fd.get("name") ?? "").trim() || "Utilisateur",
+    role: ROLES.includes(role as Role) ? role : "commercial",
+    active: fd.get("active") === "on",
+  };
+  if (password.length >= 4) data.passwordHash = hashPassword(password);
+  await prisma.user.update({ where: { id }, data });
+  revalidatePath("/admin/utilisateurs");
+}
+
+export async function deleteUser(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  await prisma.user.delete({ where: { id } });
+  revalidatePath("/admin/utilisateurs");
 }
