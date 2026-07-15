@@ -12,6 +12,7 @@ import {
   nextNumber,
   formatFCFA,
   docSummary,
+  reminderText,
   type LineItem,
 } from "@/lib/finance";
 import { sendMail } from "@/lib/mailer";
@@ -282,5 +283,27 @@ export async function sendInvoiceEmail(fd: FormData) {
     text: docEmailText("FACTURE", inv.number, inv.clientName, items, totals),
   });
   if (inv.status === "DRAFT") await prisma.invoice.update({ where: { id }, data: { status: "SENT" } });
+  revalidatePath(`/admin/factures/${id}`);
+}
+
+export async function sendInvoiceReminder(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const inv = await prisma.invoice.findUnique({ where: { id }, include: { payments: true } });
+  if (!inv || !inv.clientEmail) return;
+  const { total } = computeTotals(parseItems(inv.items), inv.taxRate, inv.discount);
+  const paid = inv.payments.reduce((s, p) => s + p.amount, 0);
+  const balance = total - paid;
+  if (balance <= 0.5) return;
+  await sendMail({
+    to: inv.clientEmail,
+    subject: `Rappel — Facture ${inv.number} — SOKATF SARL`,
+    text: `${reminderText(inv.number, inv.clientName, balance)}
+
+Total TTC : ${formatFCFA(total)}
+Déjà réglé : ${formatFCFA(paid)}
+Reste à payer : ${formatFCFA(balance)}`,
+  });
+  revalidatePath("/admin/finances");
   revalidatePath(`/admin/factures/${id}`);
 }

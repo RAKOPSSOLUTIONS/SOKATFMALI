@@ -86,6 +86,18 @@ export function docSummary(kind: "DEVIS" | "FACTURE", number: string, total: num
   return `Bonjour ${clientName}, veuillez trouver ${label} ${number} d'un montant de ${formatFCFA(total)}. Cordialement, SOKATF SARL.`;
 }
 
+/** Whole days past the due date (0 if not due / no date). */
+export function daysOverdue(dueDate: Date | string | null | undefined): number {
+  if (!dueDate) return 0;
+  const diff = Date.now() - new Date(dueDate).getTime();
+  return diff > 0 ? Math.floor(diff / 86400000) : 0;
+}
+
+/** Reminder message for an unpaid invoice. */
+export function reminderText(number: string, clientName: string, balance: number): string {
+  return `Bonjour ${clientName}, petit rappel concernant votre facture ${number} : il reste ${formatFCFA(balance)} à régler. Merci de votre règlement. SOKATF SARL.`;
+}
+
 /** CSV field escaping (French Excel: ';' separator, BOM for accents). */
 export function csvEscape(v: unknown): string {
   const s = String(v ?? "");

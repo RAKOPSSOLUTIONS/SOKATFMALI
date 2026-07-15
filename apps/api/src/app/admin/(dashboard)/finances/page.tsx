@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { parseItems, computeTotals, formatFCFA, formatDate } from "@/lib/finance";
+import { parseItems, computeTotals, formatFCFA, formatDate, daysOverdue, waLink, reminderText } from "@/lib/finance";
+import { sendInvoiceReminder } from "../../finance-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +50,16 @@ export default async function FinancesPage() {
   const compact = (n: number) =>
     n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? Math.round(n / 1e3) + "k" : String(Math.round(n));
 
+  const overdue = invoices
+    .filter((inv) => inv.status !== "CANCELLED" && inv.status !== "DRAFT")
+    .map((inv) => {
+      const { total } = computeTotals(parseItems(inv.items), inv.taxRate, inv.discount);
+      const paid = inv.payments.reduce((s, p) => s + p.amount, 0);
+      return { inv, balance: total - paid, days: daysOverdue(inv.dueDate) };
+    })
+    .filter((x) => x.balance > 0.5 && x.days > 0)
+    .sort((a, b) => b.days - a.days);
+
   return (
     <div className="space-y-8">
       <div>
@@ -67,6 +78,43 @@ export default async function FinancesPage() {
           </div>
         ))}
       </div>
+
+      {overdue.length > 0 && (
+        <div className="card overflow-hidden">
+          <div className="flex items-center gap-2 p-5 border-b border-outline-variant">
+            <span className="material-symbols-outlined text-error">warning</span>
+            <h2 className="font-headline-md text-headline-md text-primary">Factures à relancer ({overdue.length})</h2>
+          </div>
+          <ul className="divide-y divide-outline-variant">
+            {overdue.map(({ inv, balance, days }) => (
+              <li key={inv.id} className="flex flex-wrap items-center gap-4 p-4">
+                <Link href={`/admin/factures/${inv.id}`} className="font-label-md text-label-md text-secondary w-40 hover:underline">{inv.number}</Link>
+                <div className="min-w-0 flex-1">
+                  <div className="font-label-md text-label-md text-primary truncate">{inv.clientName}</div>
+                  <div className="font-body-sm text-body-sm text-error">
+                    En retard de {days} jour{days > 1 ? "s" : ""} · échéance {formatDate(inv.dueDate)}
+                  </div>
+                </div>
+                <span className="font-label-md text-label-md text-error">{formatFCFA(balance)}</span>
+                <a
+                  href={waLink(inv.clientPhone, reminderText(inv.number, inv.clientName, balance))}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline py-2"
+                >
+                  <span className="material-symbols-outlined text-[18px]">chat</span> Relancer
+                </a>
+                <form action={sendInvoiceReminder}>
+                  <input type="hidden" name="id" value={inv.id} />
+                  <button className="btn-outline py-2 disabled:opacity-50" disabled={!inv.clientEmail} title={inv.clientEmail ? "" : "Email client manquant"}>
+                    <span className="material-symbols-outlined text-[18px]">mail</span> Email
+                  </button>
+                </form>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-3">
         <Link href="/admin/devis/new" className="btn-primary"><span className="material-symbols-outlined text-[18px]">add</span> Nouveau devis</Link>
