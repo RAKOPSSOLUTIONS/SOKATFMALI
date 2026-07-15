@@ -165,6 +165,7 @@ export async function deleteProject(formData: FormData) {
 
 export async function updateSettings(formData: FormData) {
   const num = Number(formData.get("defaultTaxRate"));
+  const pad = Number(formData.get("numberPadding"));
   const str = (k: string) => String(formData.get(k) ?? "").trim() || null;
   const data = {
     companyName: String(formData.get("companyName") ?? "SOKATF SARL").trim() || "SOKATF SARL",
@@ -173,6 +174,10 @@ export async function updateSettings(formData: FormData) {
     paymentTerms: str("paymentTerms"),
     bankDetails: str("bankDetails"),
     documentFooter: str("documentFooter"),
+    quotePrefix: String(formData.get("quotePrefix") ?? "Devis").trim() || "Devis",
+    invoicePrefix: String(formData.get("invoicePrefix") ?? "Facture").trim() || "Facture",
+    numberIncludeMonth: formData.get("numberIncludeMonth") === "on",
+    numberPadding: Number.isFinite(pad) && pad >= 1 && pad <= 8 ? pad : 4,
   };
   await prisma.setting.upsert({
     where: { id: "singleton" },

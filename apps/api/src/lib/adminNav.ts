@@ -8,6 +8,7 @@ export const ADMIN_NAV = [
   { href: "/admin/finances", label: "Finances", icon: "account_balance_wallet", exact: false },
   { href: "/admin/sectors", label: "Secteurs", icon: "category", exact: false },
   { href: "/admin/projects", label: "Réalisations", icon: "workspaces", exact: false },
+  { href: "/admin/documentation", label: "Documentation", icon: "folder_open", exact: false },
   { href: "/admin/utilisateurs", label: "Utilisateurs", icon: "group", exact: false },
   { href: "/admin/parametres", label: "Paramètres", icon: "settings", exact: false },
 ];

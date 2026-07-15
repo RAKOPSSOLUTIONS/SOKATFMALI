@@ -170,5 +170,9 @@ model Setting {
   paymentTerms   String? // conditions par défaut (affichées sur les documents)
   bankDetails    String? // RIB / IBAN / Mobile Money
   documentFooter String? // mention de bas de page
+  quotePrefix        String  @default("Devis")
+  invoicePrefix      String  @default("Facture")
+  numberIncludeMonth Boolean @default(true)
+  numberPadding      Int     @default(4)
   updatedAt      DateTime @updatedAt
 }

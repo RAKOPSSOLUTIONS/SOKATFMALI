@@ -1,4 +1,5 @@
 import { prisma } from "./prisma";
+import { getSettings } from "./settings";
 
 export type LineItem = { description: string; quantity: number; unitPrice: number };
 
@@ -114,14 +115,16 @@ export function toCSV(header: string[], rows: (string | number)[][]): string {
  * the month reflects the creation date.
  */
 export async function nextNumber(kind: "DEV" | "FAC"): Promise<string> {
+  const st = await getSettings();
   const now = new Date();
   const yy = String(now.getFullYear()).slice(-2);
   const mm = String(now.getMonth() + 1).padStart(2, "0");
-  const label = kind === "DEV" ? "Devis" : "Facture";
+  const label = kind === "DEV" ? st.quotePrefix : st.invoicePrefix;
   const yearPrefix = `${label} - ${yy}-`;
   const count =
     kind === "DEV"
       ? await prisma.quote.count({ where: { number: { startsWith: yearPrefix } } })
       : await prisma.invoice.count({ where: { number: { startsWith: yearPrefix } } });
-  return `${label} - ${yy}-${mm}-${String(count + 1).padStart(4, "0")}`;
+  const seq = String(count + 1).padStart(st.numberPadding, "0");
+  return st.numberIncludeMonth ? `${label} - ${yy}-${mm}-${seq}` : `${label} - ${yy}-${seq}`;
 }

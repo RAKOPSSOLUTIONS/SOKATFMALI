@@ -21,6 +21,7 @@
     "@prisma/client": "^6.2.1",
     "@react-pdf/renderer": "^4.1.6",
     "@sokatf/tokens": "workspace:*",
+    "docx": "^9.0.3",
     "jose": "^5.9.6",
     "next": "^15.1.4",
     "nodemailer": "^6.9.16",

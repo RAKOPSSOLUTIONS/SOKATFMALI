@@ -59,6 +59,7 @@ const ACCESS: Record<string, Role[]> = {
   "/admin/sectors": ["admin"],
   "/admin/projects": ["admin"],
   "/admin/parametres": ["admin", "comptable"],
+  "/admin/documentation": ["admin"],
   "/admin/utilisateurs": ["admin"],
 };
 

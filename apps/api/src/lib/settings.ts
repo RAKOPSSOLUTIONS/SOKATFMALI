@@ -8,6 +8,10 @@ export type Settings = {
   paymentTerms: string | null;
   bankDetails: string | null;
   documentFooter: string | null;
+  quotePrefix: string;
+  invoicePrefix: string;
+  numberIncludeMonth: boolean;
+  numberPadding: number;
 };
 
 const DEFAULTS: Settings = {
@@ -18,6 +22,10 @@ const DEFAULTS: Settings = {
   paymentTerms: null,
   bankDetails: null,
   documentFooter: null,
+  quotePrefix: "Devis",
+  invoicePrefix: "Facture",
+  numberIncludeMonth: true,
+  numberPadding: 4,
 };
 
 /** Read the singleton settings row (returns sane defaults if unset). */
@@ -32,5 +40,9 @@ export async function getSettings(): Promise<Settings> {
     paymentTerms: s.paymentTerms,
     bankDetails: s.bankDetails,
     documentFooter: s.documentFooter,
+    quotePrefix: s.quotePrefix || "Devis",
+    invoicePrefix: s.invoicePrefix || "Facture",
+    numberIncludeMonth: s.numberIncludeMonth,
+    numberPadding: s.numberPadding && s.numberPadding > 0 ? s.numberPadding : 4,
   };
 }

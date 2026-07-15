@@ -41,6 +41,33 @@ export default async function ParametresPage() {
           <label className="label">Mention de bas de page</label>
           <input name="documentFooter" defaultValue={s.documentFooter ?? ""} className="input" placeholder="Merci de votre confiance." />
         </div>
+
+        <div className="pt-4 border-t border-outline-variant">
+          <h3 className="font-headline-md text-headline-md text-primary mb-4">Numérotation des documents</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="label">Préfixe devis</label>
+              <input name="quotePrefix" defaultValue={s.quotePrefix} className="input" placeholder="Devis" />
+            </div>
+            <div>
+              <label className="label">Préfixe facture</label>
+              <input name="invoicePrefix" defaultValue={s.invoicePrefix} className="input" placeholder="Facture" />
+            </div>
+            <div>
+              <label className="label">Chiffres de la séquence</label>
+              <input name="numberPadding" type="number" min="1" max="8" defaultValue={s.numberPadding} className="input w-40" />
+            </div>
+            <div className="flex items-end">
+              <label className="flex items-center gap-2 font-body-md text-body-md">
+                <input type="checkbox" name="numberIncludeMonth" defaultChecked={s.numberIncludeMonth} /> Inclure le mois
+              </label>
+            </div>
+          </div>
+          <p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+            Exemple : « {s.quotePrefix} - 26{s.numberIncludeMonth ? "-07" : ""}-{"0".repeat(Math.max(0, s.numberPadding - 1))}1 »
+          </p>
+        </div>
+
         <button className="btn-primary">Enregistrer</button>
       </form>
     </div>
