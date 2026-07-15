@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function ParametresPage() {
   const s = await getSettings();
   return (
-    <div className="space-y-6 max-w-3xl">
+    <div className="space-y-6">
       <div>
         <h1 className="font-headline-lg text-headline-lg text-primary">Paramètres</h1>
         <p className="font-body-md text-body-md text-on-surface-variant">

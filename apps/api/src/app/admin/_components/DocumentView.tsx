@@ -43,7 +43,7 @@ export function DocumentView({
   const secondLabel = kind === "DEVIS" ? "Valable jusqu'au" : "Échéance";
 
   return (
-    <div id="printable" className="bg-white border border-outline-variant rounded-2xl p-8 md:p-12 max-w-4xl">
+    <div id="printable" className="bg-white border border-outline-variant rounded-2xl p-8 md:p-12 w-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between gap-6 pb-8 border-b-2 border-primary">
         <div>

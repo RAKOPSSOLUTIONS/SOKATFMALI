@@ -10,7 +10,7 @@ export default async function NewDevisPage() {
   const [s, clients] = await Promise.all([getSettings(), prisma.client.findMany({ orderBy: { name: "asc" } })]);
   const today = new Date().toISOString().slice(0, 10);
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       <div>
         <Link href="/admin/devis" className="font-label-md text-label-md text-on-surface-variant hover:text-primary">← Devis</Link>
         <h1 className="font-headline-lg text-headline-lg text-primary mt-1">Nouveau devis</h1>

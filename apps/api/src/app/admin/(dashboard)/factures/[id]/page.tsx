@@ -83,7 +83,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
       <DocumentView doc={inv} kind="FACTURE" paid={paid} settings={settings} />
 
       {/* Payments (not printed) */}
-      <div className="print:hidden card p-6 max-w-4xl">
+      <div className="print:hidden card p-6">
         <div className="flex items-center justify-between mb-5">
           <h3 className="font-headline-md text-headline-md text-primary">Paiements</h3>
           <div className="text-right">

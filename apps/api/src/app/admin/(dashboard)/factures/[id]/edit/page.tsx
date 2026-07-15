@@ -29,7 +29,7 @@ export default async function EditFacturePage({ params }: { params: Promise<{ id
   };
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       <div>
         <Link href={`/admin/factures/${inv.id}`} className="font-label-md text-label-md text-on-surface-variant hover:text-primary">← {inv.number}</Link>
         <h1 className="font-headline-lg text-headline-lg text-primary mt-1">Modifier la facture</h1>

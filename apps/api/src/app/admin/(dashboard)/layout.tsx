@@ -55,7 +55,7 @@ export default async function DashboardLayout({
             </button>
           </form>
         </header>
-        <main className="p-margin-mobile md:p-margin-desktop max-w-container-max print:p-0 print:max-w-none">
+        <main className="p-margin-mobile md:p-margin-desktop w-full print:p-0 print:max-w-none">
           {children}
         </main>
       </div>
