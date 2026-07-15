@@ -52,6 +52,8 @@ export function checkCredentials(email: string, password: string): boolean {
 const ACCESS: Record<string, Role[]> = {
   "/admin/leads": ["admin", "commercial"],
   "/admin/clients": ["admin", "comptable", "commercial"],
+  "/admin/produits": ["admin", "comptable", "commercial"],
+  "/admin/services": ["admin", "comptable", "commercial"],
   "/admin/devis": ["admin", "comptable", "commercial"],
   "/admin/factures": ["admin", "comptable", "commercial"],
   "/admin/finances": ["admin", "comptable"],

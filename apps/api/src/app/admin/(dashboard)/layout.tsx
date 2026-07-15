@@ -17,15 +17,8 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen flex bg-surface">
       <aside className="print:hidden hidden md:flex w-64 shrink-0 flex-col border-r border-outline-variant bg-surface-container-lowest p-4">
-        <div className="flex items-center gap-3 px-2 py-4 mb-4">
-          <div className="h-9 w-9 rounded-lg bg-primary grid place-items-center">
-            <span className="material-symbols-outlined text-on-primary text-[20px]">
-              corporate_fare
-            </span>
-          </div>
-          <div className="font-headline-md text-headline-md font-bold tracking-tighter text-primary">
-            SOKATF
-          </div>
+        <div className="px-2 py-4 mb-4">
+          <img src="/brand/sokatf-black.png" alt="SOKATF SARL" width="687" height="89" className="h-8 w-auto" />
         </div>
         <Sidebar items={items} />
         <div className="mt-auto pt-4 border-t border-outline-variant">
@@ -46,9 +39,7 @@ export default async function DashboardLayout({
       <div className="flex-1 min-w-0">
         {/* Mobile top bar */}
         <header className="print:hidden md:hidden flex items-center justify-between border-b border-outline-variant bg-surface-container-lowest px-margin-mobile h-16">
-          <div className="font-headline-md text-headline-md font-bold text-primary">
-            SOKATF
-          </div>
+          <img src="/brand/sokatf-black.png" alt="SOKATF SARL" width="687" height="89" className="h-7 w-auto" />
           <form action={logoutAction}>
             <button type="submit" className="material-symbols-outlined text-on-surface-variant">
               logout

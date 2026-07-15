@@ -7,7 +7,11 @@ import { createQuote } from "../../../finance-actions";
 export const dynamic = "force-dynamic";
 
 export default async function NewDevisPage() {
-  const [s, clients] = await Promise.all([getSettings(), prisma.client.findMany({ orderBy: { name: "asc" } })]);
+  const [s, clients, catalog] = await Promise.all([
+    getSettings(),
+    prisma.client.findMany({ orderBy: { name: "asc" } }),
+    prisma.catalogItem.findMany({ where: { active: true }, orderBy: [{ kind: "asc" }, { name: "asc" }], select: { id: true, kind: true, name: true, unit: true, price: true } }),
+  ]);
   const today = new Date().toISOString().slice(0, 10);
   return (
     <div className="space-y-6">
@@ -21,6 +25,7 @@ export default async function NewDevisPage() {
         kind="devis"
         doc={{ date: today, taxRate: s.defaultTaxRate, notes: s.paymentTerms ?? undefined }}
         clients={clients}
+        catalog={catalog}
       />
     </div>
   );

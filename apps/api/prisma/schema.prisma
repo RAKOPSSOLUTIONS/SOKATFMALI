@@ -161,6 +161,24 @@ model Client {
   @@index([name])
 }
 
+/// A reusable product or service (catalogue) inserted as lines in devis/factures.
+model CatalogItem {
+  id          String   @id @default(cuid())
+  kind        String   @default("PRODUCT") // PRODUCT | SERVICE
+  name        String
+  description String?
+  unit        String   @default("unité") // unité | lot | kg | tonne | jour | mois | prestation…
+  price       Float    @default(0) // prix unitaire FCFA
+  reference   String? // SKU / code
+  category    String? // secteur (slug) ou libellé libre
+  active      Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([kind, active])
+}
+
 /// Singleton settings applied to devis/factures (branding & defaults).
 model Setting {
   id             String   @id @default("singleton")

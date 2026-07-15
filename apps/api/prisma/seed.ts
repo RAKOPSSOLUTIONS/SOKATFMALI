@@ -200,6 +200,35 @@ async function seedClients() {
   console.log(`✓ Clients (${clients.length})`);
 }
 
+// ── 6b. Catalogue (produits & services) ─────────────────────────────────────
+async function seedCatalog() {
+  const products = [
+    { name: "Ciment CPA 45", unit: "tonne", price: 95_000, reference: "CIM-45", category: "btp-construction", description: "Ciment Portland artificiel classe 45." },
+    { name: "Fer à béton Ø12", unit: "barre", price: 6_500, reference: "FER-12", category: "btp-construction", description: "Barre de fer à béton haute adhérence, 12 mm." },
+    { name: "Gravier concassé", unit: "m³", price: 18_000, reference: "GRV-01", category: "btp-construction", description: "Gravier concassé pour béton." },
+    { name: "Fournitures de bureau (lot)", unit: "lot", price: 1_250_000, reference: "BUR-LOT", category: "commerce-general", description: "Lot trimestriel de fournitures de bureau." },
+    { name: "Consommables informatiques", unit: "lot", price: 185_000, reference: "INFO-CONS", category: "informatique", description: "Cartouches, câbles et petits consommables." },
+    { name: "Carburant / gasoil (livraison)", unit: "litre", price: 815, reference: "PET-GO", category: "produits-petroliers", description: "Distribution de gasoil, prix indicatif au litre." },
+  ];
+  const services = [
+    { name: "Gardiennage 24/7 (agent)", unit: "mois", price: 180_000, reference: "SEC-24", category: "securite-gardiennage", description: "Agent de sécurité, poste continu 24/7." },
+    { name: "Nettoyage de locaux", unit: "mois", price: 450_000, reference: "NET-LOC", category: "nettoyage", description: "Prestation d'entretien et nettoyage de locaux." },
+    { name: "Transport & logistique", unit: "forfait", price: 150_000, reference: "LOG-01", category: "commerce-general", description: "Transport et logistique de marchandises." },
+    { name: "Prestation informatique (jour/homme)", unit: "jour", price: 120_000, reference: "IT-JH", category: "informatique", description: "Intervention technique, installation ou maintenance." },
+    { name: "Restauration collective (couvert)", unit: "unité", price: 2_500, reference: "RES-CVT", category: "restauration", description: "Repas en restauration collective, par couvert." },
+  ];
+  const all = [
+    ...products.map((p) => ({ ...p, kind: "PRODUCT" as const })),
+    ...services.map((s) => ({ ...s, kind: "SERVICE" as const })),
+  ];
+  for (const it of all) {
+    const existing = await prisma.catalogItem.findFirst({ where: { kind: it.kind, name: it.name } });
+    if (existing) await prisma.catalogItem.update({ where: { id: existing.id }, data: { ...it, active: true } });
+    else await prisma.catalogItem.create({ data: { ...it, active: true } });
+  }
+  console.log(`✓ Catalogue (${products.length} produits + ${services.length} services)`);
+}
+
 // ── 7. Quotes (devis) ───────────────────────────────────────────────────────
 async function seedQuotes() {
   const quotes = [
@@ -377,6 +406,7 @@ async function reset() {
   await prisma.invoice.deleteMany();
   await prisma.quote.deleteMany();
   await prisma.client.deleteMany();
+  await prisma.catalogItem.deleteMany();
   await prisma.lead.deleteMany();
   await prisma.project.deleteMany();
   await prisma.sector.deleteMany();
@@ -392,6 +422,7 @@ async function main() {
   await seedProjects();
   await seedLeads();
   await seedClients();
+  await seedCatalog();
   await seedQuotes();
   await seedInvoices();
 
@@ -402,6 +433,7 @@ async function main() {
     projects: await prisma.project.count(),
     leads: await prisma.lead.count(),
     clients: await prisma.client.count(),
+    catalog: await prisma.catalogItem.count(),
     quotes: await prisma.quote.count(),
     invoices: await prisma.invoice.count(),
     payments: await prisma.payment.count(),

@@ -7,7 +7,11 @@ import { createInvoice } from "../../../finance-actions";
 export const dynamic = "force-dynamic";
 
 export default async function NewFacturePage() {
-  const [s, clients] = await Promise.all([getSettings(), prisma.client.findMany({ orderBy: { name: "asc" } })]);
+  const [s, clients, catalog] = await Promise.all([
+    getSettings(),
+    prisma.client.findMany({ orderBy: { name: "asc" } }),
+    prisma.catalogItem.findMany({ where: { active: true }, orderBy: [{ kind: "asc" }, { name: "asc" }], select: { id: true, kind: true, name: true, unit: true, price: true } }),
+  ]);
   const today = new Date().toISOString().slice(0, 10);
   const due = new Date();
   due.setDate(due.getDate() + 30);
@@ -23,6 +27,7 @@ export default async function NewFacturePage() {
         kind="facture"
         doc={{ date: today, secondDate: due.toISOString().slice(0, 10), taxRate: s.defaultTaxRate, notes: s.paymentTerms ?? undefined }}
         clients={clients}
+        catalog={catalog}
       />
     </div>
   );

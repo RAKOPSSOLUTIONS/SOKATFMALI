@@ -11,7 +11,10 @@ export default async function EditDevisPage({ params }: { params: Promise<{ id: 
   const { id } = await params;
   const q = await prisma.quote.findUnique({ where: { id } });
   if (!q) notFound();
-  const clients = await prisma.client.findMany({ orderBy: { name: "asc" } });
+  const [clients, catalog] = await Promise.all([
+    prisma.client.findMany({ orderBy: { name: "asc" } }),
+    prisma.catalogItem.findMany({ where: { active: true }, orderBy: [{ kind: "asc" }, { name: "asc" }], select: { id: true, kind: true, name: true, unit: true, price: true } }),
+  ]);
 
   const doc = {
     id: q.id,
@@ -34,7 +37,7 @@ export default async function EditDevisPage({ params }: { params: Promise<{ id: 
         <Link href={`/admin/devis/${q.id}`} className="font-label-md text-label-md text-on-surface-variant hover:text-primary">← {q.number}</Link>
         <h1 className="font-headline-lg text-headline-lg text-primary mt-1">Modifier le devis</h1>
       </div>
-      <DocumentForm action={updateQuote} submitLabel="Enregistrer" kind="devis" doc={doc} clients={clients} />
+      <DocumentForm action={updateQuote} submitLabel="Enregistrer" kind="devis" doc={doc} clients={clients} catalog={catalog} />
     </div>
   );
 }

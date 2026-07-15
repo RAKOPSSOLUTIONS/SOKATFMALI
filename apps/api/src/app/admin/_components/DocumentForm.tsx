@@ -28,12 +28,14 @@ export function DocumentForm({
   kind,
   doc,
   clients,
+  catalog,
 }: {
   action: (fd: FormData) => void;
   submitLabel: string;
   kind: "devis" | "facture";
   doc?: DocDefaults;
   clients?: { id: string; name: string; company: string | null; email: string | null; phone: string | null; address: string | null }[];
+  catalog?: { id: string; kind: string; name: string; unit: string; price: number }[];
 }) {
   const [items, setItems] = useState<Item[]>(
     doc?.items && doc.items.length ? doc.items : [{ description: "", quantity: 1, unitPrice: 0 }],
@@ -61,6 +63,19 @@ export function DocumentForm({
     setItems((prev) => prev.map((it, i) => (i === idx ? { ...it, ...patch } : it)));
   const addRow = () => setItems((prev) => [...prev, { description: "", quantity: 1, unitPrice: 0 }]);
   const removeRow = (idx: number) => setItems((prev) => prev.filter((_, i) => i !== idx));
+
+  // Insert a catalogue product/service as a line. If the only row is the empty
+  // default, replace it so the list doesn't start with a blank line.
+  const addFromCatalog = (id: string) => {
+    const c = catalog?.find((x) => x.id === id);
+    if (!c) return;
+    const line = { description: c.name, quantity: 1, unitPrice: c.price };
+    setItems((prev) => {
+      const [first] = prev;
+      if (prev.length === 1 && !first.description && !first.unitPrice) return [line];
+      return [...prev, line];
+    });
+  };
 
   return (
     <form action={action} className="space-y-8">
@@ -129,7 +144,30 @@ export function DocumentForm({
 
       {/* Line items */}
       <div className="card p-6">
-        <h3 className="font-headline-md text-headline-md text-primary mb-5">Lignes</h3>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+          <h3 className="font-headline-md text-headline-md text-primary">Lignes</h3>
+          {catalog && catalog.length > 0 && (
+            <select
+              className="input sm:w-72"
+              value=""
+              onChange={(e) => {
+                addFromCatalog(e.target.value);
+              }}
+            >
+              <option value="">+ Ajouter depuis le catalogue…</option>
+              <optgroup label="Produits">
+                {catalog.filter((c) => c.kind === "PRODUCT").map((c) => (
+                  <option key={c.id} value={c.id}>{c.name} — {fmt(c.price)}/{c.unit}</option>
+                ))}
+              </optgroup>
+              <optgroup label="Services">
+                {catalog.filter((c) => c.kind === "SERVICE").map((c) => (
+                  <option key={c.id} value={c.id}>{c.name} — {fmt(c.price)}/{c.unit}</option>
+                ))}
+              </optgroup>
+            </select>
+          )}
+        </div>
         <div className="space-y-3">
           <div className="hidden md:grid grid-cols-12 gap-3 font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant px-1">
             <div className="col-span-6">Description</div>
