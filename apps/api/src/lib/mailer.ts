@@ -26,6 +26,32 @@ function getTransport() {
 }
 
 /**
+ * Generic send helper. When SMTP is not configured, logs to the console
+ * instead of sending (dev-friendly). Returns true on success.
+ */
+export async function sendMail(opts: {
+  to: string;
+  subject: string;
+  text?: string;
+  html?: string;
+  replyTo?: string;
+}): Promise<boolean> {
+  const from = process.env.SMTP_FROM || "SOKATF SARL <no-reply@sokatf.com>";
+  const transport = getTransport();
+  if (!transport) {
+    console.log(`\n[mailer] SMTP not configured — would email "${opts.to}": ${opts.subject}\n${opts.text ?? opts.html ?? ""}\n`);
+    return true;
+  }
+  try {
+    await transport.sendMail({ from, ...opts });
+    return true;
+  } catch (err) {
+    console.error("[mailer] send failed:", err);
+    return false;
+  }
+}
+
+/**
  * Notify the SOKATF team of a new lead. When SMTP is not configured (dev),
  * the message is logged to the console instead of being sent — so the flow
  * still works end-to-end locally.

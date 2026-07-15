@@ -10,7 +10,11 @@ import {
   computeTotals,
   parseItems,
   nextNumber,
+  formatFCFA,
+  docSummary,
+  type LineItem,
 } from "@/lib/finance";
+import { sendMail } from "@/lib/mailer";
 
 function parseDate(v: FormDataEntryValue | null): Date | null {
   const s = String(v ?? "").trim();
@@ -223,4 +227,60 @@ export async function deletePayment(fd: FormData) {
   if (invoiceId) await refreshInvoiceStatus(invoiceId);
   revalidatePath(`/admin/factures/${invoiceId}`);
   revalidatePath("/admin/finances");
+}
+
+// ---------------- Email sending ----------------
+
+function docEmailText(
+  kind: "DEVIS" | "FACTURE",
+  number: string,
+  clientName: string,
+  items: LineItem[],
+  totals: { subtotal: number; tax: number; total: number },
+) {
+  const detail = items
+    .map((i) => `- ${i.description} : ${i.quantity} × ${formatFCFA(i.unitPrice)} = ${formatFCFA(i.quantity * i.unitPrice)}`)
+    .join("\n");
+  return `${docSummary(kind, number, totals.total, clientName)}
+
+Détail :
+${detail}
+
+Sous-total : ${formatFCFA(totals.subtotal)}
+TVA : ${formatFCFA(totals.tax)}
+Total TTC : ${formatFCFA(totals.total)}
+
+SOKATF SARL — contact@sokatf.com`;
+}
+
+export async function sendQuoteEmail(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const q = await prisma.quote.findUnique({ where: { id } });
+  if (!q || !q.clientEmail) return;
+  const items = parseItems(q.items);
+  const totals = computeTotals(items, q.taxRate, q.discount);
+  await sendMail({
+    to: q.clientEmail,
+    subject: `Devis ${q.number} — SOKATF SARL`,
+    text: docEmailText("DEVIS", q.number, q.clientName, items, totals),
+  });
+  if (q.status === "DRAFT") await prisma.quote.update({ where: { id }, data: { status: "SENT" } });
+  revalidatePath(`/admin/devis/${id}`);
+}
+
+export async function sendInvoiceEmail(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const inv = await prisma.invoice.findUnique({ where: { id } });
+  if (!inv || !inv.clientEmail) return;
+  const items = parseItems(inv.items);
+  const totals = computeTotals(items, inv.taxRate, inv.discount);
+  await sendMail({
+    to: inv.clientEmail,
+    subject: `Facture ${inv.number} — SOKATF SARL`,
+    text: docEmailText("FACTURE", inv.number, inv.clientName, items, totals),
+  });
+  if (inv.status === "DRAFT") await prisma.invoice.update({ where: { id }, data: { status: "SENT" } });
+  revalidatePath(`/admin/factures/${id}`);
 }

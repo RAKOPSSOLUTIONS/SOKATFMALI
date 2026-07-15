@@ -73,6 +73,29 @@ export function formatDate(d: Date | string | null | undefined): string {
   return new Date(d).toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
 }
 
+/** WhatsApp deep link (wa.me) with a prefilled message. */
+export function waLink(phone: string | null | undefined, text: string): string {
+  const digits = (phone || "").replace(/\D/g, "");
+  const base = digits ? `https://wa.me/${digits}` : "https://wa.me/";
+  return `${base}?text=${encodeURIComponent(text)}`;
+}
+
+/** Short message describing a document, for email/WhatsApp. */
+export function docSummary(kind: "DEVIS" | "FACTURE", number: string, total: number, clientName: string): string {
+  const label = kind === "DEVIS" ? "votre devis" : "votre facture";
+  return `Bonjour ${clientName}, veuillez trouver ${label} ${number} d'un montant de ${formatFCFA(total)}. Cordialement, SOKATF SARL.`;
+}
+
+/** CSV field escaping (French Excel: ';' separator, BOM for accents). */
+export function csvEscape(v: unknown): string {
+  const s = String(v ?? "");
+  return /[";\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+export function toCSV(header: string[], rows: (string | number)[][]): string {
+  const lines = [header.map(csvEscape).join(";"), ...rows.map((r) => r.map(csvEscape).join(";"))];
+  return "﻿" + lines.join("\r\n");
+}
+
 /** Next sequential document number, e.g. DEV-2026-0007 / FAC-2026-0007. */
 export async function nextNumber(kind: "DEV" | "FAC"): Promise<string> {
   const year = new Date().getFullYear();

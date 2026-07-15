@@ -56,6 +56,9 @@ export default async function FinancesPage() {
       <div className="flex flex-wrap gap-3">
         <Link href="/admin/devis/new" className="btn-primary"><span className="material-symbols-outlined text-[18px]">add</span> Nouveau devis</Link>
         <Link href="/admin/factures/new" className="btn-outline"><span className="material-symbols-outlined text-[18px]">add</span> Nouvelle facture</Link>
+        <a href="/admin/export/factures" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Factures (CSV)</a>
+        <a href="/admin/export/paiements" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Paiements (CSV)</a>
+        <a href="/admin/export/devis" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Devis (CSV)</a>
       </div>
 
       <div className="card overflow-hidden">

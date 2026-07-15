@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { QUOTE_STATUSES, STATUS_LABEL } from "@/lib/finance";
+import { QUOTE_STATUSES, STATUS_LABEL, parseItems, computeTotals, waLink, docSummary } from "@/lib/finance";
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
-import { setQuoteStatus, deleteQuote, convertQuoteToInvoice } from "../../../finance-actions";
+import { setQuoteStatus, deleteQuote, convertQuoteToInvoice, sendQuoteEmail } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +12,8 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
   const { id } = await params;
   const quote = await prisma.quote.findUnique({ where: { id } });
   if (!quote) notFound();
+
+  const { total } = computeTotals(parseItems(quote.items), quote.taxRate, quote.discount);
 
   return (
     <div className="space-y-6">
@@ -26,6 +28,20 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
           <input type="hidden" name="id" value={quote.id} />
           <button className="btn-outline py-2">
             <span className="material-symbols-outlined text-[18px]">receipt_long</span> Convertir en facture
+          </button>
+        </form>
+        <a
+          href={waLink(quote.clientPhone, docSummary("DEVIS", quote.number, total, quote.clientName))}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline py-2"
+        >
+          <span className="material-symbols-outlined text-[18px]">chat</span> WhatsApp
+        </a>
+        <form action={sendQuoteEmail}>
+          <input type="hidden" name="id" value={quote.id} />
+          <button className="btn-outline py-2 disabled:opacity-50" disabled={!quote.clientEmail} title={quote.clientEmail ? "" : "Renseignez l'email du client"}>
+            <span className="material-symbols-outlined text-[18px]">mail</span> Email
           </button>
         </form>
         <form action={setQuoteStatus} className="flex items-center gap-2">

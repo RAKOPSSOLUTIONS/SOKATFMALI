@@ -9,10 +9,12 @@ import {
   computeTotals,
   formatFCFA,
   formatDate,
+  waLink,
+  docSummary,
 } from "@/lib/finance";
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
-import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment } from "../../../finance-actions";
+import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment, sendInvoiceEmail } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +36,20 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
         <Link href={`/admin/factures/${inv.id}/edit`} className="btn-outline py-2">
           <span className="material-symbols-outlined text-[18px]">edit</span> Modifier
         </Link>
+        <a
+          href={waLink(inv.clientPhone, docSummary("FACTURE", inv.number, total, inv.clientName))}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-outline py-2"
+        >
+          <span className="material-symbols-outlined text-[18px]">chat</span> WhatsApp
+        </a>
+        <form action={sendInvoiceEmail}>
+          <input type="hidden" name="id" value={inv.id} />
+          <button className="btn-outline py-2 disabled:opacity-50" disabled={!inv.clientEmail} title={inv.clientEmail ? "" : "Renseignez l'email du client"}>
+            <span className="material-symbols-outlined text-[18px]">mail</span> Email
+          </button>
+        </form>
         <form action={setInvoiceStatus} className="flex items-center gap-2">
           <input type="hidden" name="id" value={inv.id} />
           <select name="status" defaultValue={inv.status} className="input py-2 w-auto">
