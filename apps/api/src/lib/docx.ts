@@ -3,6 +3,7 @@ import {
   Packer,
   Paragraph,
   TextRun,
+  ImageRun,
   HeadingLevel,
   Table,
   TableRow,
@@ -12,7 +13,10 @@ import {
   AlignmentType,
 } from "docx";
 import { COMPANY } from "./finance";
+import { logoBuffer, logoAspect } from "./brand";
 import type { OrgDoc } from "./orgDocs";
+
+const LOGO_W = 180; // header logo width (px)
 
 const NAVY = "0F172A";
 const GOLD = "B8860B";
@@ -34,8 +38,19 @@ function cell(text: string, opts: { header?: boolean; width?: number } = {}) {
 export async function renderDocx(doc: OrgDoc): Promise<Buffer> {
   const children: (Paragraph | Table)[] = [];
 
-  // Brand header
-  children.push(new Paragraph({ children: [new TextRun({ text: COMPANY.name, bold: true, size: 28, color: NAVY })] }));
+  // Brand header (logo)
+  children.push(
+    new Paragraph({
+      spacing: { after: 40 },
+      children: [
+        new ImageRun({
+          type: "png",
+          data: logoBuffer("colors"),
+          transformation: { width: LOGO_W, height: Math.round(LOGO_W / logoAspect("colors")) },
+        }),
+      ],
+    }),
+  );
   children.push(new Paragraph({ children: [new TextRun({ text: COMPANY.tagline, italics: true, size: 18, color: GREY })], spacing: { after: 200 } }));
 
   // Title

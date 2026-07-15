@@ -1,7 +1,10 @@
 import * as React from "react";
-import { Document, Page, View, Text, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
 import { COMPANY } from "./finance";
+import { logoDataUri, logoAspect } from "./brand";
 import type { OrgDoc, Block } from "./orgDocs";
+
+const LOGO_W = 160; // header logo width (pt)
 
 const NAVY = "#0f172a";
 const GOLD = "#b8860b";
@@ -58,7 +61,7 @@ function DocPage({ doc }: { doc: OrgDoc }) {
   return (
     <Document title={doc.title} author={COMPANY.name}>
       <Page size="A4" style={s.page}>
-        <Text style={s.brand}>{COMPANY.name}</Text>
+        <Image src={logoDataUri("colors")} style={{ width: LOGO_W, height: LOGO_W / logoAspect("colors"), marginBottom: 4 }} />
         <Text style={s.tagline}>{COMPANY.tagline}</Text>
         <Text style={s.title}>{doc.title}</Text>
         {doc.subtitle ? <Text style={s.subtitle}>{doc.subtitle}</Text> : null}

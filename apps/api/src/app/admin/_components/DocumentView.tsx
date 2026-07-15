@@ -1,4 +1,5 @@
 import { COMPANY, parseItems, computeTotals, formatFCFA, formatDate, STATUS_LABEL } from "@/lib/finance";
+import { logoDataUri } from "@/lib/brand";
 
 type Doc = {
   number: string;
@@ -46,13 +47,8 @@ export function DocumentView({
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between gap-6 pb-8 border-b-2 border-primary">
         <div>
-          <div className="flex items-center gap-2 mb-3">
-            {settings?.logoUrl ? (
-              <img src={settings.logoUrl} alt={COMPANY.name} className="h-10 w-auto object-contain" />
-            ) : (
-              <span className="h-9 w-9 rounded bg-primary grid place-items-center text-on-primary font-black">S</span>
-            )}
-            <span className="font-headline-md text-headline-md font-black text-primary">{COMPANY.name}</span>
+          <div className="mb-3">
+            <img src={settings?.logoUrl || logoDataUri("colors")} alt={COMPANY.name} className="h-10 w-auto object-contain" />
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-xs">{COMPANY.tagline}</p>
           <p className="font-body-sm text-body-sm text-on-surface-variant mt-2">{COMPANY.address}</p>

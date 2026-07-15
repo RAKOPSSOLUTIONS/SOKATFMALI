@@ -1,6 +1,9 @@
 import * as React from "react";
-import { Document, Page, View, Text, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
+import { Document, Page, View, Text, Image, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
 import { COMPANY, parseItems, computeTotals, formatDate } from "./finance";
+import { logoDataUri, logoAspect } from "./brand";
+
+const LOGO_W = 150; // header logo width (pt); height derived from aspect ratio
 
 const NAVY = "#0f172a";
 const GOLD = "#b8860b";
@@ -64,7 +67,7 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
       <Page size="A4" style={s.page}>
         <View style={[s.between, s.headerBox]}>
           <View>
-            <Text style={s.company}>{COMPANY.name}</Text>
+            <Image src={logoDataUri("colors")} style={{ width: LOGO_W, height: LOGO_W / logoAspect("colors"), marginBottom: 6 }} />
             <Text style={s.small}>{COMPANY.tagline}</Text>
             <Text style={s.small}>{COMPANY.address}</Text>
             <Text style={s.small}>Tél : {COMPANY.phone}</Text>
