@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { IMG } from "../data/stitch";
-import { activities, valueChain, productCategories, advantages } from "../data/commerce";
+import { activities, valueChain, productCategories, advantages, faq } from "../data/commerce";
 ---
 
 <BaseLayout title="Commerce Général" description="Le commerce général de SOKATF SARL : importation, distribution, négoce et approvisionnement à travers tous les secteurs au Mali.">
@@ -79,12 +79,19 @@ import { activities, valueChain, productCategories, advantages } from "../data/c
         Une large gamme de biens et d'équipements importés, stockés et distribués à travers le Mali.
       </p>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {
         productCategories.map((c) => (
-          <div class="reveal card card-hover p-6 flex flex-col items-center text-center gap-3">
-            <span class="icon-tile"><span class="material-symbols-outlined text-[26px]">{c.icon}</span></span>
-            <span class="font-semibold text-navy-900 text-[15px]">{c.name}</span>
+          <div class="reveal card card-hover p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="icon-tile !h-11 !w-11"><span class="material-symbols-outlined text-[22px]">{c.icon}</span></span>
+              <span class="font-bold text-navy-900 text-[15px]">{c.name}</span>
+            </div>
+            <ul class="flex flex-wrap gap-2">
+              {c.items.map((it) => (
+                <li class="text-[12px] px-2.5 py-1 rounded bg-[#f2f4f6] text-ink-soft">{it}</li>
+              ))}
+            </ul>
           </div>
         ))
       }
@@ -106,6 +113,29 @@ import { activities, valueChain, productCategories, advantages } from "../data/c
               <h3 class="text-lg font-bold text-navy-900 mb-2">{a.title}</h3>
               <p class="text-sm text-ink-soft">{a.body}</p>
             </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-[#f2f4f6]">
+    <div class="container-max">
+      <div class="text-center mb-12">
+        <span class="eyebrow mb-3">Questions fréquentes</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Import & approvisionnement : vos questions</h2>
+      </div>
+      <div class="max-w-3xl mx-auto space-y-4">
+        {
+          faq.map((f) => (
+            <details class="card p-6 group">
+              <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-navy-900">
+                {f.q}
+                <span class="material-symbols-outlined text-gold-deep shrink-0 group-open:rotate-45 transition-transform">add</span>
+              </summary>
+              <p class="text-ink-soft mt-4 leading-relaxed">{f.a}</p>
+            </details>
           ))
         }
       </div>

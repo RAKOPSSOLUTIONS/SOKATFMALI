@@ -16,14 +16,14 @@ export const valueChain = [
 ];
 
 export const productCategories = [
-  { name: "Matériaux de construction", icon: "foundation" },
-  { name: "Équipements industriels", icon: "precision_manufacturing" },
-  { name: "Produits pétroliers & lubrifiants", icon: "oil_barrel" },
-  { name: "Produits agroalimentaires", icon: "agriculture" },
-  { name: "Matériel informatique & bureautique", icon: "computer" },
-  { name: "Équipements de sécurité", icon: "security" },
-  { name: "Véhicules & pièces détachées", icon: "directions_car" },
-  { name: "Fournitures & consommables", icon: "inventory_2" },
+  { name: "Matériaux de construction", icon: "foundation", items: ["Ciment", "Fer à béton", "Tôles & bardages", "Carrelage & sanitaire", "Peintures"] },
+  { name: "Équipements industriels", icon: "precision_manufacturing", items: ["Groupes électrogènes", "Compresseurs", "Pompes", "Outillage professionnel"] },
+  { name: "Produits pétroliers & lubrifiants", icon: "oil_barrel", items: ["Carburants", "Lubrifiants & huiles", "Graisses industrielles"] },
+  { name: "Produits agroalimentaires", icon: "agriculture", items: ["Riz & céréales", "Sucre", "Huiles alimentaires", "Intrants agricoles"] },
+  { name: "Matériel informatique & bureautique", icon: "computer", items: ["Ordinateurs", "Imprimantes", "Réseaux & serveurs", "Consommables"] },
+  { name: "Équipements de sécurité", icon: "security", items: ["Vidéosurveillance", "Contrôle d'accès", "EPI", "Détection incendie"] },
+  { name: "Véhicules & pièces détachées", icon: "directions_car", items: ["Véhicules utilitaires", "Engins", "Pièces détachées", "Pneumatiques"] },
+  { name: "Fournitures & consommables", icon: "inventory_2", items: ["Fournitures de bureau", "Produits d'entretien", "Emballages", "Textiles pro"] },
 ];
 
 export const advantages = [
@@ -31,4 +31,13 @@ export const advantages = [
   { icon: "public", title: "Réseau international", body: "Un réseau de fournisseurs et de partenaires mondiaux de premier plan." },
   { icon: "inventory", title: "Disponibilité", body: "Des stocks et une logistique qui garantissent la disponibilité des produits." },
   { icon: "gavel", title: "Conformité", body: "Respect des normes douanières, réglementaires et de qualité internationales." },
+];
+
+export const faq = [
+  { q: "Comment demander une cotation ?", a: "Envoyez votre demande via notre formulaire de contact ou par email, en précisant les produits, quantités et délais souhaités. Notre équipe vous répond sous 24 heures ouvrées." },
+  { q: "Quels sont vos délais d'approvisionnement ?", a: "Les produits en stock sont livrés sous 24 à 72 heures. Pour les commandes à l'import, le délai dépend de la nature du produit et de son origine ; nous vous communiquons un délai précis à la cotation." },
+  { q: "Livrez-vous partout au Mali ?", a: "Oui. Grâce à notre logistique et à nos partenaires transport, nous approvisionnons Bamako et l'ensemble des régions du territoire." },
+  { q: "Y a-t-il des quantités minimales ?", a: "Nous servons aussi bien les entreprises et institutions que les projets ponctuels. Les quantités minimales dépendent du produit ; nous adaptons nos offres à votre besoin." },
+  { q: "Quels secteurs approvisionnez-vous ?", a: "Tous nos pôles d'activité : BTP, agro-industrie, énergie, sécurité, informatique, restauration et plus — le commerce général irrigue chacun d'eux." },
+  { q: "Comment devenir fournisseur ou partenaire ?", a: "Rendez-vous sur notre page Partenaires pour soumettre une proposition. Nous recherchons en permanence des fournisseurs et partenaires fiables." },
 ];
