@@ -286,6 +286,61 @@ export async function sendInvoiceEmail(fd: FormData) {
   revalidatePath(`/admin/factures/${id}`);
 }
 
+export async function duplicateQuote(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const q = await prisma.quote.findUnique({ where: { id } });
+  if (!q) return;
+  const number = await nextNumber("DEV");
+  const copy = await prisma.quote.create({
+    data: {
+      number,
+      status: "DRAFT",
+      clientName: q.clientName,
+      clientCompany: q.clientCompany,
+      clientEmail: q.clientEmail,
+      clientPhone: q.clientPhone,
+      clientAddress: q.clientAddress,
+      items: q.items,
+      taxRate: q.taxRate,
+      discount: q.discount,
+      notes: q.notes,
+      date: new Date(),
+    },
+  });
+  revalidatePath("/admin/devis");
+  redirect(`/admin/devis/${copy.id}`);
+}
+
+export async function duplicateInvoice(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  const inv = await prisma.invoice.findUnique({ where: { id } });
+  if (!inv) return;
+  const number = await nextNumber("FAC");
+  const due = new Date();
+  due.setDate(due.getDate() + 30);
+  const copy = await prisma.invoice.create({
+    data: {
+      number,
+      status: "DRAFT",
+      clientName: inv.clientName,
+      clientCompany: inv.clientCompany,
+      clientEmail: inv.clientEmail,
+      clientPhone: inv.clientPhone,
+      clientAddress: inv.clientAddress,
+      items: inv.items,
+      taxRate: inv.taxRate,
+      discount: inv.discount,
+      notes: inv.notes,
+      date: new Date(),
+      dueDate: due,
+    },
+  });
+  revalidatePath("/admin/factures");
+  redirect(`/admin/factures/${copy.id}`);
+}
+
 export async function sendInvoiceReminder(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;

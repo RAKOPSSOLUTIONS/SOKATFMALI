@@ -11,6 +11,7 @@ export default async function EditFacturePage({ params }: { params: Promise<{ id
   const { id } = await params;
   const inv = await prisma.invoice.findUnique({ where: { id } });
   if (!inv) notFound();
+  const clients = await prisma.client.findMany({ orderBy: { name: "asc" } });
 
   const doc = {
     id: inv.id,
@@ -33,7 +34,7 @@ export default async function EditFacturePage({ params }: { params: Promise<{ id
         <Link href={`/admin/factures/${inv.id}`} className="font-label-md text-label-md text-on-surface-variant hover:text-primary">← {inv.number}</Link>
         <h1 className="font-headline-lg text-headline-lg text-primary mt-1">Modifier la facture</h1>
       </div>
-      <DocumentForm action={updateInvoice} submitLabel="Enregistrer" kind="facture" doc={doc} />
+      <DocumentForm action={updateInvoice} submitLabel="Enregistrer" kind="facture" doc={doc} clients={clients} />
     </div>
   );
 }

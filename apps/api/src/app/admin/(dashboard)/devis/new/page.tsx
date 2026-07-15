@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import { getSettings } from "@/lib/settings";
 import { DocumentForm } from "../../../_components/DocumentForm";
 import { createQuote } from "../../../finance-actions";
@@ -6,7 +7,7 @@ import { createQuote } from "../../../finance-actions";
 export const dynamic = "force-dynamic";
 
 export default async function NewDevisPage() {
-  const s = await getSettings();
+  const [s, clients] = await Promise.all([getSettings(), prisma.client.findMany({ orderBy: { name: "asc" } })]);
   const today = new Date().toISOString().slice(0, 10);
   return (
     <div className="space-y-6 max-w-4xl">
@@ -19,6 +20,7 @@ export default async function NewDevisPage() {
         submitLabel="Créer le devis"
         kind="devis"
         doc={{ date: today, taxRate: s.defaultTaxRate, notes: s.paymentTerms ?? undefined }}
+        clients={clients}
       />
     </div>
   );

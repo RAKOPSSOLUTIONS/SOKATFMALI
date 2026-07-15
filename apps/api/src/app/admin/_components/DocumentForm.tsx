@@ -27,17 +27,27 @@ export function DocumentForm({
   submitLabel,
   kind,
   doc,
+  clients,
 }: {
   action: (fd: FormData) => void;
   submitLabel: string;
   kind: "devis" | "facture";
   doc?: DocDefaults;
+  clients?: { id: string; name: string; company: string | null; email: string | null; phone: string | null; address: string | null }[];
 }) {
   const [items, setItems] = useState<Item[]>(
     doc?.items && doc.items.length ? doc.items : [{ description: "", quantity: 1, unitPrice: 0 }],
   );
   const [taxRate, setTaxRate] = useState(doc?.taxRate ?? 18);
   const [discount, setDiscount] = useState(doc?.discount ?? 0);
+  const [client, setClient] = useState({
+    clientName: doc?.clientName ?? "",
+    clientCompany: doc?.clientCompany ?? "",
+    clientEmail: doc?.clientEmail ?? "",
+    clientPhone: doc?.clientPhone ?? "",
+    clientAddress: doc?.clientAddress ?? "",
+  });
+  const setC = (patch: Partial<typeof client>) => setClient((p) => ({ ...p, ...patch }));
 
   const secondDateName = kind === "devis" ? "validUntil" : "dueDate";
   const secondDateLabel = kind === "devis" ? "Valable jusqu'au" : "Échéance";
@@ -60,26 +70,51 @@ export function DocumentForm({
       {/* Client */}
       <div className="card p-6">
         <h3 className="font-headline-md text-headline-md text-primary mb-5">Client</h3>
+        {clients && clients.length > 0 && (
+          <div className="mb-4">
+            <label className="label">Client existant</label>
+            <select
+              className="input"
+              defaultValue=""
+              onChange={(e) => {
+                const c = clients.find((x) => x.id === e.target.value);
+                if (c)
+                  setClient({
+                    clientName: c.name,
+                    clientCompany: c.company ?? "",
+                    clientEmail: c.email ?? "",
+                    clientPhone: c.phone ?? "",
+                    clientAddress: c.address ?? "",
+                  });
+              }}
+            >
+              <option value="">— Choisir dans le carnet (ou saisir ci-dessous) —</option>
+              {clients.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}{c.company ? ` — ${c.company}` : ""}</option>
+              ))}
+            </select>
+          </div>
+        )}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
             <label className="label">Nom du client *</label>
-            <input name="clientName" required defaultValue={doc?.clientName} className="input" />
+            <input name="clientName" required value={client.clientName} onChange={(e) => setC({ clientName: e.target.value })} className="input" />
           </div>
           <div>
             <label className="label">Société</label>
-            <input name="clientCompany" defaultValue={doc?.clientCompany} className="input" />
+            <input name="clientCompany" value={client.clientCompany} onChange={(e) => setC({ clientCompany: e.target.value })} className="input" />
           </div>
           <div>
             <label className="label">Email</label>
-            <input name="clientEmail" type="email" defaultValue={doc?.clientEmail} className="input" />
+            <input name="clientEmail" type="email" value={client.clientEmail} onChange={(e) => setC({ clientEmail: e.target.value })} className="input" />
           </div>
           <div>
             <label className="label">Téléphone</label>
-            <input name="clientPhone" defaultValue={doc?.clientPhone} className="input" />
+            <input name="clientPhone" value={client.clientPhone} onChange={(e) => setC({ clientPhone: e.target.value })} className="input" />
           </div>
           <div className="md:col-span-2">
             <label className="label">Adresse</label>
-            <input name="clientAddress" defaultValue={doc?.clientAddress} className="input" />
+            <input name="clientAddress" value={client.clientAddress} onChange={(e) => setC({ clientAddress: e.target.value })} className="input" />
           </div>
           <div>
             <label className="label">Date</label>

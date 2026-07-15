@@ -135,6 +135,20 @@ model Payment {
   @@index([invoiceId])
 }
 
+/// A reusable client (address book) for devis/factures.
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  company   String?
+  email     String?
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([name])
+}
+
 /// Singleton settings applied to devis/factures (branding & defaults).
 model Setting {
   id             String   @id @default("singleton")

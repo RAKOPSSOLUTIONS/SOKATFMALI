@@ -15,7 +15,7 @@ import {
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
 import { getSettings } from "@/lib/settings";
-import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment, sendInvoiceEmail } from "../../../finance-actions";
+import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment, sendInvoiceEmail, duplicateInvoice } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +44,10 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
         <Link href={`/admin/factures/${inv.id}/edit`} className="btn-outline py-2">
           <span className="material-symbols-outlined text-[18px]">edit</span> Modifier
         </Link>
+        <form action={duplicateInvoice}>
+          <input type="hidden" name="id" value={inv.id} />
+          <button className="btn-outline py-2"><span className="material-symbols-outlined text-[18px]">content_copy</span> Dupliquer</button>
+        </form>
         <a
           href={waLink(inv.clientPhone, docSummary("FACTURE", inv.number, total, inv.clientName))}
           target="_blank"

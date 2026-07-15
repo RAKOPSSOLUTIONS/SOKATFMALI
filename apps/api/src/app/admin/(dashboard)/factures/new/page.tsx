@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 import { getSettings } from "@/lib/settings";
 import { DocumentForm } from "../../../_components/DocumentForm";
 import { createInvoice } from "../../../finance-actions";
@@ -6,7 +7,7 @@ import { createInvoice } from "../../../finance-actions";
 export const dynamic = "force-dynamic";
 
 export default async function NewFacturePage() {
-  const s = await getSettings();
+  const [s, clients] = await Promise.all([getSettings(), prisma.client.findMany({ orderBy: { name: "asc" } })]);
   const today = new Date().toISOString().slice(0, 10);
   const due = new Date();
   due.setDate(due.getDate() + 30);
@@ -21,6 +22,7 @@ export default async function NewFacturePage() {
         submitLabel="Créer la facture"
         kind="facture"
         doc={{ date: today, secondDate: due.toISOString().slice(0, 10), taxRate: s.defaultTaxRate, notes: s.paymentTerms ?? undefined }}
+        clients={clients}
       />
     </div>
   );

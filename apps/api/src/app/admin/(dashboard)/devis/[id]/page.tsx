@@ -5,7 +5,7 @@ import { QUOTE_STATUSES, STATUS_LABEL, parseItems, computeTotals, waLink, docSum
 import { DocumentView } from "../../../_components/DocumentView";
 import { PrintButton } from "../../../_components/PrintButton";
 import { getSettings } from "@/lib/settings";
-import { setQuoteStatus, deleteQuote, convertQuoteToInvoice, sendQuoteEmail } from "../../../finance-actions";
+import { setQuoteStatus, deleteQuote, convertQuoteToInvoice, sendQuoteEmail, duplicateQuote } from "../../../finance-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +32,10 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
         <Link href={`/admin/devis/${quote.id}/edit`} className="btn-outline py-2">
           <span className="material-symbols-outlined text-[18px]">edit</span> Modifier
         </Link>
+        <form action={duplicateQuote}>
+          <input type="hidden" name="id" value={quote.id} />
+          <button className="btn-outline py-2"><span className="material-symbols-outlined text-[18px]">content_copy</span> Dupliquer</button>
+        </form>
         <form action={convertQuoteToInvoice}>
           <input type="hidden" name="id" value={quote.id} />
           <button className="btn-outline py-2">

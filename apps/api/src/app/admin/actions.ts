@@ -169,3 +169,36 @@ export async function updateSettings(formData: FormData) {
   });
   revalidatePath("/admin/parametres");
 }
+
+// --- Clients (carnet d'adresses) ---------------------------------------
+
+function clientFromForm(fd: FormData) {
+  return {
+    name: String(fd.get("name") ?? "").trim(),
+    company: String(fd.get("company") ?? "").trim() || null,
+    email: String(fd.get("email") ?? "").trim() || null,
+    phone: String(fd.get("phone") ?? "").trim() || null,
+    address: String(fd.get("address") ?? "").trim() || null,
+  };
+}
+
+export async function createClient(fd: FormData) {
+  const data = clientFromForm(fd);
+  if (!data.name) return;
+  await prisma.client.create({ data });
+  revalidatePath("/admin/clients");
+}
+
+export async function updateClient(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  await prisma.client.update({ where: { id }, data: clientFromForm(fd) });
+  revalidatePath("/admin/clients");
+}
+
+export async function deleteClient(fd: FormData) {
+  const id = String(fd.get("id") ?? "");
+  if (!id) return;
+  await prisma.client.delete({ where: { id } });
+  revalidatePath("/admin/clients");
+}
