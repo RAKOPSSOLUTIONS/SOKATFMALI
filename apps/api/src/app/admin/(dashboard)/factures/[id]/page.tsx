@@ -18,6 +18,12 @@ import { setInvoiceStatus, deleteInvoice, addPayment, deletePayment, sendInvoice
 
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const inv = await prisma.invoice.findUnique({ where: { id }, select: { number: true } });
+  return { title: inv?.number ?? "Facture" };
+}
+
 export default async function FactureViewPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const inv = await prisma.invoice.findUnique({ where: { id }, include: { payments: { orderBy: { date: "desc" } } } });

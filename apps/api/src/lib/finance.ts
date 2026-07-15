@@ -96,13 +96,20 @@ export function toCSV(header: string[], rows: (string | number)[][]): string {
   return "﻿" + lines.join("\r\n");
 }
 
-/** Next sequential document number, e.g. DEV-2026-0007 / FAC-2026-0007. */
+/**
+ * Next sequential document number in the format: "Devis - 26-01-0077"
+ * (label - YY-MM-NNNN). The sequence runs per year (continuous across months);
+ * the month reflects the creation date.
+ */
 export async function nextNumber(kind: "DEV" | "FAC"): Promise<string> {
-  const year = new Date().getFullYear();
-  const prefix = `${kind}-${year}-`;
+  const now = new Date();
+  const yy = String(now.getFullYear()).slice(-2);
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const label = kind === "DEV" ? "Devis" : "Facture";
+  const yearPrefix = `${label} - ${yy}-`;
   const count =
     kind === "DEV"
-      ? await prisma.quote.count({ where: { number: { startsWith: prefix } } })
-      : await prisma.invoice.count({ where: { number: { startsWith: prefix } } });
-  return `${prefix}${String(count + 1).padStart(4, "0")}`;
+      ? await prisma.quote.count({ where: { number: { startsWith: yearPrefix } } })
+      : await prisma.invoice.count({ where: { number: { startsWith: yearPrefix } } });
+  return `${label} - ${yy}-${mm}-${String(count + 1).padStart(4, "0")}`;
 }

@@ -5,10 +5,11 @@ import { parseItems, computeTotals, formatFCFA, formatDate } from "@/lib/finance
 export const dynamic = "force-dynamic";
 
 export default async function FinancesPage() {
-  const [invoices, quotesPending, recentPayments] = await Promise.all([
+  const [invoices, quotesPending, recentPayments, allPayments] = await Promise.all([
     prisma.invoice.findMany({ include: { payments: true } }),
     prisma.quote.count({ where: { status: { in: ["DRAFT", "SENT"] } } }),
     prisma.payment.findMany({ orderBy: { date: "desc" }, take: 6, include: { invoice: { select: { number: true, clientName: true, id: true } } } }),
+    prisma.payment.findMany({ select: { amount: true, date: true } }),
   ]);
 
   let billed = 0,
@@ -33,6 +34,20 @@ export default async function FinancesPage() {
     { label: "Impayés", value: formatFCFA(outstanding), icon: "pending_actions", tone: "text-error" },
     { label: "Devis en cours", value: String(quotesPending), icon: "request_quote", tone: "text-primary" },
   ];
+
+  const now = new Date();
+  const months = Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - (5 - i), 1);
+    return { key: `${d.getFullYear()}-${d.getMonth()}`, label: d.toLocaleDateString("fr-FR", { month: "short" }), total: 0 };
+  });
+  for (const p of allPayments) {
+    const d = new Date(p.date);
+    const m = months.find((x) => x.key === `${d.getFullYear()}-${d.getMonth()}`);
+    if (m) m.total += p.amount;
+  }
+  const maxMonth = Math.max(1, ...months.map((m) => m.total));
+  const compact = (n: number) =>
+    n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? Math.round(n / 1e3) + "k" : String(Math.round(n));
 
   return (
     <div className="space-y-8">
@@ -59,6 +74,27 @@ export default async function FinancesPage() {
         <a href="/admin/export/factures" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Factures (CSV)</a>
         <a href="/admin/export/paiements" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Paiements (CSV)</a>
         <a href="/admin/export/devis" className="btn-outline"><span className="material-symbols-outlined text-[18px]">download</span> Devis (CSV)</a>
+      </div>
+
+      <div className="card p-6">
+        <h2 className="font-headline-md text-headline-md text-primary mb-6">CA encaissé — 6 derniers mois</h2>
+        <div className="flex items-end gap-3 h-44">
+          {months.map((m) => (
+            <div key={m.key} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+              <span className="font-label-sm text-label-sm text-on-surface-variant">{m.total > 0 ? compact(m.total) : ""}</span>
+              <div
+                className="w-full rounded-t-md bg-secondary/80"
+                style={{ height: `${Math.max(m.total > 0 ? 4 : 0, (m.total / maxMonth) * 100)}%` }}
+                title={formatFCFA(m.total)}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-3 mt-2">
+          {months.map((m) => (
+            <div key={m.key} className="flex-1 text-center font-label-sm text-label-sm text-on-surface-variant capitalize">{m.label}</div>
+          ))}
+        </div>
       </div>
 
       <div className="card overflow-hidden">

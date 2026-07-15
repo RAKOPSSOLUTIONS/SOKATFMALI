@@ -8,6 +8,12 @@ import { setQuoteStatus, deleteQuote, convertQuoteToInvoice, sendQuoteEmail } fr
 
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const q = await prisma.quote.findUnique({ where: { id }, select: { number: true } });
+  return { title: q?.number ?? "Devis" };
+}
+
 export default async function DevisViewPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const quote = await prisma.quote.findUnique({ where: { id } });
