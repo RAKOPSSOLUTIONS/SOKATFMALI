@@ -13,8 +13,8 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
     <div class="container-max relative z-10 py-24 text-center">
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-5 text-balance">Contactez nos Experts</h1>
       <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        Une expertise industrielle de classe mondiale au service du développement du Mali.
-        Nous sommes à votre écoute pour concrétiser vos ambitions.
+        Besoin d'une cotation, d'un approvisionnement ou d'un partenariat commercial ? Notre équipe
+        commerce général est à votre écoute pour concrétiser vos ambitions.
       </p>
     </div>
   </section>
@@ -24,7 +24,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <!-- Form -->
       <div class="lg:col-span-8 card p-7 md:p-10">
-        <h2 class="text-2xl font-bold text-navy-900 mb-8">Demande de Devis & Information</h2>
+        <h2 class="text-2xl font-bold text-navy-900 mb-8">Demande de Cotation & Information</h2>
         <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-6" novalidate>
           <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
           <div>
@@ -46,14 +46,14 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
             <input id="c-phone" name="phone" type="tel" class="field" placeholder="+223 ..." />
           </div>
           <div class="md:col-span-2">
-            <label class="field-label" for="c-sector">Secteur d'Intérêt</label>
+            <label class="field-label" for="c-sector">Nature de la demande</label>
             <select id="c-sector" name="sector" class="field">
               {contactSubjects.map((s) => <option value={s}>{s}</option>)}
             </select>
           </div>
           <div class="md:col-span-2">
             <label class="field-label" for="c-message">Votre Message</label>
-            <textarea id="c-message" name="message" rows="5" class="field" placeholder="Décrivez votre projet ou votre demande spécifique..." required></textarea>
+            <textarea id="c-message" name="message" rows="5" class="field" placeholder="Décrivez les produits, équipements ou volumes recherchés..." required></textarea>
             <p class="text-[12px] text-rose-600 mt-1 hidden" data-err="message"></p>
           </div>
           <div class="md:col-span-2" data-feedback hidden>

@@ -3,6 +3,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { services } from "../data/services";
 import { IMG } from "../data/stitch";
 
+const productCategories = [
+  { name: "Matériaux de construction", icon: "foundation" },
+  { name: "Équipements industriels", icon: "precision_manufacturing" },
+  { name: "Produits pétroliers & lubrifiants", icon: "oil_barrel" },
+  { name: "Produits agroalimentaires", icon: "agriculture" },
+  { name: "Matériel informatique & bureautique", icon: "computer" },
+  { name: "Équipements de sécurité", icon: "security" },
+  { name: "Véhicules & pièces détachées", icon: "directions_car" },
+  { name: "Fournitures & consommables", icon: "inventory_2" },
+];
+
 const stats = [
   { value: "10+", label: "Pôles d'Activité" },
   { value: "500+", label: "Employés Qualifiés" },
@@ -69,8 +80,30 @@ const stats = [
     </div>
   </section>
 
-  <!-- Sectors served -->
+  <!-- Product ranges -->
   <section class="section container-max">
+    <div class="text-center mb-12">
+      <span class="eyebrow mb-3">Nos gammes</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Ce que nous commercialisons</h2>
+      <p class="text-ink-soft max-w-2xl mx-auto mt-4">
+        Une large gamme de biens et d'équipements importés, stockés et distribués à travers le Mali.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      {
+        productCategories.map((c) => (
+          <div class="reveal card card-hover p-6 flex flex-col items-center text-center gap-3">
+            <span class="icon-tile"><span class="material-symbols-outlined text-[26px]">{c.icon}</span></span>
+            <span class="font-semibold text-navy-900 text-[15px]">{c.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Sectors served -->
+  <section class="section bg-[#f2f4f6]">
+    <div class="container-max">
     <div class="text-center mb-12">
       <span class="eyebrow mb-3">Nos pôles</span>
       <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Les secteurs que nous servons</h2>
@@ -105,6 +138,7 @@ const stats = [
           ),
         )
       }
+    </div>
     </div>
   </section>
 

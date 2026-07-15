@@ -30,10 +30,11 @@ export const nav = [
 
 // Options for the contact "Secteur d'Intérêt" select.
 export const contactSubjects = [
-  "Construction & BTP",
-  "Énergie & Mines",
-  "Logistique & Transport",
-  "Commerce International",
+  "Cotation / Devis produits",
+  "Import & Approvisionnement",
+  "Distribution & Négoce",
+  "BTP & Construction",
+  "Partenariat commercial",
   "Autre",
 ];
 
