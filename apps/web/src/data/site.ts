@@ -22,6 +22,7 @@ export const site = {
 
 export const nav = [
   { label: "Accueil", href: "/" },
+  { label: "Commerce Général", href: "/commerce-general" },
   { label: "À Propos", href: "/a-propos" },
   { label: "Services", href: "/services" },
   { label: "Projets", href: "/projets" },
@@ -41,6 +42,7 @@ export const contactSubjects = [
 export const footer = {
   navigation: [
     { label: "Accueil", href: "/" },
+    { label: "Commerce Général", href: "/commerce-general" },
     { label: "À Propos", href: "/a-propos" },
     { label: "Services", href: "/services" },
     { label: "Projets", href: "/projets" },

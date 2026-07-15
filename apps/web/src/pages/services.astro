@@ -2,17 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { services } from "../data/services";
 import { IMG } from "../data/stitch";
-
-const productCategories = [
-  { name: "Matériaux de construction", icon: "foundation" },
-  { name: "Équipements industriels", icon: "precision_manufacturing" },
-  { name: "Produits pétroliers & lubrifiants", icon: "oil_barrel" },
-  { name: "Produits agroalimentaires", icon: "agriculture" },
-  { name: "Matériel informatique & bureautique", icon: "computer" },
-  { name: "Équipements de sécurité", icon: "security" },
-  { name: "Véhicules & pièces détachées", icon: "directions_car" },
-  { name: "Fournitures & consommables", icon: "inventory_2" },
-];
+import { productCategories } from "../data/commerce";
 
 const stats = [
   { value: "10+", label: "Pôles d'Activité" },

@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { IMG } from "../data/stitch";
+import { activities, valueChain, productCategories, advantages } from "../data/commerce";
+---
+
+<BaseLayout title="Commerce Général" description="Le commerce général de SOKATF SARL : importation, distribution, négoce et approvisionnement à travers tous les secteurs au Mali.">
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center overflow-hidden">
+    <img src={IMG.heroHome} alt="Activité de commerce général de SOKATF SARL au Mali" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-900/95 via-navy-900/75 to-navy-900/40"></div>
+    <div class="container-max relative z-10 py-24">
+      <div class="max-w-3xl">
+        <span class="eyebrow eyebrow-gold mb-5">Notre cœur de métier</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05] mb-6 text-balance">
+          Le Commerce Général<br /><span class="text-gold-soft">Import · Distribution · Négoce</span>
+        </h1>
+        <p class="text-lg text-slate-200/90 max-w-xl mb-9 leading-relaxed">
+          SOKATF SARL relie les marchés internationaux à la demande malienne : nous importons, stockons,
+          distribuons et négocions biens et équipements au service de tous les secteurs.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/contact" class="btn-gold">Demander une cotation <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+          <a href="#gammes" class="btn-outline-white">Voir nos gammes</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section class="section container-max">
+    <div class="text-center mb-14">
+      <span class="eyebrow mb-3">Notre métier</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Quatre activités, une même exigence</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        activities.map((a) => (
+          <div class="reveal card card-hover p-8">
+            <span class="icon-tile mb-6"><span class="material-symbols-outlined text-[28px]">{a.icon}</span></span>
+            <h3 class="text-lg font-bold text-navy-900 mb-3">{a.title}</h3>
+            <p class="text-sm text-ink-soft leading-relaxed">{a.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Value chain -->
+  <section class="section bg-navy-800 text-white">
+    <div class="container-max">
+      <div class="text-center mb-14">
+        <span class="eyebrow eyebrow-gold mb-3">Notre chaîne de valeur</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white text-balance">De l'importation à la distribution</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {
+          valueChain.map((s) => (
+            <div class="rounded-lg border border-white/10 bg-white/5 p-7">
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-3xl font-extrabold text-gold-soft">{s.n}</span>
+                <span class="material-symbols-outlined text-gold-soft">{s.icon}</span>
+              </div>
+              <h3 class="font-bold mb-2">{s.t}</h3>
+              <p class="text-sm text-slate-400">{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Product ranges -->
+  <section id="gammes" class="section container-max scroll-mt-24">
+    <div class="text-center mb-12">
+      <span class="eyebrow mb-3">Nos gammes</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Ce que nous commercialisons</h2>
+      <p class="text-ink-soft max-w-2xl mx-auto mt-4">
+        Une large gamme de biens et d'équipements importés, stockés et distribués à travers le Mali.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      {
+        productCategories.map((c) => (
+          <div class="reveal card card-hover p-6 flex flex-col items-center text-center gap-3">
+            <span class="icon-tile"><span class="material-symbols-outlined text-[26px]">{c.icon}</span></span>
+            <span class="font-semibold text-navy-900 text-[15px]">{c.name}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Advantages -->
+  <section class="section bg-[#f2f4f6]">
+    <div class="container-max">
+      <div class="text-center mb-14">
+        <span class="eyebrow mb-3">Pourquoi SOKATF</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Un partenaire commercial de confiance</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {
+          advantages.map((a) => (
+            <div class="reveal card p-8">
+              <span class="icon-tile mb-6"><span class="material-symbols-outlined text-[28px]">{a.icon}</span></span>
+              <h3 class="text-lg font-bold text-navy-900 mb-2">{a.title}</h3>
+              <p class="text-sm text-ink-soft">{a.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section bg-navy-800">
+    <div class="container-max text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-5 text-balance">Un besoin d'approvisionnement ou de cotation ?</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto mb-10">Notre équipe commerce général vous répond sous 24 heures ouvrées.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="/contact" class="btn-gold">Demander une cotation</a>
+        <a href="/services" class="btn-outline-white">Nos secteurs & services</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

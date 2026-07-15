@@ -11,7 +11,7 @@ const isActive = (href: string) =>
       SOKATF <span class="text-gold-deep">SARL</span>
     </a>
 
-    <div class="hidden md:flex items-center gap-8">
+    <div class="hidden lg:flex items-center gap-6">
       {
         nav.map((item) => (
           <a
@@ -32,14 +32,14 @@ const isActive = (href: string) =>
     <div class="flex items-center gap-4">
       <span class="hidden lg:block text-sm font-semibold text-navy-900">FR</span>
       <a href="/contact" class="btn-gold !px-5 !py-2.5">Contactez-nous</a>
-      <button type="button" class="md:hidden h-10 w-10 grid place-items-center text-navy-900" aria-label="Menu" data-menu-toggle>
+      <button type="button" class="lg:hidden h-10 w-10 grid place-items-center text-navy-900" aria-label="Menu" data-menu-toggle>
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
   </nav>
 
   <!-- Mobile menu -->
-  <div class="md:hidden hidden border-t border-line bg-[#f7f9fb]" data-menu-panel>
+  <div class="lg:hidden hidden border-t border-line bg-[#f7f9fb]" data-menu-panel>
     <div class="flex flex-col px-5 py-4 gap-1">
       {
         nav.map((item) => (

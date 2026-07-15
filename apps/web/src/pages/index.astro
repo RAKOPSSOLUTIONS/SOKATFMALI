@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { IMG } from "../data/stitch";
 import { homeProjects } from "../data/projects";
 import { site } from "../data/site";
+import { valueChain } from "../data/commerce";
 
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -102,12 +103,8 @@ const partners = ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TE
         </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {[
-          { n: "01", icon: "travel_explore", t: "Sourcing & achats", d: "Sélection de fournisseurs fiables sur les marchés internationaux." },
-          { n: "02", icon: "import_export", t: "Import & dédouanement", d: "Importation et formalités douanières maîtrisées de bout en bout." },
-          { n: "03", icon: "warehouse", t: "Stockage & logistique", d: "Entreposage sécurisé et transport sur tout le territoire malien." },
-          { n: "04", icon: "storefront", t: "Distribution & vente", d: "Approvisionnement des entreprises, institutions et secteurs clés." },
-        ].map((s) => (
+        {
+          valueChain.map((s) => (
           <div class="reveal rounded-lg border border-white/10 bg-white/5 p-7">
             <div class="flex items-center justify-between mb-5">
               <span class="text-3xl font-extrabold text-gold-soft">{s.n}</span>
