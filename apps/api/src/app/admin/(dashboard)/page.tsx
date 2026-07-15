@@ -5,11 +5,12 @@ import { LEAD_STATUS_LABEL } from "@/lib/constants";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardHome() {
-  const [leadsTotal, newLeads, quoteLeads, sectors, projects, recent] =
+  const [leadsTotal, newLeads, quotesCount, invoicesCount, sectors, projects, recent] =
     await Promise.all([
       prisma.lead.count(),
       prisma.lead.count({ where: { status: "NEW" } }),
-      prisma.lead.count({ where: { type: "QUOTE" } }),
+      prisma.quote.count(),
+      prisma.invoice.count(),
       prisma.sector.count(),
       prisma.project.count(),
       prisma.lead.findMany({
@@ -21,9 +22,9 @@ export default async function DashboardHome() {
   const stats = [
     { label: "Prospects", value: leadsTotal, icon: "inbox", href: "/admin/leads" },
     { label: "Nouveaux", value: newLeads, icon: "fiber_new", href: "/admin/leads" },
-    { label: "Devis", value: quoteLeads, icon: "request_quote", href: "/admin/leads" },
-    { label: "Secteurs", value: sectors, icon: "category", href: "/admin/sectors" },
-    { label: "Réalisations", value: projects, icon: "workspaces", href: "/admin/projects" },
+    { label: "Devis", value: quotesCount, icon: "request_quote", href: "/admin/devis" },
+    { label: "Factures", value: invoicesCount, icon: "receipt_long", href: "/admin/factures" },
+    { label: "Finances", value: "→", icon: "account_balance_wallet", href: "/admin/finances" },
   ];
 
   return (

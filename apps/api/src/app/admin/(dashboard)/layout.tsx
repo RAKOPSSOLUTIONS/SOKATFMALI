@@ -14,7 +14,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen flex bg-surface">
-      <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-outline-variant bg-surface-container-lowest p-4">
+      <aside className="print:hidden hidden md:flex w-64 shrink-0 flex-col border-r border-outline-variant bg-surface-container-lowest p-4">
         <div className="flex items-center gap-3 px-2 py-4 mb-4">
           <div className="h-9 w-9 rounded-lg bg-primary grid place-items-center">
             <span className="material-symbols-outlined text-on-primary text-[20px]">
@@ -44,7 +44,7 @@ export default async function DashboardLayout({
 
       <div className="flex-1 min-w-0">
         {/* Mobile top bar */}
-        <header className="md:hidden flex items-center justify-between border-b border-outline-variant bg-surface-container-lowest px-margin-mobile h-16">
+        <header className="print:hidden md:hidden flex items-center justify-between border-b border-outline-variant bg-surface-container-lowest px-margin-mobile h-16">
           <div className="font-headline-md text-headline-md font-bold text-primary">
             SOKATF
           </div>
@@ -54,7 +54,7 @@ export default async function DashboardLayout({
             </button>
           </form>
         </header>
-        <main className="p-margin-mobile md:p-margin-desktop max-w-container-max">
+        <main className="p-margin-mobile md:p-margin-desktop max-w-container-max print:p-0 print:max-w-none">
           {children}
         </main>
       </div>
