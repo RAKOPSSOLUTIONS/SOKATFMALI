@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Document, Page, View, Text, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
 import { COMPANY, parseItems, computeTotals, formatDate } from "./finance";
 
