@@ -7,6 +7,8 @@ export const site = {
   phone2: "70 04 02 13",
   phoneDisplay: "(+223) 66 77 32 75 / 70 04 02 13",
   phoneTel: "+22366773275",
+  whatsapp: "+223 65 26 51 93",
+  whatsappLink: "https://wa.me/22365265193",
   nif: "084153962X",
   rccm: "MA.BKo-2026-B-1280",
   addressShort: "Hamdallaye ACI 2000, Bamako, Mali",

@@ -56,6 +56,9 @@ import { site, footer } from "../data/site";
           <li>{site.hq.address}</li>
           <li><a class="hover:text-gold-soft transition-colors" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a></li>
           <li><a class="hover:text-gold-soft transition-colors" href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><a class="inline-flex items-center gap-1.5 hover:text-[#25D366] transition-colors" href={site.whatsappLink} target="_blank" rel="noopener noreferrer">
+            <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp : {site.whatsapp}
+          </a></li>
         </ul>
         <ul class="space-y-1 text-[12px] text-slate-500 mt-4 pt-4 border-t border-white/10">
           <li>NIF : {site.nif}</li>
