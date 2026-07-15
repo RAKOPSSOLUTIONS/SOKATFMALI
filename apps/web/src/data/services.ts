@@ -13,7 +13,7 @@ export const services: Service[] = [
     title: "Commerce Général",
     icon: "shopping_cart",
     description:
-      "Importation et distribution de biens de consommation et d'équipements industriels. Nous gérons une chaîne d'approvisionnement robuste garantissant qualité et disponibilité sur tout le territoire.",
+      "Notre cœur de métier. Importation, distribution et négoce de biens de consommation et d'équipements industriels. Notre maîtrise de la chaîne d'approvisionnement irrigue l'ensemble de nos secteurs d'activité, garantissant qualité et disponibilité sur tout le territoire.",
   },
   {
     n: 2,

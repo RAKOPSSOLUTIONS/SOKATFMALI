@@ -16,11 +16,11 @@ const stats = [
   <section class="bg-navy-800 text-white">
     <div class="container-max py-24 md:py-28 text-center">
       <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6 text-balance">
-        Expertise Multisectorielle<br /><span class="text-gold-soft">au Service de l'Émergence</span>
+        Le Commerce Général<br /><span class="text-gold-soft">au Cœur de Tous les Secteurs</span>
       </h1>
       <p class="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        SOKATF SARL déploie des solutions industrielles et commerciales de classe mondiale pour accompagner
-        le développement durable du Mali. Découvrez nos dix pôles d'excellence.
+        Cœur de métier de SOKATF SARL, le commerce général — import, distribution et négoce — se décline
+        à travers dix pôles d'excellence au service du développement du Mali.
       </p>
     </div>
   </section>
@@ -42,8 +42,11 @@ const stats = [
               </div>
             </div>
           ) : (
-            <a href="/contact" class="reveal card card-hover p-8 flex flex-col group">
-              <span class="icon-tile mb-6"><span class="material-symbols-outlined text-[28px]">{s.icon}</span></span>
+            <a href="/contact" class:list={["reveal card card-hover p-8 flex flex-col group", s.n === 1 && "border-t-2 border-t-gold"]}>
+              <div class="flex items-center justify-between mb-6">
+                <span class="icon-tile"><span class="material-symbols-outlined text-[28px]">{s.icon}</span></span>
+                {s.n === 1 && <span class="text-[11px] font-bold uppercase tracking-widest text-gold-deep">Cœur de métier</span>}
+              </div>
               <h3 class="text-xl font-bold text-navy-900 mb-3">{s.title}</h3>
               <p class="text-ink-soft text-[15px] leading-relaxed mb-6">{s.description}</p>
               <span class="link-gold mt-auto text-sm">En savoir plus <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>

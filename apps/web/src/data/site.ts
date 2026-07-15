@@ -1,6 +1,6 @@
 export const site = {
   name: "SOKATF SARL",
-  tagline: "Leader industriel diversifié au Mali",
+  tagline: "Commerce général multisectoriel au Mali",
   since: 2012,
   email: "contact@sokatf.com",
   phone: "(+223) 66 77 32 75",
@@ -17,7 +17,7 @@ export const site = {
     emailLabel: "Département Commercial",
   },
   blurb:
-    "Leader industriel diversifié au Mali, SOKATF SARL s'engage pour l'excellence opérationnelle et le développement durable des infrastructures nationales.",
+    "Spécialiste du commerce général au Mali, SOKATF SARL importe, distribue et approvisionne l'ensemble des secteurs stratégiques de l'économie nationale.",
 };
 
 export const nav = [
@@ -46,11 +46,11 @@ export const footer = {
     { label: "Partenaires", href: "/partenaires" },
   ],
   services: [
+    "Commerce Général",
+    "Import & Export",
+    "Distribution & Approvisionnement",
     "BTP & Génie Civil",
     "Logistique & Transport",
-    "Import & Export",
-    "Sécurité & Gardiennage",
-    "Industrie",
   ],
   legal: [
     "Mentions Légales",
