@@ -20,6 +20,9 @@ const origin = Astro.site ?? new URL("https://sokatf.com");
 const canonical = new URL(Astro.url.pathname, origin).href;
 const ogImage = new URL(IMG.heroHome, origin).href;
 
+const gaId = import.meta.env.PUBLIC_GA_ID;
+const gscVerification = import.meta.env.PUBLIC_GSC_VERIFICATION;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -62,10 +65,13 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f172a" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />
@@ -91,6 +97,15 @@ const jsonLd = {
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
       rel="stylesheet"
     />
+
+    {
+      gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script is:inline set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`} />
+        </>
+      )
+    }
   </head>
   <body class="overflow-x-hidden">
     <Nav />

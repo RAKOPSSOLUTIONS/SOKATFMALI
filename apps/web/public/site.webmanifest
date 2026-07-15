@@ -1,0 +1,13 @@
+{
+  "name": "SOKATF SARL",
+  "short_name": "SOKATF",
+  "description": "Commerce général multisectoriel au Mali",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f9fb",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
