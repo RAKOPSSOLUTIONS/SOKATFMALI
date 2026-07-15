@@ -91,6 +91,36 @@ const partners = ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TE
     </div>
   </section>
 
+  <!-- ===== Commerce value chain ===== -->
+  <section class="section bg-navy-800 text-white">
+    <div class="container-max">
+      <div class="text-center mb-14">
+        <span class="eyebrow eyebrow-gold mb-3">Notre chaîne de valeur</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white text-balance">De l'importation à la distribution</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto mt-4">
+          Un processus de commerce général maîtrisé de bout en bout, au service de tous les secteurs.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { n: "01", icon: "travel_explore", t: "Sourcing & achats", d: "Sélection de fournisseurs fiables sur les marchés internationaux." },
+          { n: "02", icon: "import_export", t: "Import & dédouanement", d: "Importation et formalités douanières maîtrisées de bout en bout." },
+          { n: "03", icon: "warehouse", t: "Stockage & logistique", d: "Entreposage sécurisé et transport sur tout le territoire malien." },
+          { n: "04", icon: "storefront", t: "Distribution & vente", d: "Approvisionnement des entreprises, institutions et secteurs clés." },
+        ].map((s) => (
+          <div class="reveal rounded-lg border border-white/10 bg-white/5 p-7">
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-3xl font-extrabold text-gold-soft">{s.n}</span>
+              <span class="material-symbols-outlined text-gold-soft">{s.icon}</span>
+            </div>
+            <h3 class="font-bold mb-2">{s.t}</h3>
+            <p class="text-sm text-slate-400">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ===== Services bento ===== -->
   <section class="section bg-[#f2f4f6]">
     <div class="container-max">

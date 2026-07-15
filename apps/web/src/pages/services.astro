@@ -25,8 +25,59 @@ const stats = [
     </div>
   </section>
 
-  <!-- Services grid -->
+  <!-- Commerce Général — feature band -->
+  <section class="section bg-[#f2f4f6]">
+    <div class="container-max grid lg:grid-cols-2 gap-14 items-center">
+      <div>
+        <span class="eyebrow mb-3">Cœur de métier</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-navy-900 mb-5 text-balance">Le Commerce Général, notre métier fondateur</h2>
+        <p class="text-ink-soft leading-relaxed mb-8">
+          SOKATF SARL relie les marchés internationaux à la demande malienne. De l'achat à la livraison,
+          nous maîtrisons toute la chaîne commerciale et approvisionnons l'ensemble de nos secteurs d'activité.
+        </p>
+        <ul class="space-y-4 mb-8">
+          {[
+            { icon: "flight_takeoff", t: "Importation & sourcing international" },
+            { icon: "local_shipping", t: "Distribution & approvisionnement national" },
+            { icon: "handshake", t: "Négoce & représentation de marques" },
+            { icon: "warehouse", t: "Logistique, stockage & transport" },
+          ].map((b) => (
+            <li class="flex items-center gap-4">
+              <span class="h-10 w-10 shrink-0 rounded-md grid place-items-center bg-navy-800 text-gold-soft">
+                <span class="material-symbols-outlined text-[20px]">{b.icon}</span>
+              </span>
+              <span class="font-semibold text-navy-900">{b.t}</span>
+            </li>
+          ))}
+        </ul>
+        <a href="/contact" class="btn-gold">Demander un devis <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        {[
+          { v: "Import / Export", l: "Négoce international", icon: "import_export" },
+          { v: "Distribution", l: "Sur tout le territoire", icon: "storefront" },
+          { v: "Approvisionnement", l: "Tous secteurs", icon: "inventory_2" },
+          { v: "Représentation", l: "Marques & fournisseurs", icon: "verified" },
+        ].map((c) => (
+          <div class="rounded-lg bg-navy-800 text-white p-6">
+            <span class="material-symbols-outlined text-gold-soft text-3xl mb-4">{c.icon}</span>
+            <div class="font-bold">{c.v}</div>
+            <div class="text-[13px] text-slate-400 mt-1">{c.l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors served -->
   <section class="section container-max">
+    <div class="text-center mb-12">
+      <span class="eyebrow mb-3">Nos pôles</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 text-balance">Les secteurs que nous servons</h2>
+      <p class="text-ink-soft max-w-2xl mx-auto mt-4">
+        Notre commerce général irrigue chacun de ces dix pôles d'excellence au service du développement du Mali.
+      </p>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         services.map((s) =>
