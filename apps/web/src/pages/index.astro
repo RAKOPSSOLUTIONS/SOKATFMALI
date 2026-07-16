@@ -9,12 +9,12 @@ import { getSiteContent } from "../data/content";
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
 const c = await getSiteContent();
 
-// Homepage service cards: first one spans wider and is highlighted as core.
-const homeServices = c.services.map((s, i) => ({ ...s, span: i === 0 ? "lg:col-span-2" : "", core: i === 0 }));
+// Homepage service cards: the first is highlighted as the core business.
+const homeServices = c.services.map((s, i) => ({ ...s, core: i === 0 }));
 const smallTiles = [
   { label: "Énergie", icon: "solar_power" },
   { label: "Forage", icon: "water_drop" },
-  { label: "Matériel Médical", icon: "medical_services" },
+  { label: "Transport & Logistique", icon: "local_shipping" },
   { label: "Industrie", icon: "factory" },
 ];
 const stats = c.stats;
@@ -117,10 +117,10 @@ const partners = c.partners;
           Le commerce général est le fil conducteur de toutes nos activités : nous approvisionnons et servons chacun de nos secteurs.
         </p>
       </div>
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {
           homeServices.map((s) => (
-            <a href="/services" class:list={["reveal card card-hover p-8 group", s.span, s.core && "border-t-2 border-t-gold"]}>
+            <a href="/services" class:list={["reveal card card-hover p-8 flex flex-col group", s.core && "border-t-2 border-t-gold"]}>
               <div class="flex items-center justify-between mb-6">
                 <span class="icon-tile"><span class="material-symbols-outlined fill">{s.icon}</span></span>
                 {s.core && <span class="text-[11px] font-bold uppercase tracking-widest text-gold-deep">Cœur de métier</span>}
@@ -130,12 +130,17 @@ const partners = c.partners;
             </a>
           ))
         }
-        <div class="lg:col-span-2 grid grid-cols-2 gap-6">
+      </div>
+
+      <!-- Secteurs transverses -->
+      <div class="mt-12">
+        <p class="text-center text-[13px] font-semibold uppercase tracking-widest text-ink-soft mb-6">Également présents dans</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {
             smallTiles.map((t) => (
-              <div class="reveal card p-6 flex items-center gap-4">
-                <span class="material-symbols-outlined text-gold-deep text-[28px]">{t.icon}</span>
-                <span class="font-semibold text-navy-900">{t.label}</span>
+              <div class="reveal card p-5 flex items-center justify-center gap-3">
+                <span class="material-symbols-outlined text-gold-deep text-[26px]">{t.icon}</span>
+                <span class="font-semibold text-navy-900 text-sm">{t.label}</span>
               </div>
             ))
           }
