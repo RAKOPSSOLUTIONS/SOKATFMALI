@@ -16,6 +16,13 @@ export const services: Service[] = [
       "Notre cœur de métier. Importation, distribution et négoce de biens de consommation et d'équipements industriels. Notre maîtrise de la chaîne d'approvisionnement irrigue l'ensemble de nos secteurs d'activité, garantissant qualité et disponibilité sur tout le territoire.",
   },
   {
+    n: 11,
+    title: "Matériel & Consommables Médicaux",
+    icon: "medical_services",
+    description:
+      "Fourniture, importation et distribution de matériel médical, dispositifs et consommables pour hôpitaux, cliniques, pharmacies et centres de santé au Mali. Équipements conformes aux normes, avec logistique et service après-vente.",
+  },
+  {
     n: 2,
     title: "BTP",
     icon: "architecture",
@@ -78,12 +85,5 @@ export const services: Service[] = [
     icon: "apps",
     description:
       "Assistance administrative, consulting en gestion et solutions logistiques personnalisées pour répondre à des besoins spécifiques complexes.",
-  },
-  {
-    n: 11,
-    title: "Matériel & Consommables Médicaux",
-    icon: "medical_services",
-    description:
-      "Fourniture, importation et distribution de matériel médical, dispositifs et consommables pour hôpitaux, cliniques, pharmacies et centres de santé au Mali. Équipements conformes aux normes, avec logistique et service après-vente.",
   },
 ];

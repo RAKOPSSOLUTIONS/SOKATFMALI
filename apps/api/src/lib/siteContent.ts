@@ -58,11 +58,11 @@ export const SITE_DEFAULTS: SiteContentData = {
   partners: ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TECH", "BUILD AFRICA", "AGRO-MAL"],
   services: [
     { title: "Commerce Général", icon: "shopping_cart", text: "Notre cœur de métier : importation, distribution et négoce de biens et d'équipements à travers tous les secteurs de l'économie malienne." },
+    { title: "Matériel & Consommables Médicaux", icon: "medical_services", text: "Fourniture et distribution de matériel médical, dispositifs et consommables pour hôpitaux, cliniques et pharmacies." },
     { title: "BTP & Génie Civil", icon: "construction", text: "Construction d'infrastructures routières et de complexes immobiliers de haut standing." },
     { title: "Agro-industrie", icon: "agriculture", text: "Transformation de produits locaux et mécanisation agricole de pointe." },
     { title: "Sécurité & Gardiennage", icon: "shield_person", text: "Protection des sites, surveillance électronique et escorte de convois sensibles." },
     { title: "Solutions IT", icon: "computer", text: "Intégration de systèmes et transformation digitale pour entreprises." },
-    { title: "Matériel & Consommables Médicaux", icon: "medical_services", text: "Fourniture et distribution de matériel médical, dispositifs et consommables pour établissements de santé." },
   ],
 };
 
