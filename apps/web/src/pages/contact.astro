@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site, contactSubjects } from "../data/site";
+import { getSiteContent } from "../data/content";
+const c = await getSiteContent();
 import { IMG } from "../data/stitch";
 
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
@@ -71,11 +73,11 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
           <h3 class="text-xl font-bold mb-6">Siège Social</h3>
           <div class="space-y-5">
             {[
-              { icon: "location_on", bold: site.hq.city, sub: site.hq.address },
-              { icon: "phone_in_talk", bold: site.phoneDisplay, sub: site.hq.phoneLabel },
-              { icon: "mail", bold: site.email, sub: site.hq.emailLabel },
-              { icon: "badge", bold: site.nif, sub: "NIF" },
-              { icon: "gavel", bold: site.rccm, sub: "RCCM" },
+              { icon: "location_on", bold: c.contactCity, sub: c.contactAddress },
+              { icon: "phone_in_talk", bold: c.phoneDisplay, sub: site.hq.phoneLabel },
+              { icon: "mail", bold: c.email, sub: site.hq.emailLabel },
+              { icon: "badge", bold: c.nif, sub: "NIF" },
+              { icon: "gavel", bold: c.rccm, sub: "RCCM" },
             ].map((r) => (
               <div class="flex gap-4">
                 <span class="material-symbols-outlined text-gold-soft">{r.icon}</span>
@@ -99,7 +101,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
         </div>
 
         <a
-          href={`${site.whatsappLink}?text=${encodeURIComponent("Bonjour SOKATF SARL, je souhaite une cotation.")}`}
+          href={`${c.whatsappLink}?text=${encodeURIComponent("Bonjour SOKATF SARL, je souhaite une cotation.")}`}
           target="_blank"
           rel="noopener noreferrer"
           class="flex items-center justify-center gap-3 rounded-lg bg-[#25D366] text-white font-semibold py-4 hover:brightness-105 transition-all"

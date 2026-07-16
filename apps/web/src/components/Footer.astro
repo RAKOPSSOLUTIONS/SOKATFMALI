@@ -1,5 +1,7 @@
 ---
 import { site, footer } from "../data/site";
+import { getSiteContent } from "../data/content";
+const c = await getSiteContent();
 ---
 
 <footer class="bg-navy-800 text-slate-300 border-t border-white/10">
@@ -8,7 +10,7 @@ import { site, footer } from "../data/site";
       <!-- Brand -->
       <div class="md:col-span-4">
         <img src="/img/brand/sokatf-white.png" alt={site.name} width="683" height="92" class="h-9 w-auto mb-5" />
-        <p class="text-sm text-slate-400 max-w-xs leading-relaxed">{site.blurb}</p>
+        <p class="text-sm text-slate-400 max-w-xs leading-relaxed">{c.blurb}</p>
         <div class="flex gap-3 mt-6">
           {
             ["public", "mail", "handshake"].map((ic) => (
@@ -50,17 +52,17 @@ import { site, footer } from "../data/site";
       <div class="md:col-span-2">
         <h4 class="text-[13px] font-semibold text-white uppercase tracking-widest mb-5">Contact</h4>
         <ul class="space-y-3 text-sm text-slate-400">
-          <li>{site.hq.city}</li>
-          <li>{site.hq.address}</li>
-          <li><a class="hover:text-gold-soft transition-colors" href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a></li>
-          <li><a class="hover:text-gold-soft transition-colors" href={`mailto:${site.email}`}>{site.email}</a></li>
-          <li><a class="inline-flex items-center gap-1.5 hover:text-[#25D366] transition-colors" href={site.whatsappLink} target="_blank" rel="noopener noreferrer">
-            <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp : {site.whatsapp}
+          <li>{c.contactCity}</li>
+          <li>{c.contactAddress}</li>
+          <li><a class="hover:text-gold-soft transition-colors" href={`tel:${c.phoneTel}`}>{c.phoneDisplay}</a></li>
+          <li><a class="hover:text-gold-soft transition-colors" href={`mailto:${c.email}`}>{c.email}</a></li>
+          <li><a class="inline-flex items-center gap-1.5 hover:text-[#25D366] transition-colors" href={c.whatsappLink} target="_blank" rel="noopener noreferrer">
+            <span class="material-symbols-outlined text-[16px]">chat</span> WhatsApp : {c.whatsapp}
           </a></li>
         </ul>
         <ul class="space-y-1 text-[12px] text-slate-500 mt-4 pt-4 border-t border-white/10">
-          <li>NIF : {site.nif}</li>
-          <li>RCCM : {site.rccm}</li>
+          <li>NIF : {c.nif}</li>
+          <li>RCCM : {c.rccm}</li>
         </ul>
       </div>
     </div>

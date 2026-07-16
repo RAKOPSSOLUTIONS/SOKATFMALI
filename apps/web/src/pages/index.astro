@@ -4,29 +4,21 @@ import { IMG } from "../data/stitch";
 import { homeProjects } from "../data/projects";
 import { site } from "../data/site";
 import { valueChain } from "../data/commerce";
+import { getSiteContent } from "../data/content";
 
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3001";
+const c = await getSiteContent();
 
-const homeServices = [
-  { title: "Commerce Général", icon: "shopping_cart", text: "Notre cœur de métier : importation, distribution et négoce de biens et d'équipements à travers tous les secteurs de l'économie malienne.", span: "lg:col-span-2", core: true },
-  { title: "BTP & Génie Civil", icon: "construction", text: "Construction d'infrastructures routières et de complexes immobiliers de haut standing.", span: "" },
-  { title: "Agro-industrie", icon: "agriculture", text: "Transformation de produits locaux et mécanisation agricole de pointe.", span: "" },
-  { title: "Sécurité & Gardiennage", icon: "shield_person", text: "Protection des sites, surveillance électronique et escorte de convois sensibles.", span: "" },
-  { title: "Solutions IT", icon: "computer", text: "Intégration de systèmes et transformation digitale pour entreprises.", span: "" },
-];
+// Homepage service cards: first one spans wider and is highlighted as core.
+const homeServices = c.services.map((s, i) => ({ ...s, span: i === 0 ? "lg:col-span-2" : "", core: i === 0 }));
 const smallTiles = [
   { label: "Énergie", icon: "solar_power" },
   { label: "Forage", icon: "water_drop" },
   { label: "Santé", icon: "health_and_safety" },
   { label: "Industrie", icon: "factory" },
 ];
-const stats = [
-  { icon: "military_tech", value: "12+", label: "Années d'Expertise" },
-  { icon: "task_alt", value: "450+", label: "Projets Livrés" },
-  { icon: "handshake", value: "80+", label: "Partenaires Mondiaux" },
-  { icon: "group", value: "1.2k", label: "Collaborateurs" },
-];
-const partners = ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TECH", "BUILD AFRICA", "AGRO-MAL"];
+const stats = c.stats;
+const partners = c.partners;
 ---
 
 <BaseLayout>
@@ -36,13 +28,12 @@ const partners = ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TE
     <div class="absolute inset-0 bg-gradient-to-r from-navy-900/90 via-navy-900/70 to-navy-900/30"></div>
     <div class="container-max relative z-10 py-24">
       <div class="max-w-3xl">
-        <span class="eyebrow eyebrow-gold mb-5">Commerce Général · Import · Distribution</span>
+        <span class="eyebrow eyebrow-gold mb-5">{c.heroEyebrow}</span>
         <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.05] mb-6 text-balance">
-          Le Commerce Général<br /><span class="text-gold-soft">au Service du Mali</span>
+          {c.heroTitle}<br /><span class="text-gold-soft">{c.heroTitleAccent}</span>
         </h1>
         <p class="text-lg text-slate-200/90 max-w-xl mb-9 leading-relaxed">
-          Cœur de métier de SOKATF SARL, le commerce général irrigue tous les secteurs : nous importons,
-          distribuons et négocions biens et équipements à travers toute l'économie malienne.
+          {c.heroSubtitle}
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="/services" class="btn-gold">Nos Services <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
@@ -67,12 +58,10 @@ const partners = ["BANK OF MALI", "GOLD MINING INC", "MINISTRY TRANS.", "AFRI-TE
       </div>
     </div>
     <div class="reveal">
-      <span class="eyebrow mb-3">Notre Institution</span>
-      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 mb-5 text-balance">Le Commerce Général, Notre Cœur de Métier</h2>
+      <span class="eyebrow mb-3">{c.aboutEyebrow}</span>
+      <h2 class="text-3xl md:text-4xl font-bold text-navy-900 mb-5 text-balance">{c.aboutTitle}</h2>
       <p class="text-ink-soft leading-relaxed mb-8">
-        Basée à Bamako, SOKATF SARL a bâti son excellence sur le commerce général — importation, distribution
-        et approvisionnement — qu'elle décline dans chacun de ses secteurs d'activité, avec une rigueur
-        opérationnelle sans compromis.
+        {c.aboutText}
       </p>
       <div class="space-y-6 mb-8">
         {[

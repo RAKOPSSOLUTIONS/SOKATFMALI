@@ -161,6 +161,33 @@ model Client {
   @@index([name])
 }
 
+/// Editable public-site content (singleton). The Astro site fetches it at
+/// build time (with a fallback), so edits appear after the next build.
+model SiteContent {
+  id              String   @id @default("singleton")
+  heroEyebrow     String?
+  heroTitle       String?
+  heroTitleAccent String?
+  heroSubtitle    String?
+  stats           String   @default("[]") // JSON [{value,label,icon}]
+  aboutEyebrow    String?
+  aboutTitle      String?
+  aboutText       String?
+  contactCity     String?
+  contactAddress  String?
+  phoneDisplay    String?
+  phoneTel        String?
+  email           String?
+  whatsapp        String?
+  whatsappLink    String?
+  nif             String?
+  rccm            String?
+  blurb           String?
+  partners        String   @default("[]") // JSON [string]
+  services        String   @default("[]") // JSON [{title,icon,text}]
+  updatedAt       DateTime @updatedAt
+}
+
 /// An audit-trail entry recording a back-office action.
 model ActivityLog {
   id        String   @id @default(cuid())
