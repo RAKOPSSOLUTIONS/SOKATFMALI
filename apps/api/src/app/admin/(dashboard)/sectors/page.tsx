@@ -1,3 +1,4 @@
+import { FormToast } from "../../_components/toast";
 import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { ACCENTS } from "@/lib/constants";
@@ -85,6 +86,7 @@ function SectorForm({
 }) {
   return (
     <form action={action} className="grid md:grid-cols-2 gap-4">
+      <FormToast message="Secteur enregistré" />
       {sector && <input type="hidden" name="id" value={sector.id} />}
       <div>
         <label className="label">Nom</label>

@@ -1,3 +1,4 @@
+import { FormToast } from "../../../_components/toast";
 import { ConfirmSubmit } from "../../../_components/ui";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -61,6 +62,7 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
           </button>
         </form>
         <form action={setQuoteStatus} className="flex items-center gap-2">
+          <FormToast message="Statut mis à jour" />
           <input type="hidden" name="id" value={quote.id} />
           <select name="status" defaultValue={quote.status} className="input py-2 w-auto">
             {QUOTE_STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}

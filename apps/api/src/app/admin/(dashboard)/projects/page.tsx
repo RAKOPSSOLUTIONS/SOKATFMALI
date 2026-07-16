@@ -1,3 +1,4 @@
+import { FormToast } from "../../_components/toast";
 import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { PROJECT_STATUSES } from "@/lib/constants";
@@ -81,6 +82,7 @@ function ProjectForm({
 }) {
   return (
     <form action={action} className="grid md:grid-cols-2 gap-4">
+      <FormToast message="Réalisation enregistrée" />
       {project && <input type="hidden" name="id" value={project.id} />}
       <div>
         <label className="label">Titre</label>

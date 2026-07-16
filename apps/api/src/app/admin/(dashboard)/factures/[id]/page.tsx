@@ -1,3 +1,4 @@
+import { FormToast } from "../../../_components/toast";
 import { ConfirmSubmit } from "../../../_components/ui";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -67,6 +68,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
           </button>
         </form>
         <form action={setInvoiceStatus} className="flex items-center gap-2">
+          <FormToast message="Statut mis à jour" />
           <input type="hidden" name="id" value={inv.id} />
           <select name="status" defaultValue={inv.status} className="input py-2 w-auto">
             {INVOICE_STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABEL[s]}</option>)}
@@ -111,6 +113,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
         )}
 
         <form action={addPayment} className="grid sm:grid-cols-4 gap-3 items-end">
+          <FormToast message="Paiement enregistré" />
           <input type="hidden" name="invoiceId" value={inv.id} />
           <div>
             <label className="label">Montant (FCFA)</label>

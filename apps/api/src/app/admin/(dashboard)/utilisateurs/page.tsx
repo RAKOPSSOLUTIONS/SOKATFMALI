@@ -1,3 +1,4 @@
+import { FormToast } from "../../_components/toast";
 import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { ROLES, ROLE_LABEL } from "@/lib/auth";
@@ -22,6 +23,7 @@ export default async function UtilisateursPage() {
           <span className="material-symbols-outlined text-secondary">person_add</span> Ajouter un utilisateur
         </summary>
         <form action={createUser} className="grid md:grid-cols-2 gap-4 mt-5">
+          <FormToast message="Compte créé" />
           <div>
             <label className="label">Nom *</label>
             <input name="name" required className="input" />
@@ -60,6 +62,7 @@ export default async function UtilisateursPage() {
             </summary>
             <div className="mt-5 pt-5 border-t border-outline-variant">
               <form action={updateUser} className="grid md:grid-cols-2 gap-4">
+                <FormToast message="Utilisateur mis à jour" />
                 <input type="hidden" name="id" value={u.id} />
                 <div>
                   <label className="label">Nom</label>

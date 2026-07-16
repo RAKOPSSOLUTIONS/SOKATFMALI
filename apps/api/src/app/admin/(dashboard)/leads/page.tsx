@@ -1,3 +1,4 @@
+import { FormToast } from "../../_components/toast";
 import { ConfirmSubmit, ExportButton } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { LEAD_STATUSES, LEAD_STATUS_LABEL } from "@/lib/constants";
@@ -105,6 +106,7 @@ export default async function LeadsPage({
 
               <div className="flex flex-wrap items-center gap-3">
                 <form action={updateLeadStatus} className="flex items-center gap-2">
+                  <FormToast message="Statut mis à jour" />
                   <input type="hidden" name="id" value={l.id} />
                   <select
                     name="status"
