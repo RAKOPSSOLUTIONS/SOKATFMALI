@@ -8,6 +8,7 @@ export const ADMIN_NAV = [
   { href: "/admin/devis", label: "Devis", icon: "request_quote", exact: false },
   { href: "/admin/factures", label: "Factures", icon: "receipt_long", exact: false },
   { href: "/admin/finances", label: "Finances", icon: "account_balance_wallet", exact: false },
+  { href: "/admin/rapports", label: "Rapports", icon: "monitoring", exact: false },
   { href: "/admin/sectors", label: "Secteurs", icon: "category", exact: false },
   { href: "/admin/projects", label: "Réalisations", icon: "workspaces", exact: false },
   { href: "/admin/documentation", label: "Documentation", icon: "folder_open", exact: false },
