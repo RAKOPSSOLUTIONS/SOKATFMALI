@@ -10,11 +10,13 @@ export function MobileNav({
   userName,
   roleLabel,
   logoutAction,
+  logo,
 }: {
   items: NavItem[];
   userName: string;
   roleLabel: string;
   logoutAction: () => void;
+  logo: string;
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -48,7 +50,7 @@ export function MobileNav({
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
           <div className="absolute inset-y-0 left-0 w-72 max-w-[85%] bg-surface-container-lowest shadow-2xl flex flex-col p-4 animate-[slideIn_.2s_ease-out]">
             <div className="flex items-center justify-between px-2 py-3 mb-2">
-              <img src="/brand/sokatf-black.png" alt="SOKATF SARL" width="687" height="89" className="h-7 w-auto" />
+              <img src={logo} alt="SOKATF SARL" width="687" height="89" className="h-7 w-auto" />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
