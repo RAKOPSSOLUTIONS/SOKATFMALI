@@ -18,6 +18,14 @@ const ICONS: Record<string, string> = {
   "business-plan": "trending_up",
   "plan-action": "checklist",
   kpi: "monitoring",
+  "conditions-generales-vente": "receipt_long",
+  "procedure-achats": "shopping_cart_checkout",
+  "gestion-stocks": "inventory",
+  "code-conduite": "balance",
+  "politique-qualite": "verified",
+  "politique-hse": "health_and_safety",
+  "procedure-recrutement": "person_search",
+  "plan-formation": "school",
 };
 
 export default function DocumentationPage() {

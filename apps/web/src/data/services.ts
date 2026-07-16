@@ -79,4 +79,11 @@ export const services: Service[] = [
     description:
       "Assistance administrative, consulting en gestion et solutions logistiques personnalisées pour répondre à des besoins spécifiques complexes.",
   },
+  {
+    n: 11,
+    title: "Matériel & Consommables Médicaux",
+    icon: "medical_services",
+    description:
+      "Fourniture, importation et distribution de matériel médical, dispositifs et consommables pour hôpitaux, cliniques, pharmacies et centres de santé au Mali. Équipements conformes aux normes, avec logistique et service après-vente.",
+  },
 ];

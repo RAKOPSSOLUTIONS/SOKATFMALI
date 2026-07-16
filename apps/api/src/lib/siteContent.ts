@@ -62,6 +62,7 @@ export const SITE_DEFAULTS: SiteContentData = {
     { title: "Agro-industrie", icon: "agriculture", text: "Transformation de produits locaux et mécanisation agricole de pointe." },
     { title: "Sécurité & Gardiennage", icon: "shield_person", text: "Protection des sites, surveillance électronique et escorte de convois sensibles." },
     { title: "Solutions IT", icon: "computer", text: "Intégration de systèmes et transformation digitale pour entreprises." },
+    { title: "Matériel & Consommables Médicaux", icon: "medical_services", text: "Fourniture et distribution de matériel médical, dispositifs et consommables pour établissements de santé." },
   ],
 };
 

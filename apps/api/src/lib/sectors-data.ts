@@ -126,4 +126,15 @@ export const SECTORS: SeedSector[] = [
     featured: false,
     order: 10,
   },
+  {
+    slug: "materiel-medical",
+    name: "Matériel & Consommables Médicaux",
+    tagline: "Équipements, dispositifs et consommables médicaux.",
+    description:
+      "Fourniture, importation et distribution de matériel médical, dispositifs et consommables pour hôpitaux, cliniques, pharmacies et centres de santé au Mali.",
+    icon: "medical_services",
+    accent: "secondary",
+    featured: false,
+    order: 11,
+  },
 ];

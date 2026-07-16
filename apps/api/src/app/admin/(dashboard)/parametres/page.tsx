@@ -1,5 +1,6 @@
 import { getSettings } from "@/lib/settings";
 import { updateSettings } from "../../actions";
+import { ImageField } from "../../_components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +21,8 @@ export default async function ParametresPage() {
           <input name="companyName" defaultValue={s.companyName} className="input" />
         </div>
         <div>
-          <label className="label">Logo — URL d'image (affiché sur les documents)</label>
-          <input name="logoUrl" defaultValue={s.logoUrl ?? ""} className="input" placeholder="https://sokatf.com/logo.png" />
-          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Laissez vide pour utiliser le monogramme par défaut.</p>
+          <ImageField name="logoUrl" defaultValue={s.logoUrl ?? ""} label="Logo (affiché sur les documents)" />
+          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Laissez vide pour utiliser le logo SOKATF par défaut.</p>
         </div>
         <div>
           <label className="label">TVA par défaut (%)</label>
