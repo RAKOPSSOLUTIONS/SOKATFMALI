@@ -20,6 +20,17 @@
     letter-spacing: -0.01em;
   }
   ::selection { background: rgba(212, 175, 55, 0.28); }
+
+  /* Keyboard accessibility: visible gold focus ring (mouse clicks unaffected). */
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+  input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid #d4af37;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Anchored headings clear the fixed header when linked to. */
+  :target { scroll-margin-top: 6rem; }
 }
 
 @layer components {
@@ -40,7 +51,8 @@
 
   /* Buttons */
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-gold-bright text-navy-900 font-semibold text-sm transition-all hover:brightness-105 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-gold-bright text-navy-900 font-semibold text-sm transition-all hover:brightness-105 hover:-translate-y-0.5 active:scale-[0.98];
+    box-shadow: 0 8px 24px -10px rgba(212, 175, 55, 0.6);
   }
   .btn-navy {
     @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md bg-navy-800 text-white font-semibold text-sm transition-all hover:bg-navy-700 active:scale-[0.98];

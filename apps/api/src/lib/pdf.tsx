@@ -45,13 +45,17 @@ const s = StyleSheet.create({
   section: { marginTop: 10 },
   label: { fontSize: 8, color: GREY, textTransform: "uppercase", letterSpacing: 1, marginBottom: 2 },
   clientName: { fontSize: 13, fontFamily: "Helvetica-Bold", color: NAVY },
-  th: { backgroundColor: "#f1f5f9", padding: 6, fontSize: 8, color: GREY, textTransform: "uppercase" },
+  accentBar: { height: 3, backgroundColor: GOLD, marginBottom: 14 },
+  th: { backgroundColor: NAVY, padding: 6, fontSize: 8, color: "#ffffff", fontFamily: "Helvetica-Bold", textTransform: "uppercase" },
   td: { padding: 6, borderBottomWidth: 1, borderBottomColor: LINE, fontSize: 10 },
-  totalsBox: { marginTop: 12, marginLeft: "auto", width: 230 },
-  tRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 2 },
-  grand: { flexDirection: "row", justifyContent: "space-between", paddingTop: 4, marginTop: 4, borderTopWidth: 2, borderTopColor: NAVY },
+  tdAlt: { backgroundColor: "#f8fafc" },
+  totalsBox: { marginTop: 14, marginLeft: "auto", width: 250 },
+  tRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 2, paddingHorizontal: 8 },
+  grand: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: 6, paddingVertical: 7, paddingHorizontal: 8, borderRadius: 4, backgroundColor: NAVY },
+  grandLabel: { fontFamily: "Helvetica-Bold", color: "#ffffff", fontSize: 11 },
+  grandValue: { fontFamily: "Helvetica-Bold", color: "#fed65b", fontSize: 13 },
   bold: { fontFamily: "Helvetica-Bold", color: NAVY },
-  bankBox: { marginTop: 12, padding: 8, backgroundColor: "#f8fafc" },
+  bankBox: { marginTop: 14, padding: 10, backgroundColor: "#f8fafc", borderRadius: 4, borderLeftWidth: 3, borderLeftColor: GOLD },
   footer: { position: "absolute", bottom: 24, left: 40, right: 40, paddingTop: 8, borderTopWidth: 1, borderTopColor: LINE, textAlign: "center", fontSize: 8, color: GREY },
 });
 
@@ -65,6 +69,7 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
   return (
     <Document title={doc.number} author={COMPANY.name}>
       <Page size="A4" style={s.page}>
+        <View style={s.accentBar} fixed />
         <View style={[s.between, s.headerBox]}>
           <View>
             <Image src={logoDataUri("black")} style={{ width: LOGO_W, height: LOGO_W / logoAspect("black"), marginBottom: 6 }} />
@@ -98,21 +103,24 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
             <Text style={[s.th, { width: 85, textAlign: "right" }]}>P.U.</Text>
             <Text style={[s.th, { width: 95, textAlign: "right" }]}>Total</Text>
           </View>
-          {items.map((it, i) => (
-            <View key={i} style={s.row}>
-              <Text style={[s.td, { flex: 1 }]}>{it.description}</Text>
-              <Text style={[s.td, { width: 40, textAlign: "right" }]}>{it.quantity}</Text>
-              <Text style={[s.td, { width: 85, textAlign: "right" }]}>{money(it.unitPrice)}</Text>
-              <Text style={[s.td, { width: 95, textAlign: "right" }]}>{money(it.quantity * it.unitPrice)}</Text>
-            </View>
-          ))}
+          {items.map((it, i) => {
+            const alt = i % 2 ? s.tdAlt : {};
+            return (
+              <View key={i} style={s.row} wrap={false}>
+                <Text style={[s.td, alt, { flex: 1 }]}>{it.description}</Text>
+                <Text style={[s.td, alt, { width: 40, textAlign: "right" }]}>{it.quantity}</Text>
+                <Text style={[s.td, alt, { width: 85, textAlign: "right" }]}>{money(it.unitPrice)}</Text>
+                <Text style={[s.td, alt, { width: 95, textAlign: "right" }]}>{money(it.quantity * it.unitPrice)}</Text>
+              </View>
+            );
+          })}
         </View>
 
         <View style={s.totalsBox}>
           <View style={s.tRow}><Text style={{ color: GREY }}>Sous-total</Text><Text>{money(subtotal)}</Text></View>
           {discount > 0 ? <View style={s.tRow}><Text style={{ color: GREY }}>Remise</Text><Text>- {money(discount)}</Text></View> : null}
           <View style={s.tRow}><Text style={{ color: GREY }}>TVA ({doc.taxRate}%)</Text><Text>{money(tax)}</Text></View>
-          <View style={s.grand}><Text style={s.bold}>Total TTC</Text><Text style={s.bold}>{money(total)}</Text></View>
+          <View style={s.grand}><Text style={s.grandLabel}>Total TTC</Text><Text style={s.grandValue}>{money(total)}</Text></View>
           {kind === "FACTURE" ? (
             <View>
               <View style={s.tRow}><Text style={{ color: GREY }}>Payé</Text><Text>{money(paid)}</Text></View>

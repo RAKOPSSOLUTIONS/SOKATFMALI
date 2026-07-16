@@ -1,4 +1,5 @@
 import { Sidebar } from "./_components/Sidebar";
+import { MobileNav } from "./_components/MobileNav";
 import { logoutAction } from "../actions";
 import { getSession } from "@/lib/session";
 import { canAccess, ROLE_LABEL } from "@/lib/auth";
@@ -38,13 +39,9 @@ export default async function DashboardLayout({
 
       <div className="flex-1 min-w-0">
         {/* Mobile top bar */}
-        <header className="print:hidden md:hidden flex items-center justify-between border-b border-outline-variant bg-surface-container-lowest px-margin-mobile h-16">
+        <header className="print:hidden md:hidden sticky top-0 z-40 flex items-center gap-3 border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur px-margin-mobile h-16">
+          <MobileNav items={items} userName={session?.name || session?.email || ""} roleLabel={ROLE_LABEL[role] ?? role} logoutAction={logoutAction} />
           <img src="/brand/sokatf-black.png" alt="SOKATF SARL" width="687" height="89" className="h-7 w-auto" />
-          <form action={logoutAction}>
-            <button type="submit" className="material-symbols-outlined text-on-surface-variant">
-              logout
-            </button>
-          </form>
         </header>
         <main className="p-margin-mobile md:p-margin-desktop w-full print:p-0 print:max-w-none">
           {children}
