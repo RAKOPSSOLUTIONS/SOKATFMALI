@@ -12,10 +12,10 @@ const c = await getSiteContent();
 // Homepage service cards: the first is highlighted as the core business.
 const homeServices = c.services.map((s, i) => ({ ...s, core: i === 0 }));
 const smallTiles = [
-  { label: "Énergie", icon: "solar_power" },
-  { label: "Forage", icon: "water_drop" },
-  { label: "Transport & Logistique", icon: "local_shipping" },
-  { label: "Industrie", icon: "factory" },
+  { label: "Énergie", icon: "solar_power", text: "Solutions et équipements pour l'accès à l'énergie et l'autonomie électrique des sites et exploitations." },
+  { label: "Forage", icon: "water_drop", text: "Forages et systèmes d'accès à l'eau pour collectivités, entreprises et exploitations agricoles." },
+  { label: "Transport & Logistique", icon: "local_shipping", text: "Transport de marchandises, logistique et acheminement à travers le Mali et la sous-région." },
+  { label: "Industrie", icon: "factory", text: "Fourniture d'équipements et de consommables pour les unités industrielles et de production." },
 ];
 const stats = c.stats;
 const partners = c.partners;
@@ -135,13 +135,14 @@ const partners = c.partners;
       <!-- Secteurs transverses -->
       <div class="mt-12">
         <p class="text-center text-[13px] font-semibold uppercase tracking-widest text-ink-soft mb-6">Également présents dans</p>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {
             smallTiles.map((t) => (
-              <div class="reveal card p-5 flex items-center justify-center gap-3">
-                <span class="material-symbols-outlined text-gold-deep text-[26px]">{t.icon}</span>
-                <span class="font-semibold text-navy-900 text-sm">{t.label}</span>
-              </div>
+              <a href="/services" class="reveal card card-hover p-8 flex flex-col group">
+                <span class="icon-tile mb-6"><span class="material-symbols-outlined fill">{t.icon}</span></span>
+                <h3 class="text-lg font-bold text-navy-900 mb-2">{t.label}</h3>
+                <p class="text-sm text-ink-soft">{t.text}</p>
+              </a>
             ))
           }
         </div>
