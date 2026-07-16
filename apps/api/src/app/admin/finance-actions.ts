@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { logActivity } from "@/lib/activity";
 import { prisma } from "@/lib/prisma";
 import {
   QUOTE_STATUSES,
@@ -87,6 +88,7 @@ export async function createQuote(fd: FormData) {
     },
   });
   await ensureClient(data);
+  await logActivity({ action: "CREATE", entity: "Quote", entityId: q.id, detail: `Devis ${number} créé (${data.clientName})` });
   revalidatePath("/admin/devis");
   redirect(`/admin/devis/${q.id}`);
 }
@@ -119,7 +121,9 @@ export async function setQuoteStatus(fd: FormData) {
 export async function deleteQuote(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
+  const q = await prisma.quote.findUnique({ where: { id }, select: { number: true } });
   await prisma.quote.delete({ where: { id } });
+  await logActivity({ action: "DELETE", entity: "Quote", entityId: id, detail: `Devis ${q?.number ?? id} supprimé` });
   revalidatePath("/admin/devis");
   redirect("/admin/devis");
 }
@@ -170,6 +174,7 @@ export async function createInvoice(fd: FormData) {
     },
   });
   await ensureClient(data);
+  await logActivity({ action: "CREATE", entity: "Invoice", entityId: inv.id, detail: `Facture ${number} créée (${data.clientName})` });
   revalidatePath("/admin/factures");
   redirect(`/admin/factures/${inv.id}`);
 }
@@ -195,6 +200,7 @@ export async function setInvoiceStatus(fd: FormData) {
   const status = String(fd.get("status") ?? "");
   if (!id || !INVOICE_STATUSES.includes(status as never)) return;
   await prisma.invoice.update({ where: { id }, data: { status } });
+  await logActivity({ action: "STATUS", entity: "Invoice", entityId: id, detail: `Statut facture → ${status}` });
   revalidatePath(`/admin/factures/${id}`);
   revalidatePath("/admin/factures");
 }
@@ -202,7 +208,9 @@ export async function setInvoiceStatus(fd: FormData) {
 export async function deleteInvoice(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
+  const inv = await prisma.invoice.findUnique({ where: { id }, select: { number: true } });
   await prisma.invoice.delete({ where: { id } });
+  await logActivity({ action: "DELETE", entity: "Invoice", entityId: id, detail: `Facture ${inv?.number ?? id} supprimée` });
   revalidatePath("/admin/factures");
   redirect("/admin/factures");
 }
@@ -215,6 +223,7 @@ export async function deleteQuotesBulk(fd: FormData) {
   const ids = idsFromForm(fd);
   if (!ids.length) return;
   await prisma.quote.deleteMany({ where: { id: { in: ids } } });
+  await logActivity({ action: "DELETE", entity: "Quote", detail: `${ids.length} devis supprimés (lot)` });
   revalidatePath("/admin/devis");
 }
 
@@ -223,6 +232,7 @@ export async function deleteInvoicesBulk(fd: FormData) {
   if (!ids.length) return;
   await prisma.payment.deleteMany({ where: { invoiceId: { in: ids } } });
   await prisma.invoice.deleteMany({ where: { id: { in: ids } } });
+  await logActivity({ action: "DELETE", entity: "Invoice", detail: `${ids.length} factures supprimées (lot)` });
   revalidatePath("/admin/factures");
 }
 
@@ -259,6 +269,7 @@ export async function addPayment(fd: FormData) {
     },
   });
   await refreshInvoiceStatus(invoiceId);
+  await logActivity({ action: "PAYMENT", entity: "Invoice", entityId: invoiceId, detail: `Paiement enregistré : ${Math.round(amount).toLocaleString("fr-FR")} FCFA (${method})` });
   revalidatePath(`/admin/factures/${invoiceId}`);
   revalidatePath("/admin/finances");
 }

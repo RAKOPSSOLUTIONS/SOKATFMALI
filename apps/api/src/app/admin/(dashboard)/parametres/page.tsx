@@ -41,6 +41,11 @@ export default async function ParametresPage() {
           <label className="label">Mention de bas de page</label>
           <input name="documentFooter" defaultValue={s.documentFooter ?? ""} className="input" placeholder="Merci de votre confiance." />
         </div>
+        <div>
+          <label className="label">Email de notification (nouveaux prospects)</label>
+          <input name="notifyEmail" type="email" defaultValue={s.notifyEmail ?? ""} className="input" placeholder="contact@sokatf.com" />
+          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Adresse qui reçoit un email à chaque nouveau contact / demande de devis du site.</p>
+        </div>
 
         <div className="pt-4 border-t border-outline-variant">
           <h3 className="font-headline-md text-headline-md text-primary mb-4">Numérotation des documents</h3>

@@ -36,6 +36,7 @@ async function seedSettings() {
     bankDetails:
       "Banque : BDM-SA — Bamako\nCompte : ML000 0000 0000 0000 0000\nMobile Money (Orange Money) : (+223) 66 77 32 75",
     documentFooter: "SOKATF SARL — Commerce général multisectoriel. Merci de votre confiance.",
+    notifyEmail: "contact@sokatf.com",
     quotePrefix: "Devis",
     invoicePrefix: "Facture",
     numberIncludeMonth: true,

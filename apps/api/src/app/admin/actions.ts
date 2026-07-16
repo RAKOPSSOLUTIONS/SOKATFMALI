@@ -14,6 +14,7 @@ import {
 } from "@/lib/auth";
 import { hashPassword, verifyPassword } from "@/lib/password";
 import { LEAD_STATUSES, PROJECT_STATUSES } from "@/lib/constants";
+import { logActivity } from "@/lib/activity";
 
 // --- Auth --------------------------------------------------------------
 
@@ -40,6 +41,7 @@ export async function loginAction(
     return { error: "Identifiants invalides." };
   }
 
+  await logActivity({ action: "LOGIN", entity: "Auth", detail: `Connexion (${role})`, actorEmail: email, actorName: name });
   const token = await createSessionToken(email, role, name);
   const jar = await cookies();
   jar.set(SESSION_COOKIE, token, {
@@ -54,6 +56,7 @@ export async function loginAction(
 }
 
 export async function logoutAction() {
+  await logActivity({ action: "LOGOUT", entity: "Auth", detail: "Déconnexion" });
   const jar = await cookies();
   jar.delete(SESSION_COOKIE);
   redirect("/admin/login");
@@ -174,6 +177,7 @@ export async function updateSettings(formData: FormData) {
     paymentTerms: str("paymentTerms"),
     bankDetails: str("bankDetails"),
     documentFooter: str("documentFooter"),
+    notifyEmail: str("notifyEmail"),
     quotePrefix: String(formData.get("quotePrefix") ?? "Devis").trim() || "Devis",
     invoicePrefix: String(formData.get("invoicePrefix") ?? "Facture").trim() || "Facture",
     numberIncludeMonth: formData.get("numberIncludeMonth") === "on",
@@ -184,6 +188,7 @@ export async function updateSettings(formData: FormData) {
     create: { id: "singleton", ...data },
     update: data,
   });
+  await logActivity({ action: "UPDATE", entity: "Settings", detail: "Paramètres mis à jour" });
   revalidatePath("/admin/parametres");
 }
 
@@ -202,7 +207,8 @@ function clientFromForm(fd: FormData) {
 export async function createClient(fd: FormData) {
   const data = clientFromForm(fd);
   if (!data.name) return;
-  await prisma.client.create({ data });
+  const c = await prisma.client.create({ data });
+  await logActivity({ action: "CREATE", entity: "Client", entityId: c.id, detail: `Client « ${data.name} » ajouté` });
   revalidatePath("/admin/clients");
 }
 
@@ -216,7 +222,9 @@ export async function updateClient(fd: FormData) {
 export async function deleteClient(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
+  const c = await prisma.client.findUnique({ where: { id }, select: { name: true } });
   await prisma.client.delete({ where: { id } });
+  await logActivity({ action: "DELETE", entity: "Client", entityId: id, detail: `Client « ${c?.name ?? id} » supprimé` });
   revalidatePath("/admin/clients");
 }
 
@@ -229,7 +237,7 @@ export async function createUser(fd: FormData) {
   const role = String(fd.get("role") ?? "commercial");
   if (!name || !email || password.length < 4) return;
   try {
-    await prisma.user.create({
+    const u = await prisma.user.create({
       data: {
         name,
         email,
@@ -238,6 +246,7 @@ export async function createUser(fd: FormData) {
         active: true,
       },
     });
+    await logActivity({ action: "CREATE", entity: "User", entityId: u.id, detail: `Compte « ${name} » (${role}) créé` });
   } catch {
     // ignore duplicate email
   }
@@ -262,6 +271,8 @@ export async function updateUser(fd: FormData) {
 export async function deleteUser(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
+  const u = await prisma.user.findUnique({ where: { id }, select: { name: true } });
   await prisma.user.delete({ where: { id } });
+  await logActivity({ action: "DELETE", entity: "User", entityId: id, detail: `Compte « ${u?.name ?? id} » supprimé` });
   revalidatePath("/admin/utilisateurs");
 }

@@ -8,6 +8,7 @@ export type Settings = {
   paymentTerms: string | null;
   bankDetails: string | null;
   documentFooter: string | null;
+  notifyEmail: string | null;
   quotePrefix: string;
   invoicePrefix: string;
   numberIncludeMonth: boolean;
@@ -22,6 +23,7 @@ const DEFAULTS: Settings = {
   paymentTerms: null,
   bankDetails: null,
   documentFooter: null,
+  notifyEmail: null,
   quotePrefix: "Devis",
   invoicePrefix: "Facture",
   numberIncludeMonth: true,
@@ -40,6 +42,7 @@ export async function getSettings(): Promise<Settings> {
     paymentTerms: s.paymentTerms,
     bankDetails: s.bankDetails,
     documentFooter: s.documentFooter,
+    notifyEmail: s.notifyEmail,
     quotePrefix: s.quotePrefix || "Devis",
     invoicePrefix: s.invoicePrefix || "Facture",
     numberIncludeMonth: s.numberIncludeMonth,

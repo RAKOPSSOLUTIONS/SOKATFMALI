@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+import { logActivity } from "@/lib/activity";
 
 const KINDS = ["PRODUCT", "SERVICE"] as const;
 type Kind = (typeof KINDS)[number];
@@ -29,7 +30,8 @@ function itemFromForm(fd: FormData) {
 export async function createCatalogItem(fd: FormData) {
   const data = itemFromForm(fd);
   if (!data.name) return;
-  await prisma.catalogItem.create({ data });
+  const it = await prisma.catalogItem.create({ data });
+  await logActivity({ action: "CREATE", entity: "CatalogItem", entityId: it.id, detail: `${data.kind === "SERVICE" ? "Service" : "Produit"} « ${data.name} » ajouté` });
   revalidatePath(pathFor(data.kind));
 }
 
@@ -45,7 +47,9 @@ export async function updateCatalogItem(fd: FormData) {
 export async function deleteCatalogItem(fd: FormData) {
   const id = String(fd.get("id") ?? "");
   if (!id) return;
+  const item = await prisma.catalogItem.findUnique({ where: { id }, select: { name: true } });
   await prisma.catalogItem.delete({ where: { id } });
+  await logActivity({ action: "DELETE", entity: "CatalogItem", entityId: id, detail: `« ${item?.name ?? id} » supprimé du catalogue` });
   revalidatePath(pathFor(String(fd.get("kind") ?? "PRODUCT")));
 }
 
@@ -53,5 +57,6 @@ export async function deleteCatalogItemsBulk(fd: FormData) {
   const ids = String(fd.get("ids") ?? "").split(",").map((s) => s.trim()).filter(Boolean);
   if (!ids.length) return;
   await prisma.catalogItem.deleteMany({ where: { id: { in: ids } } });
+  await logActivity({ action: "DELETE", entity: "CatalogItem", detail: `${ids.length} articles supprimés (lot)` });
   revalidatePath(pathFor(String(fd.get("kind") ?? "PRODUCT")));
 }

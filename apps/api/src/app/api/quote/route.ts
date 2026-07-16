@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { quoteSchema, fieldErrors } from "@/lib/validation";
 import { sendLeadNotification } from "@/lib/mailer";
+import { logActivity } from "@/lib/activity";
 import { jsonWithCors, preflight } from "@/lib/cors";
 
 export const dynamic = "force-dynamic";
@@ -47,6 +48,7 @@ export async function POST(req: NextRequest) {
   });
 
   await sendLeadNotification({ type: "QUOTE", ...data });
+  await logActivity({ action: "CREATE", entity: "Lead", entityId: lead.id, detail: `Demande de devis : ${data.name}` });
 
   return jsonWithCors({ ok: true, id: lead.id }, { status: 201, origin });
 }
