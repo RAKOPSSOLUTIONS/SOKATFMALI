@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { type ChangeEvent, useEffect, useMemo, useState } from "react";
 import { Modal, ConfirmSubmit, ExportButton } from "./ui";
 import { Pagination } from "./DocumentsList";
 import { toast } from "./toast";
@@ -245,7 +245,32 @@ function CatalogForm({
   item?: CatalogRow;
   onDone: () => void;
 }) {
-  const [preview, setPreview] = useState(item?.imageUrl ?? "");
+  const [image, setImage] = useState(item?.imageUrl ?? "");
+  const nounLabel = kind === "PRODUCT" ? "produit" : "service";
+
+  // Resize the picked file to a compact JPEG data URI (max 640px) so it can be
+  // stored directly in the DB — works everywhere, no upload folder / nginx path.
+  const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const bmp = await createImageBitmap(file);
+      const max = 640;
+      const scale = Math.min(1, max / Math.max(bmp.width, bmp.height));
+      const w = Math.round(bmp.width * scale);
+      const h = Math.round(bmp.height * scale);
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d")!.drawImage(bmp, 0, 0, w, h);
+      setImage(canvas.toDataURL("image/jpeg", 0.82));
+    } catch {
+      const reader = new FileReader();
+      reader.onload = () => setImage(String(reader.result));
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <form
       action={async (fd) => {
@@ -280,17 +305,30 @@ function CatalogForm({
         <input name="category" defaultValue={item?.category ?? ""} className="input" placeholder="Secteur / famille" />
       </div>
       <div className="md:col-span-2">
-        <label className="label">Image (URL)</label>
-        <div className="flex items-center gap-3">
-          <input name="imageUrl" defaultValue={item?.imageUrl ?? ""} onChange={(e) => setPreview(e.target.value)} className="input" placeholder="https://…/photo.jpg" />
-          <span className="h-12 w-12 shrink-0 rounded-lg bg-surface-container-high grid place-items-center overflow-hidden border border-outline-variant">
-            {preview ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={preview} alt="" className="w-full h-full object-cover" />
+        <label className="label">Image du {nounLabel}</label>
+        <input type="hidden" name="imageUrl" value={image} />
+        <div className="flex items-start gap-4">
+          <div className="relative h-24 w-24 shrink-0 rounded-lg bg-surface-container-high grid place-items-center overflow-hidden border border-outline-variant">
+            {image ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={image} alt="" className="w-full h-full object-cover" />
+                <button type="button" onClick={() => setImage("")} className="absolute top-1 right-1 h-6 w-6 grid place-items-center rounded-full bg-black/60 text-white hover:bg-black/80" aria-label="Retirer l'image">
+                  <span className="material-symbols-outlined text-[16px]">close</span>
+                </button>
+              </>
             ) : (
-              <span className="material-symbols-outlined text-on-surface-variant/50 text-[20px]">image</span>
+              <span className="material-symbols-outlined text-on-surface-variant/40 text-[28px]">image</span>
             )}
-          </span>
+          </div>
+          <div className="flex-1 space-y-2">
+            <label className="btn-outline py-2 cursor-pointer inline-flex">
+              <span className="material-symbols-outlined text-[18px]">upload</span> Téléverser
+              <input type="file" accept="image/*" className="hidden" onChange={handleFile} />
+            </label>
+            <input type="url" value={image.startsWith("data:") ? "" : image} onChange={(e) => setImage(e.target.value)} className="input" placeholder="…ou coller une URL d'image" />
+            <p className="font-body-sm text-body-sm text-on-surface-variant">JPG / PNG — redimensionné automatiquement.</p>
+          </div>
         </div>
       </div>
       <div className="md:col-span-2">
