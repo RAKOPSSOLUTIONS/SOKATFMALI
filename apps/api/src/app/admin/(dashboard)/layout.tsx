@@ -1,5 +1,6 @@
 import { Sidebar } from "./_components/Sidebar";
 import { MobileNav } from "./_components/MobileNav";
+import { Toaster } from "../_components/toast";
 import { logoutAction } from "../actions";
 import { getSession } from "@/lib/session";
 import { canAccess, ROLE_LABEL } from "@/lib/auth";
@@ -49,6 +50,7 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
+      <Toaster />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { CatalogList } from "../../_components/CatalogList";
-import { createCatalogItem, updateCatalogItem, deleteCatalogItem } from "../../catalog-actions";
+import { createCatalogItem, updateCatalogItem, deleteCatalogItem, deleteCatalogItemsBulk } from "../../catalog-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +16,7 @@ export default async function ServicesPage() {
       createAction={createCatalogItem}
       updateAction={updateCatalogItem}
       deleteAction={deleteCatalogItem}
+      bulkDeleteAction={deleteCatalogItemsBulk}
     />
   );
 }

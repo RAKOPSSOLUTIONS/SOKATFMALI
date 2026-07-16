@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { parseItems, computeTotals, formatDate, INVOICE_STATUSES } from "@/lib/finance";
-import { deleteInvoice } from "../../finance-actions";
+import { deleteInvoice, deleteInvoicesBulk } from "../../finance-actions";
 import { DocumentsList, type DocRow } from "../../_components/DocumentsList";
 
 export const dynamic = "force-dynamic";
@@ -42,7 +42,7 @@ export default async function FacturesPage() {
         </Link>
       </div>
 
-      <DocumentsList kind="facture" rows={rows} statuses={[...INVOICE_STATUSES]} deleteAction={deleteInvoice} />
+      <DocumentsList kind="facture" rows={rows} statuses={[...INVOICE_STATUSES]} deleteAction={deleteInvoice} bulkDeleteAction={deleteInvoicesBulk} />
     </div>
   );
 }

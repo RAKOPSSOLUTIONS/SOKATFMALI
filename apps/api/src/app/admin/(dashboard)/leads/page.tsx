@@ -11,10 +11,12 @@ const STATUS_STYLE: Record<string, string> = {
   CLOSED: "bg-surface-container-high text-on-surface-variant",
 };
 
+const PAGE_SIZE = 20;
+
 export default async function LeadsPage({
   searchParams,
 }: {
-  searchParams?: Promise<{ type?: string; status?: string }>;
+  searchParams?: Promise<{ type?: string; status?: string; page?: string }>;
 }) {
   const sp = (await searchParams) ?? {};
   const type = sp.type;
@@ -23,10 +25,19 @@ export default async function LeadsPage({
     ...(type ? { type } : {}),
     ...(status ? { status } : {}),
   };
-  const leads = await prisma.lead.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-  });
+  const all = await prisma.lead.findMany({ where, orderBy: { createdAt: "desc" } });
+  const total = all.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const page = Math.min(Math.max(1, Number(sp.page) || 1), totalPages);
+  const leads = all.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageHref = (p: number) => {
+    const params = new URLSearchParams();
+    if (type) params.set("type", type);
+    if (status) params.set("status", status);
+    if (p > 1) params.set("page", String(p));
+    const qs = params.toString();
+    return qs ? `/admin/leads?${qs}` : "/admin/leads";
+  };
 
   return (
     <div className="space-y-6">
@@ -34,13 +45,14 @@ export default async function LeadsPage({
         <div>
           <h1 className="font-headline-lg text-headline-lg text-primary">Prospects</h1>
           <p className="font-body-md text-body-md text-on-surface-variant">
-            {leads.length} enregistrement{leads.length > 1 ? "s" : ""}.
+            {total} enregistrement{total > 1 ? "s" : ""}.
           </p>
         </div>
         <ExportButton
           filename="prospects-sokatf"
+          sheet="Prospects"
           headers={["Type", "Statut", "Nom", "Email", "Téléphone", "Société", "Secteur", "Budget", "Message", "Date"]}
-          rows={leads.map((l) => [l.type, l.status, l.name, l.email, l.phone ?? "", l.company ?? "", l.sector ?? "", l.budget ?? "", l.message, new Date(l.createdAt).toLocaleString("fr-FR")])}
+          rows={all.map((l) => [l.type, l.status, l.name, l.email, l.phone ?? "", l.company ?? "", l.sector ?? "", l.budget ?? "", l.message, new Date(l.createdAt).toLocaleString("fr-FR")])}
         />
       </div>
 
@@ -120,6 +132,24 @@ export default async function LeadsPage({
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <span className="font-body-sm text-body-sm text-on-surface-variant">Page {page} / {totalPages} · {total} prospects</span>
+          <div className="flex items-center gap-1">
+            {page > 1 ? (
+              <a href={pageHref(page - 1)} className="h-10 w-10 grid place-items-center rounded-lg border border-outline-variant hover:bg-surface-container-high"><span className="material-symbols-outlined">chevron_left</span></a>
+            ) : (
+              <span className="h-10 w-10 grid place-items-center rounded-lg border border-outline-variant opacity-40"><span className="material-symbols-outlined">chevron_left</span></span>
+            )}
+            {page < totalPages ? (
+              <a href={pageHref(page + 1)} className="h-10 w-10 grid place-items-center rounded-lg border border-outline-variant hover:bg-surface-container-high"><span className="material-symbols-outlined">chevron_right</span></a>
+            ) : (
+              <span className="h-10 w-10 grid place-items-center rounded-lg border border-outline-variant opacity-40"><span className="material-symbols-outlined">chevron_right</span></span>
+            )}
+          </div>
         </div>
       )}
     </div>

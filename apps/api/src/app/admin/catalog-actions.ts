@@ -48,3 +48,10 @@ export async function deleteCatalogItem(fd: FormData) {
   await prisma.catalogItem.delete({ where: { id } });
   revalidatePath(pathFor(String(fd.get("kind") ?? "PRODUCT")));
 }
+
+export async function deleteCatalogItemsBulk(fd: FormData) {
+  const ids = String(fd.get("ids") ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+  if (!ids.length) return;
+  await prisma.catalogItem.deleteMany({ where: { id: { in: ids } } });
+  revalidatePath(pathFor(String(fd.get("kind") ?? "PRODUCT")));
+}

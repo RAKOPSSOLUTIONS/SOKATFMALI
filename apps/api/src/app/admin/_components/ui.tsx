@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { toast } from "./toast";
 
 /* ── Low-level controlled dialog ─────────────────────────────────────────── */
 export function Dialog({
@@ -107,6 +108,7 @@ export function ConfirmSubmit({
             onClick={() => {
               setOpen(false);
               ref.current?.closest("form")?.requestSubmit();
+              toast("Supprimé", "success");
             }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-label-md text-label-md bg-error text-on-error hover:opacity-90 transition-opacity"
           >
@@ -118,38 +120,55 @@ export function ConfirmSubmit({
   );
 }
 
-/* ── Client-side Excel (CSV) export button ───────────────────────────────── *
- * Builds a ';'-separated, BOM-prefixed CSV (opens cleanly in Excel FR) from
- * the given rows and triggers a download — no server round-trip.             */
-function csvCell(v: unknown) {
-  const str = String(v ?? "");
-  return /[";\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;
-}
+/* ── Real .xlsx export button ─────────────────────────────────────────────── *
+ * POSTs the currently-displayed rows to /admin/xlsx which returns a styled
+ * workbook (navy header, frozen row, autofilter, number formats).            */
 export function ExportButton({
   filename,
   headers,
   rows,
+  sheet,
   label = "Excel",
-  className = "inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-label-md text-label-md text-secondary bg-secondary-container/50 hover:bg-secondary-container transition-colors",
+  className = "inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-label-md text-label-md text-secondary bg-secondary-container/50 hover:bg-secondary-container transition-colors disabled:opacity-50",
 }: {
   filename: string;
   headers: string[];
   rows: (string | number)[][];
+  sheet?: string;
   label?: string;
   className?: string;
 }) {
-  const download = () => {
-    const body = [headers, ...rows].map((r) => r.map(csvCell).join(";")).join("\r\n");
-    const blob = new Blob(["﻿" + body], { type: "text/csv;charset=utf-8;" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = filename.endsWith(".csv") ? filename : `${filename}.csv`;
-    a.click();
-    URL.revokeObjectURL(a.href);
+  const [busy, setBusy] = useState(false);
+  const download = async () => {
+    if (busy) return;
+    if (rows.length === 0) {
+      toast("Rien à exporter.", "info");
+      return;
+    }
+    setBusy(true);
+    try {
+      const res = await fetch("/admin/xlsx", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename, sheet: sheet ?? label, columns: headers, rows }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      const blob = await res.blob();
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `${filename}.xlsx`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      toast(`Export Excel (${rows.length} ligne${rows.length > 1 ? "s" : ""})`, "success");
+    } catch {
+      toast("Export échoué.", "error");
+    } finally {
+      setBusy(false);
+    }
   };
   return (
-    <button type="button" onClick={download} className={className}>
-      <span className="material-symbols-outlined text-[18px]">table_view</span> {label}
+    <button type="button" onClick={download} disabled={busy} className={className}>
+      <span className="material-symbols-outlined text-[18px]">{busy ? "hourglass_top" : "table_view"}</span> {label}
     </button>
   );
 }

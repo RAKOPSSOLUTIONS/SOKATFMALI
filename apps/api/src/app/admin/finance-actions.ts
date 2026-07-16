@@ -207,6 +207,25 @@ export async function deleteInvoice(fd: FormData) {
   redirect("/admin/factures");
 }
 
+function idsFromForm(fd: FormData): string[] {
+  return String(fd.get("ids") ?? "").split(",").map((s) => s.trim()).filter(Boolean);
+}
+
+export async function deleteQuotesBulk(fd: FormData) {
+  const ids = idsFromForm(fd);
+  if (!ids.length) return;
+  await prisma.quote.deleteMany({ where: { id: { in: ids } } });
+  revalidatePath("/admin/devis");
+}
+
+export async function deleteInvoicesBulk(fd: FormData) {
+  const ids = idsFromForm(fd);
+  if (!ids.length) return;
+  await prisma.payment.deleteMany({ where: { invoiceId: { in: ids } } });
+  await prisma.invoice.deleteMany({ where: { id: { in: ids } } });
+  revalidatePath("/admin/factures");
+}
+
 // ---------------- Payments ----------------
 
 async function refreshInvoiceStatus(invoiceId: string) {

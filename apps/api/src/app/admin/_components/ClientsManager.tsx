@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Modal, ConfirmSubmit, ExportButton } from "./ui";
+import { toast } from "./toast";
 
 export type ClientRow = {
   id: string;
@@ -106,7 +107,7 @@ export function ClientsManager({
 
 function ClientForm({ action, submitLabel, client, onDone }: { action: Action; submitLabel: string; client?: ClientRow; onDone: () => void }) {
   return (
-    <form action={async (fd) => { await action(fd); onDone(); }} className="grid md:grid-cols-2 gap-4">
+    <form action={async (fd) => { await action(fd); toast(client ? "Client mis à jour" : "Client ajouté", "success"); onDone(); }} className="grid md:grid-cols-2 gap-4">
       {client && <input type="hidden" name="id" value={client.id} />}
       <div>
         <label className="label">Nom *</label>

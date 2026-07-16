@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { parseItems, computeTotals, formatDate, QUOTE_STATUSES } from "@/lib/finance";
-import { deleteQuote } from "../../finance-actions";
+import { deleteQuote, deleteQuotesBulk } from "../../finance-actions";
 import { DocumentsList, type DocRow } from "../../_components/DocumentsList";
 
 export const dynamic = "force-dynamic";
@@ -38,7 +38,7 @@ export default async function DevisPage() {
         </Link>
       </div>
 
-      <DocumentsList kind="devis" rows={rows} statuses={[...QUOTE_STATUSES]} deleteAction={deleteQuote} />
+      <DocumentsList kind="devis" rows={rows} statuses={[...QUOTE_STATUSES]} deleteAction={deleteQuote} bulkDeleteAction={deleteQuotesBulk} />
     </div>
   );
 }
