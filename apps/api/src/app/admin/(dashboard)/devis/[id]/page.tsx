@@ -1,3 +1,4 @@
+import { ConfirmSubmit } from "../../../_components/ui";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -68,9 +69,7 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
         </form>
         <form action={deleteQuote}>
           <input type="hidden" name="id" value={quote.id} />
-          <button className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-error hover:bg-error-container transition-colors">
-            <span className="material-symbols-outlined text-[18px]">delete</span>
-          </button>
+          <ConfirmSubmit label="" message={`Supprimer le devis ${quote.number} ?`} className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-error hover:bg-error-container transition-colors" />
         </form>
       </div>
 

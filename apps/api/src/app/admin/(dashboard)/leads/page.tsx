@@ -1,3 +1,4 @@
+import { ConfirmSubmit, ExportButton } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { LEAD_STATUSES, LEAD_STATUS_LABEL } from "@/lib/constants";
 import { updateLeadStatus, deleteLead } from "../../actions";
@@ -29,11 +30,18 @@ export default async function LeadsPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-headline-lg text-headline-lg text-primary">Prospects</h1>
-        <p className="font-body-md text-body-md text-on-surface-variant">
-          {leads.length} enregistrement{leads.length > 1 ? "s" : ""}.
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-headline-lg text-headline-lg text-primary">Prospects</h1>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            {leads.length} enregistrement{leads.length > 1 ? "s" : ""}.
+          </p>
+        </div>
+        <ExportButton
+          filename="prospects-sokatf"
+          headers={["Type", "Statut", "Nom", "Email", "Téléphone", "Société", "Secteur", "Budget", "Message", "Date"]}
+          rows={leads.map((l) => [l.type, l.status, l.name, l.email, l.phone ?? "", l.company ?? "", l.sector ?? "", l.budget ?? "", l.message, new Date(l.createdAt).toLocaleString("fr-FR")])}
+        />
       </div>
 
       {/* Filters */}
@@ -107,13 +115,7 @@ export default async function LeadsPage({
                 </a>
                 <form action={deleteLead} className="ml-auto">
                   <input type="hidden" name="id" value={l.id} />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors"
-                  >
-                    <span className="material-symbols-outlined text-[18px]">delete</span>
-                    Supprimer
-                  </button>
+                  <ConfirmSubmit message={`Supprimer le prospect « ${l.name} » ?`} />
                 </form>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { ACCENTS } from "@/lib/constants";
 import { createSector, updateSector, deleteSector } from "../../actions";
@@ -63,13 +64,7 @@ export default async function SectorsPage() {
               <SectorForm action={updateSector} submitLabel="Enregistrer" sector={s} />
               <form action={deleteSector} className="mt-4">
                 <input type="hidden" name="id" value={s.id} />
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[18px]">delete</span>
-                  Supprimer ce secteur
-                </button>
+                <ConfirmSubmit label="Supprimer ce secteur" message={`Supprimer le secteur « ${s.name} » ?`} />
               </form>
             </div>
           </details>

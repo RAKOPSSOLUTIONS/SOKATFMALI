@@ -1,3 +1,4 @@
+import { ConfirmSubmit } from "../../../_components/ui";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -74,9 +75,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
         </form>
         <form action={deleteInvoice}>
           <input type="hidden" name="id" value={inv.id} />
-          <button className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-error hover:bg-error-container transition-colors">
-            <span className="material-symbols-outlined text-[18px]">delete</span>
-          </button>
+          <ConfirmSubmit label="" message={`Supprimer la facture ${inv.number} ?`} className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-error hover:bg-error-container transition-colors" />
         </form>
       </div>
 
@@ -104,9 +103,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
                 <form action={deletePayment}>
                   <input type="hidden" name="id" value={p.id} />
                   <input type="hidden" name="invoiceId" value={inv.id} />
-                  <button className="text-error grid place-items-center" aria-label="Supprimer le paiement">
-                    <span className="material-symbols-outlined text-[18px]">delete</span>
-                  </button>
+                  <ConfirmSubmit label="" icon="delete" message={`Supprimer ce paiement de ${formatFCFA(p.amount)} ?`} className="text-error grid place-items-center px-2 py-2 rounded-lg hover:bg-error-container transition-colors" />
                 </form>
               </li>
             ))}

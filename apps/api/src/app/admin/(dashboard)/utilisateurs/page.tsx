@@ -1,3 +1,4 @@
+import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { ROLES, ROLE_LABEL } from "@/lib/auth";
 import { createUser, updateUser, deleteUser } from "../../actions";
@@ -83,9 +84,7 @@ export default async function UtilisateursPage() {
               </form>
               <form action={deleteUser} className="mt-4">
                 <input type="hidden" name="id" value={u.id} />
-                <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors">
-                  <span className="material-symbols-outlined text-[18px]">delete</span> Supprimer
-                </button>
+                <ConfirmSubmit message={`Supprimer le compte de ${u.name} ?`} />
               </form>
             </div>
           </details>

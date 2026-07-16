@@ -1,3 +1,4 @@
+import { ConfirmSubmit } from "../../_components/ui";
 import { prisma } from "@/lib/prisma";
 import { PROJECT_STATUSES } from "@/lib/constants";
 import { createProject, updateProject, deleteProject } from "../../actions";
@@ -57,13 +58,7 @@ export default async function ProjectsPage() {
               <ProjectForm action={updateProject} submitLabel="Enregistrer" project={p} sectors={sectors} />
               <form action={deleteProject} className="mt-4">
                 <input type="hidden" name="id" value={p.id} />
-                <button
-                  type="submit"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[18px]">delete</span>
-                  Supprimer
-                </button>
+                <ConfirmSubmit message={`Supprimer la réalisation « ${p.title} » ?`} />
               </form>
             </div>
           </details>
