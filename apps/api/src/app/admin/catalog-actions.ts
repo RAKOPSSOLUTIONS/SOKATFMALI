@@ -17,6 +17,7 @@ function itemFromForm(fd: FormData) {
     kind: (KINDS.includes(kind as Kind) ? kind : "PRODUCT") as Kind,
     name: String(fd.get("name") ?? "").trim(),
     description: String(fd.get("description") ?? "").trim() || null,
+    imageUrl: String(fd.get("imageUrl") ?? "").trim() || null,
     unit: String(fd.get("unit") ?? "").trim() || "unité",
     price: Math.max(0, Number(fd.get("price")) || 0),
     reference: String(fd.get("reference") ?? "").trim() || null,

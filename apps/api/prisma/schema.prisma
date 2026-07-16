@@ -167,6 +167,7 @@ model CatalogItem {
   kind        String   @default("PRODUCT") // PRODUCT | SERVICE
   name        String
   description String?
+  imageUrl    String? // URL d'image (produit)
   unit        String   @default("unité") // unité | lot | kg | tonne | jour | mois | prestation…
   price       Float    @default(0) // prix unitaire FCFA
   reference   String? // SKU / code

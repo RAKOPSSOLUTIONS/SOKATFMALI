@@ -1,11 +1,14 @@
-import { formatFCFA } from "@/lib/finance";
-import { createCatalogItem, updateCatalogItem, deleteCatalogItem } from "../catalog-actions";
+"use client";
+
+import { useMemo, useState } from "react";
+import { Modal, ConfirmSubmit, ExportButton } from "./ui";
 
 export type CatalogRow = {
   id: string;
   kind: string;
   name: string;
   description: string | null;
+  imageUrl: string | null;
   unit: string;
   price: number;
   reference: string | null;
@@ -13,38 +16,107 @@ export type CatalogRow = {
   active: boolean;
 };
 
-const UNITS = ["unité", "lot", "forfait", "kg", "tonne", "litre", "sac", "carton", "m²", "m³", "heure", "jour", "mois", "prestation"];
+type Action = (fd: FormData) => void | Promise<void>;
 
-export function CatalogList({ kind, items }: { kind: "PRODUCT" | "SERVICE"; items: CatalogRow[] }) {
+const UNITS = ["unité", "lot", "forfait", "kg", "tonne", "litre", "sac", "carton", "m²", "m³", "heure", "jour", "mois", "prestation"];
+const fmt = (n: number) => new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(Math.round(n || 0)) + " FCFA";
+
+export function CatalogList({
+  kind,
+  items,
+  createAction,
+  updateAction,
+  deleteAction,
+}: {
+  kind: "PRODUCT" | "SERVICE";
+  items: CatalogRow[];
+  createAction: Action;
+  updateAction: Action;
+  deleteAction: Action;
+}) {
   const isProduct = kind === "PRODUCT";
   const noun = isProduct ? "produit" : "service";
   const title = isProduct ? "Produits" : "Services";
-  const icon = isProduct ? "inventory_2" : "home_repair_service";
-  const activeCount = items.filter((i) => i.active).length;
+  const [query, setQuery] = useState("");
+  const [view, setView] = useState<"list" | "card">(isProduct ? "card" : "list");
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter((i) =>
+      [i.name, i.reference, i.category, i.description].filter(Boolean).some((v) => v!.toLowerCase().includes(q)),
+    );
+  }, [items, query]);
+
+  const exportRows = filtered.map((i) => [i.name, i.reference ?? "", i.category ?? "", i.unit, i.price, i.active ? "Actif" : "Inactif"]);
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="font-headline-lg text-headline-lg text-primary">{title}</h1>
-        <p className="font-body-md text-body-md text-on-surface-variant">
-          Catalogue réutilisable dans vos devis et factures. {items.length} {noun}
-          {items.length > 1 ? "s" : ""} ({activeCount} actif{activeCount > 1 ? "s" : ""}).
-        </p>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="font-headline-lg text-headline-lg text-primary">{title}</h1>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Catalogue réutilisable dans vos devis et factures. {items.length} {noun}{items.length > 1 ? "s" : ""}.
+          </p>
+        </div>
+        <Modal title={`Ajouter un ${noun}`} triggerLabel={`Ajouter un ${noun}`} size="lg">
+          {(close) => <CatalogForm kind={kind} submitLabel="Ajouter" action={createAction} onDone={close} />}
+        </Modal>
       </div>
 
-      <details className="card p-5">
-        <summary className="flex items-center gap-2 cursor-pointer font-label-md text-label-md text-primary list-none">
-          <span className="material-symbols-outlined text-secondary">add_circle</span> Ajouter un {noun}
-        </summary>
-        <div className="mt-5">
-          <CatalogForm action={createCatalogItem} kind={kind} submitLabel="Ajouter" />
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative flex-1 min-w-[200px]">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder={`Rechercher un ${noun}…`}
+            className="input pl-11"
+          />
         </div>
-      </details>
+        <ExportButton filename={`${noun}s-sokatf`} headers={["Désignation", "Référence", "Catégorie", "Unité", "Prix U.", "Statut"]} rows={exportRows} />
+        <div className="flex rounded-lg border border-outline-variant overflow-hidden">
+          <button type="button" onClick={() => setView("list")} aria-label="Vue liste" className={`h-11 w-11 grid place-items-center ${view === "list" ? "bg-primary text-on-primary" : "text-on-surface-variant hover:bg-surface-container-high"}`}>
+            <span className="material-symbols-outlined">view_list</span>
+          </button>
+          <button type="button" onClick={() => setView("card")} aria-label="Vue cartes" className={`h-11 w-11 grid place-items-center ${view === "card" ? "bg-primary text-on-primary" : "text-on-surface-variant hover:bg-surface-container-high"}`}>
+            <span className="material-symbols-outlined">grid_view</span>
+          </button>
+        </div>
+      </div>
 
-      {items.length === 0 ? (
-        <div className="card p-8 text-center">
-          <span className="material-symbols-outlined text-on-surface-variant text-[40px]">{icon}</span>
-          <p className="font-body-md text-body-md text-on-surface-variant mt-2">Aucun {noun} pour le moment.</p>
+      {filtered.length === 0 ? (
+        <div className="card p-10 text-center text-on-surface-variant">
+          <span className="material-symbols-outlined text-[40px]">{isProduct ? "inventory_2" : "home_repair_service"}</span>
+          <p className="font-body-md text-body-md mt-2">{query ? "Aucun résultat." : `Aucun ${noun} pour le moment.`}</p>
+        </div>
+      ) : view === "card" ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {filtered.map((it) => (
+            <div key={it.id} className="card overflow-hidden flex flex-col">
+              <div className="aspect-video bg-surface-container-high grid place-items-center overflow-hidden">
+                {it.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={it.imageUrl} alt={it.name} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="material-symbols-outlined text-on-surface-variant/40 text-[40px]">{isProduct ? "inventory_2" : "home_repair_service"}</span>
+                )}
+              </div>
+              <div className="p-4 flex flex-col flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-label-md text-label-md text-primary">{it.name}</h3>
+                  {!it.active && <span className="badge bg-surface-container-high text-on-surface-variant shrink-0">Inactif</span>}
+                </div>
+                {it.category && <p className="font-body-sm text-body-sm text-on-surface-variant">{it.category}</p>}
+                <div className="font-headline-md text-headline-md text-primary mt-2">{fmt(it.price)}</div>
+                <div className="font-body-sm text-body-sm text-on-surface-variant">/ {it.unit}{it.reference ? ` · ${it.reference}` : ""}</div>
+                <div className="flex gap-1 mt-auto pt-3">
+                  <RowActions it={it} kind={kind} updateAction={updateAction} deleteAction={deleteAction} />
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div className="card overflow-hidden">
@@ -52,43 +124,39 @@ export function CatalogList({ kind, items }: { kind: "PRODUCT" | "SERVICE"; item
             <table className="w-full text-left">
               <thead>
                 <tr className="bg-surface-container-low">
-                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3">{title.slice(0, -1)}</th>
-                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3">Réf.</th>
-                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3">Unité</th>
+                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3">Désignation</th>
+                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3 hidden md:table-cell">Réf.</th>
+                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3 hidden sm:table-cell">Unité</th>
                   <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3 text-right">Prix U.</th>
-                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3 text-center">Statut</th>
+                  <th className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant p-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {items.map((it) => (
-                  <tr key={it.id} className="border-b border-outline-variant last:border-0 align-top">
-                    <td className="p-0" colSpan={5}>
-                      <details className="group">
-                        <summary className="grid grid-cols-12 gap-2 items-center cursor-pointer list-none p-3 hover:bg-surface-container-low">
-                          <div className="col-span-5 md:col-span-4">
-                            <div className="font-label-md text-label-md text-primary">{it.name}</div>
-                            {it.category && <div className="font-body-sm text-body-sm text-on-surface-variant">{it.category}</div>}
-                          </div>
-                          <div className="col-span-2 font-body-sm text-body-sm text-on-surface-variant truncate">{it.reference ?? "—"}</div>
-                          <div className="col-span-2 font-body-sm text-body-sm text-on-surface-variant">{it.unit}</div>
-                          <div className="col-span-2 text-right font-label-md text-label-md text-primary">{formatFCFA(it.price)}</div>
-                          <div className="col-span-1 text-center">
-                            <span className={`badge ${it.active ? "bg-secondary-container text-on-secondary-container" : "bg-surface-container-high text-on-surface-variant"}`}>
-                              {it.active ? "Actif" : "Inactif"}
-                            </span>
-                          </div>
-                        </summary>
-                        <div className="p-4 border-t border-outline-variant bg-surface-container-lowest">
-                          <CatalogForm action={updateCatalogItem} kind={kind} submitLabel="Enregistrer" item={it} />
-                          <form action={deleteCatalogItem} className="mt-4">
-                            <input type="hidden" name="id" value={it.id} />
-                            <input type="hidden" name="kind" value={kind} />
-                            <button className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors">
-                              <span className="material-symbols-outlined text-[18px]">delete</span> Supprimer
-                            </button>
-                          </form>
+                {filtered.map((it) => (
+                  <tr key={it.id} className="border-b border-outline-variant last:border-0">
+                    <td className="p-3">
+                      <div className="flex items-center gap-3">
+                        <span className="h-10 w-10 shrink-0 rounded-lg bg-surface-container-high grid place-items-center overflow-hidden">
+                          {it.imageUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={it.imageUrl} alt="" className="w-full h-full object-cover" />
+                          ) : (
+                            <span className="material-symbols-outlined text-on-surface-variant/50 text-[20px]">{isProduct ? "inventory_2" : "home_repair_service"}</span>
+                          )}
+                        </span>
+                        <div>
+                          <div className="font-label-md text-label-md text-primary">{it.name}{!it.active && <span className="badge bg-surface-container-high text-on-surface-variant ml-2">Inactif</span>}</div>
+                          {it.category && <div className="font-body-sm text-body-sm text-on-surface-variant">{it.category}</div>}
                         </div>
-                      </details>
+                      </div>
+                    </td>
+                    <td className="p-3 font-body-sm text-body-sm text-on-surface-variant hidden md:table-cell">{it.reference ?? "—"}</td>
+                    <td className="p-3 font-body-sm text-body-sm text-on-surface-variant hidden sm:table-cell">{it.unit}</td>
+                    <td className="p-3 text-right font-label-md text-label-md text-primary whitespace-nowrap">{fmt(it.price)}</td>
+                    <td className="p-3">
+                      <div className="flex justify-end gap-1">
+                        <RowActions it={it} kind={kind} updateAction={updateAction} deleteAction={deleteAction} />
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -101,19 +169,54 @@ export function CatalogList({ kind, items }: { kind: "PRODUCT" | "SERVICE"; item
   );
 }
 
+function RowActions({ it, kind, updateAction, deleteAction }: { it: CatalogRow; kind: "PRODUCT" | "SERVICE"; updateAction: Action; deleteAction: Action }) {
+  return (
+    <>
+      <Modal
+        title={`Modifier — ${it.name}`}
+        triggerLabel="Modifier"
+        triggerIcon="edit"
+        triggerClass="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-label-md text-label-md text-primary hover:bg-surface-container-high transition-colors"
+        size="lg"
+      >
+        {(close) => <CatalogForm kind={kind} submitLabel="Enregistrer" action={updateAction} item={it} onDone={close} />}
+      </Modal>
+      <form action={deleteAction}>
+        <input type="hidden" name="id" value={it.id} />
+        <input type="hidden" name="kind" value={kind} />
+        <ConfirmSubmit
+          label=""
+          icon="delete"
+          message={`Supprimer « ${it.name} » du catalogue ?`}
+          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-label-md text-label-md text-error hover:bg-error-container transition-colors"
+        />
+      </form>
+    </>
+  );
+}
+
 function CatalogForm({
-  action,
   kind,
   submitLabel,
+  action,
   item,
+  onDone,
 }: {
-  action: (fd: FormData) => void;
   kind: "PRODUCT" | "SERVICE";
   submitLabel: string;
+  action: Action;
   item?: CatalogRow;
+  onDone: () => void;
 }) {
+  const [preview, setPreview] = useState(item?.imageUrl ?? "");
   return (
-    <form action={action} className="grid md:grid-cols-2 gap-4">
+    <form
+      action={async (fd) => {
+        await action(fd);
+        onDone();
+      }}
+      className="grid md:grid-cols-2 gap-4"
+    >
       {item && <input type="hidden" name="id" value={item.id} />}
       <input type="hidden" name="kind" value={kind} />
       <div className="md:col-span-2">
@@ -127,9 +230,7 @@ function CatalogForm({
       <div>
         <label className="label">Unité</label>
         <select name="unit" defaultValue={item?.unit ?? (kind === "PRODUCT" ? "unité" : "prestation")} className="input">
-          {UNITS.map((u) => (
-            <option key={u} value={u}>{u}</option>
-          ))}
+          {UNITS.map((u) => <option key={u} value={u}>{u}</option>)}
         </select>
       </div>
       <div>
@@ -141,6 +242,20 @@ function CatalogForm({
         <input name="category" defaultValue={item?.category ?? ""} className="input" placeholder="Secteur / famille" />
       </div>
       <div className="md:col-span-2">
+        <label className="label">Image (URL)</label>
+        <div className="flex items-center gap-3">
+          <input name="imageUrl" defaultValue={item?.imageUrl ?? ""} onChange={(e) => setPreview(e.target.value)} className="input" placeholder="https://…/photo.jpg" />
+          <span className="h-12 w-12 shrink-0 rounded-lg bg-surface-container-high grid place-items-center overflow-hidden border border-outline-variant">
+            {preview ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={preview} alt="" className="w-full h-full object-cover" />
+            ) : (
+              <span className="material-symbols-outlined text-on-surface-variant/50 text-[20px]">image</span>
+            )}
+          </span>
+        </div>
+      </div>
+      <div className="md:col-span-2">
         <label className="label">Description</label>
         <textarea name="description" rows={2} defaultValue={item?.description ?? ""} className="input" />
       </div>
@@ -148,7 +263,8 @@ function CatalogForm({
         <input type="checkbox" name="active" defaultChecked={item ? item.active : true} className="h-4 w-4 accent-primary" />
         <span className="font-body-md text-body-md text-on-surface">Actif (disponible dans les devis / factures)</span>
       </label>
-      <div className="md:col-span-2">
+      <div className="md:col-span-2 flex justify-end gap-3 pt-2">
+        <button type="button" onClick={onDone} className="btn-outline">Annuler</button>
         <button className="btn-primary">{submitLabel}</button>
       </div>
     </form>
