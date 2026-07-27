@@ -50,7 +50,7 @@ export function checkCredentials(email: string, password: string): boolean {
 
 /** Role-based access map (path prefix -> allowed roles). admin sees all. */
 const ACCESS: Record<string, Role[]> = {
-  "/admin/assistant": ["admin"],
+  "/admin/assistant": ["admin", "comptable", "commercial"],
   "/admin/leads": ["admin", "commercial"],
   "/admin/clients": ["admin", "comptable", "commercial"],
   "/admin/produits": ["admin", "comptable", "commercial"],

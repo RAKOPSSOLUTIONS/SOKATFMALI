@@ -6,7 +6,28 @@ import { logActivity } from "@/lib/activity";
 import { DOCS } from "@/lib/orgDocs";
 
 export type Artifact = { kind: "pdf" | "excel"; label: string; url?: string; dataUri?: string };
-export type ToolCtx = { actorEmail?: string; actorName?: string; artifacts: Artifact[] };
+export type ToolCtx = { actorEmail?: string; actorName?: string; role: string; artifacts: Artifact[] };
+
+/**
+ * Per-role capabilities — mirrors the admin route access model so the assistant
+ * can never do more than the user's role allows. "*" means unrestricted.
+ */
+const SCOPES: Record<string, { tools: string[]; entities: string[]; reports: string[] }> = {
+  admin: { tools: ["*"], entities: ["*"], reports: ["*"] },
+  comptable: {
+    tools: ["get_stats", "list_records", "get_record", "search_documentation", "create_client", "update_client", "create_catalog_item", "update_catalog_item", "create_quote", "create_invoice", "get_document_pdf", "add_payment", "generate_excel_report"],
+    entities: ["clients", "quotes", "invoices", "leads", "products", "services", "payments"],
+    reports: ["invoices", "quotes", "clients", "payments", "catalog", "leads"],
+  },
+  commercial: {
+    tools: ["list_records", "get_record", "search_documentation", "create_client", "update_client", "create_catalog_item", "update_catalog_item", "create_quote", "get_document_pdf"],
+    entities: ["clients", "quotes", "leads", "products", "services"],
+    reports: ["clients", "quotes", "catalog", "leads"],
+  },
+};
+const scopeFor = (role: string) => SCOPES[role] ?? SCOPES.commercial;
+/** Normalise a get_record entity ("invoice") to a scope entity ("invoices"). */
+const entKey = (e: string) => (e === "catalog" ? "products" : `${e}s`);
 
 export type Tool = {
   spec: OpenAI.Chat.Completions.ChatCompletionFunctionTool;
@@ -45,7 +66,7 @@ export function buildTools(ctx: ToolCtx): Tool[] {
   const log = (action: Parameters<typeof logActivity>[0]["action"], entity: string, entityId: string | null, detail: string) =>
     logActivity({ action, entity, entityId, detail: `[Assistant] ${detail}`, actorEmail: ctx.actorEmail, actorName: ctx.actorName });
 
-  return [
+  const all: Tool[] = [
     fn("get_stats", "Vue d'ensemble chiffrée de l'entreprise : CA facturé, encaissé, impayés, nombre de devis/factures/clients/prospects, et top clients. À utiliser pour toute question sur la santé financière ou l'activité.", {}, [], async () => {
       const [invoices, quotesCount, clientsCount, leadsCount, catalogCount] = await Promise.all([
         prisma.invoice.findMany({ include: { payments: true } }),
@@ -70,6 +91,8 @@ export function buildTools(ctx: ToolCtx): Tool[] {
       query: S, limit: N,
     }, ["entity"], async (a) => {
       const entity = String(a.entity);
+      const sc = scopeFor(ctx.role);
+      if (!sc.entities.includes("*") && !sc.entities.includes(entity)) return JSON.stringify({ error: "Type de données non autorisé pour votre rôle." });
       const take = Math.min(Number(a.limit) || 25, 100);
       const q = String(a.query ?? "").trim();
       if (entity === "clients") {
@@ -101,6 +124,8 @@ export function buildTools(ctx: ToolCtx): Tool[] {
       entity: { type: "string", enum: ["client", "quote", "invoice", "lead", "catalog"] }, id: S,
     }, ["entity", "id"], async (a) => {
       const id = String(a.id);
+      const sc = scopeFor(ctx.role);
+      if (!sc.entities.includes("*") && !sc.entities.includes(entKey(String(a.entity)))) return JSON.stringify({ error: "Type de données non autorisé pour votre rôle." });
       switch (String(a.entity)) {
         case "client": return JSON.stringify(await prisma.client.findUnique({ where: { id } }));
         case "lead": return JSON.stringify(await prisma.lead.findUnique({ where: { id } }));
@@ -188,6 +213,8 @@ export function buildTools(ctx: ToolCtx): Tool[] {
 
     fn("generate_excel_report", "Générer un rapport Excel (.xlsx) téléchargeable. report: invoices | quotes | clients | payments | catalog | leads.", { report: { type: "string", enum: ["invoices", "quotes", "clients", "payments", "catalog", "leads"] } }, ["report"], async (a) => {
       const report = String(a.report);
+      const sc = scopeFor(ctx.role);
+      if (!sc.reports.includes("*") && !sc.reports.includes(report)) return JSON.stringify({ error: "Rapport non autorisé pour votre rôle." });
       let columns: string[] = [], rows: (string | number)[][] = [];
       if (report === "invoices" || report === "quotes") {
         const recs = report === "invoices" ? await prisma.invoice.findMany({ orderBy: { date: "desc" }, include: { payments: true } }) : await prisma.quote.findMany({ orderBy: { date: "desc" } });
@@ -243,6 +270,10 @@ export function buildTools(ctx: ToolCtx): Tool[] {
       return JSON.stringify(results.slice(0, 4).map((r) => ({ document: r.title, extrait: r.snippet })));
     }),
   ];
+
+  const scope = scopeFor(ctx.role);
+  if (scope.tools.includes("*")) return all;
+  return all.filter((t) => scope.tools.includes(t.spec.function.name));
 }
 
 async function ensureClient(i: { clientName: string; clientCompany?: string; clientEmail?: string; clientPhone?: string; clientAddress?: string }) {

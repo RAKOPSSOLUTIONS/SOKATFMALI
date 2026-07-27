@@ -8,10 +8,11 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 120;
 
 export async function POST(req: NextRequest) {
-  // Admin-only: the assistant has full CRUD + DB access.
+  // Open to any authenticated back-office user; the assistant's tools are then
+  // scoped to what the user's role is allowed to do (see buildTools).
   const session = await getSession();
-  if (!session || session.role !== "admin") {
-    return Response.json({ error: "Accès réservé à l'administrateur." }, { status: 403 });
+  if (!session) {
+    return Response.json({ error: "Non authentifié." }, { status: 401 });
   }
   if (!AI_ENABLED) {
     return Response.json({ error: "Assistant non configuré : renseignez OPENAI_API_KEY dans apps/api/.env." }, { status: 503 });
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { reply, artifacts } = await runAssistant(messages, { email: session.email, name: session.name });
+    const { reply, artifacts } = await runAssistant(messages, { email: session.email, name: session.name, role: session.role });
     await logActivity({ action: "UPDATE", entity: "Settings", detail: "[Assistant] Conversation IA", actorEmail: session.email, actorName: session.name });
     return Response.json({ reply, artifacts });
   } catch (err) {
