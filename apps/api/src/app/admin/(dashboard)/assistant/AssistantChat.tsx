@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   "Qui est le PDG dans l'organigramme ?",
 ];
 
-export function AssistantChat() {
+export function AssistantChat({ compact = false }: { compact?: boolean } = {}) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -116,7 +116,7 @@ export function AssistantChat() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-9rem)] max-w-4xl">
+    <div className={compact ? "flex flex-col h-full" : "flex flex-col h-[calc(100vh-9rem)] max-w-4xl"}>
       {ttsOk && (
         <div className="flex items-center justify-end pb-2">
           <label className="flex items-center gap-2 cursor-pointer font-label-md text-label-md text-on-surface-variant">
