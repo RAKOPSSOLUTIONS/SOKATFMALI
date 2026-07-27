@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: "Accès réservé à l'administrateur." }, { status: 403 });
   }
   if (!AI_ENABLED) {
-    return Response.json({ error: "Assistant non configuré : renseignez ANTHROPIC_API_KEY dans apps/api/.env." }, { status: 503 });
+    return Response.json({ error: "Assistant non configuré : renseignez OPENAI_API_KEY dans apps/api/.env." }, { status: 503 });
   }
 
   let body: { messages?: unknown };

@@ -21,11 +21,11 @@ export default function AssistantPage() {
             <span className="material-symbols-outlined text-error">key_off</span>
             <div className="font-body-md text-body-md text-on-surface-variant">
               <p className="font-label-md text-label-md text-primary mb-1">Assistant non configuré</p>
-              <p>Ajoutez votre clé API Claude pour activer l'assistant :</p>
+              <p>Ajoutez votre clé API OpenAI pour activer l'assistant :</p>
               <pre className="mt-2 p-3 rounded-lg bg-surface-container-high overflow-x-auto text-[12px]">{`# apps/api/.env
-ANTHROPIC_API_KEY="sk-ant-…"
-# optionnel : modèle moins coûteux
-# ANTHROPIC_MODEL="claude-sonnet-5"`}</pre>
+OPENAI_API_KEY="sk-…"
+# optionnel : autre modèle
+# OPENAI_MODEL="gpt-4o"`}</pre>
               <p className="mt-2">Puis redémarrez le serveur / rechargez pm2.</p>
             </div>
           </div>
