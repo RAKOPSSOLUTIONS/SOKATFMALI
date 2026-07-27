@@ -1,5 +1,6 @@
 import { Sidebar } from "./_components/Sidebar";
 import { MobileNav } from "./_components/MobileNav";
+import { AssistantFab } from "./_components/AssistantFab";
 import { Toaster } from "../_components/toast";
 import { logoutAction } from "../actions";
 import { getSession } from "@/lib/session";
@@ -50,6 +51,7 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
+      {items.some((i) => i.href === "/admin/assistant") && <AssistantFab />}
       <Toaster />
     </div>
   );
