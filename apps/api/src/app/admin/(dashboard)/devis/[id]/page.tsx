@@ -56,6 +56,7 @@ export default async function DevisViewPage({ params }: { params: Promise<{ id: 
           <span className="material-symbols-outlined text-[18px]">chat</span> WhatsApp
         </a>
         <form action={sendQuoteEmail}>
+          <FormToast message="Devis envoyé par email" />
           <input type="hidden" name="id" value={quote.id} />
           <button className="btn-outline py-2 disabled:opacity-50" disabled={!quote.clientEmail} title={quote.clientEmail ? "" : "Renseignez l'email du client"}>
             <span className="material-symbols-outlined text-[18px]">mail</span> Email

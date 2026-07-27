@@ -62,6 +62,7 @@ export default async function FactureViewPage({ params }: { params: Promise<{ id
           <span className="material-symbols-outlined text-[18px]">chat</span> WhatsApp
         </a>
         <form action={sendInvoiceEmail}>
+          <FormToast message="Facture envoyée par email" />
           <input type="hidden" name="id" value={inv.id} />
           <button className="btn-outline py-2 disabled:opacity-50" disabled={!inv.clientEmail} title={inv.clientEmail ? "" : "Renseignez l'email du client"}>
             <span className="material-symbols-outlined text-[18px]">mail</span> Email

@@ -1,6 +1,7 @@
 import { getSettings } from "@/lib/settings";
 import { updateSettings } from "../../actions";
 import { ImageField } from "../../_components/ui";
+import { FormToast } from "../../_components/toast";
 
 export const dynamic = "force-dynamic";
 
@@ -30,8 +31,8 @@ export default async function ParametresPage() {
         </div>
         <div>
           <label className="label">Coordonnées de paiement (RIB / IBAN / Mobile Money)</label>
-          <textarea name="bankDetails" rows={3} defaultValue={s.bankDetails ?? ""} className="input" placeholder={"Banque de … — RIB : ML00 0000 0000\nOrange Money : +223 …"} />
-          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Affiché sur les factures pour faciliter le règlement.</p>
+          <textarea name="bankDetails" rows={4} defaultValue={s.bankDetails ?? ""} className="input" placeholder={"Banque : BMS-SA\nN° de compte : ML102 01017 73519702001-81\nMobile Money (Orange Money) : (+223) 66 77 32 75"} />
+          <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Affiché en bas de chaque <strong>devis et facture</strong> (écran + PDF). Une ligne par information.</p>
         </div>
         <div>
           <label className="label">Conditions de paiement (par défaut)</label>
@@ -73,6 +74,7 @@ export default async function ParametresPage() {
           </p>
         </div>
 
+        <FormToast message="Paramètres enregistrés" />
         <button className="btn-primary">Enregistrer</button>
       </form>
     </div>

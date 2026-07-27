@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 type ToastType = "success" | "error" | "info";
 type Toast = { id: number; message: string; type: ToastType };
@@ -22,6 +23,8 @@ const TEXT: Record<ToastType, string> = { success: "text-secondary", error: "tex
 /** Mount once (in the dashboard layout). Renders stacked auto-dismissing toasts. */
 export function Toaster() {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const pathname = usePathname();
+
   useEffect(() => {
     const add = (t: Toast) => {
       setToasts((prev) => [...prev, t]);
@@ -32,6 +35,20 @@ export function Toaster() {
       listeners.delete(add);
     };
   }, []);
+
+  // Read any flash queued by a server action (survives redirects), then clear it.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const m = document.cookie.match(/(?:^|;\s*)sokatf_flash=([^;]+)/);
+    if (!m) return;
+    document.cookie = "sokatf_flash=; Max-Age=0; path=/";
+    try {
+      const { message, type } = JSON.parse(decodeURIComponent(m[1]));
+      if (message) toast(message, type);
+    } catch {
+      /* ignore malformed flash */
+    }
+  }, [pathname]);
 
   return (
     <div className="fixed bottom-4 right-4 z-[200] flex flex-col gap-2 w-[min(92vw,360px)] print:hidden">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { parseItems, computeTotals, formatFCFA, formatDate, daysOverdue, waLink, reminderText } from "@/lib/finance";
 import { sendInvoiceReminder } from "../../finance-actions";
+import { FormToast } from "../../_components/toast";
 
 export const dynamic = "force-dynamic";
 
@@ -105,6 +106,7 @@ export default async function FinancesPage() {
                   <span className="material-symbols-outlined text-[18px]">chat</span> Relancer
                 </a>
                 <form action={sendInvoiceReminder}>
+                  <FormToast message="Relance envoyée par email" />
                   <input type="hidden" name="id" value={inv.id} />
                   <button className="btn-outline py-2 disabled:opacity-50" disabled={!inv.clientEmail} title={inv.clientEmail ? "" : "Email client manquant"}>
                     <span className="material-symbols-outlined text-[18px]">mail</span> Email

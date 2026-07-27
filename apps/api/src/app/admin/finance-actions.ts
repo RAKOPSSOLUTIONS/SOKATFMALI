@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { logActivity } from "@/lib/activity";
+import { setFlash } from "@/lib/flash";
 import { prisma } from "@/lib/prisma";
 import {
   QUOTE_STATUSES,
@@ -89,6 +90,7 @@ export async function createQuote(fd: FormData) {
   });
   await ensureClient(data);
   await logActivity({ action: "CREATE", entity: "Quote", entityId: q.id, detail: `Devis ${number} créé (${data.clientName})` });
+  await setFlash(`Devis ${number} créé`);
   revalidatePath("/admin/devis");
   redirect(`/admin/devis/${q.id}`);
 }
@@ -105,6 +107,7 @@ export async function updateQuote(fd: FormData) {
       validUntil: parseDate(fd.get("validUntil")),
     },
   });
+  await setFlash("Devis enregistré");
   revalidatePath(`/admin/devis/${id}`);
   redirect(`/admin/devis/${id}`);
 }
@@ -155,6 +158,7 @@ export async function convertQuoteToInvoice(fd: FormData) {
     },
   });
   await prisma.quote.update({ where: { id }, data: { status: "ACCEPTED" } });
+  await setFlash(`Facture ${number} créée depuis le devis`);
   revalidatePath("/admin/factures");
   redirect(`/admin/factures/${inv.id}`);
 }
@@ -175,6 +179,7 @@ export async function createInvoice(fd: FormData) {
   });
   await ensureClient(data);
   await logActivity({ action: "CREATE", entity: "Invoice", entityId: inv.id, detail: `Facture ${number} créée (${data.clientName})` });
+  await setFlash(`Facture ${number} créée`);
   revalidatePath("/admin/factures");
   redirect(`/admin/factures/${inv.id}`);
 }
@@ -191,6 +196,7 @@ export async function updateInvoice(fd: FormData) {
       dueDate: parseDate(fd.get("dueDate")),
     },
   });
+  await setFlash("Facture enregistrée");
   revalidatePath(`/admin/factures/${id}`);
   redirect(`/admin/factures/${id}`);
 }
@@ -367,6 +373,7 @@ export async function duplicateQuote(fd: FormData) {
       date: new Date(),
     },
   });
+  await setFlash(`Devis dupliqué → ${number}`);
   revalidatePath("/admin/devis");
   redirect(`/admin/devis/${copy.id}`);
 }
@@ -396,6 +403,7 @@ export async function duplicateInvoice(fd: FormData) {
       dueDate: due,
     },
   });
+  await setFlash(`Facture dupliquée → ${number}`);
   revalidatePath("/admin/factures");
   redirect(`/admin/factures/${copy.id}`);
 }
