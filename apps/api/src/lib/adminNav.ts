@@ -1,6 +1,7 @@
 /** Full admin navigation. The dashboard layout filters it by role (canAccess). */
 export const ADMIN_NAV = [
   { href: "/admin", label: "Tableau de bord", icon: "dashboard", exact: true },
+  { href: "/admin/assistant", label: "Assistant IA", icon: "smart_toy", exact: false },
   { href: "/admin/leads", label: "Prospects", icon: "inbox", exact: false },
   { href: "/admin/clients", label: "Clients", icon: "contacts", exact: false },
   { href: "/admin/produits", label: "Produits", icon: "inventory_2", exact: false },
