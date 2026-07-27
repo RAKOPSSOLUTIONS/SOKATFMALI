@@ -149,8 +149,8 @@ export function DocumentView({
           </div>
         )}
 
-        {/* Payment details (invoices) */}
-        {kind === "FACTURE" && settings?.bankDetails && (
+        {/* Payment / bank details (devis + factures) */}
+        {settings?.bankDetails && (
           <div className="mt-6 p-4 rounded-xl bg-slate-50 border border-outline-variant">
             <div className="text-[11px] uppercase tracking-widest text-slate-400 mb-1">Coordonnées de paiement</div>
             <p className="text-sm text-slate-700 whitespace-pre-wrap">{settings.bankDetails}</p>

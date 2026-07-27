@@ -34,7 +34,7 @@ async function seedSettings() {
     paymentTerms:
       "Règlement à 30 jours date de facture. Tout retard de paiement pourra entraîner des pénalités conformément à la réglementation en vigueur.",
     bankDetails:
-      "Banque : BDM-SA — Bamako\nCompte : ML000 0000 0000 0000 0000\nMobile Money (Orange Money) : (+223) 66 77 32 75",
+      "Banque : BMS-SA\nN° de compte : ML102 01017 73519702001-81\nMobile Money (Orange Money) : (+223) 66 77 32 75",
     documentFooter: "SOKATF SARL — Commerce général multisectoriel. Merci de votre confiance.",
     notifyEmail: "contact@sokatf.com",
     quotePrefix: "Devis",

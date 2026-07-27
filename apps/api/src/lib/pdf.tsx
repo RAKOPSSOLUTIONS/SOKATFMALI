@@ -132,7 +132,7 @@ function DocPDF({ doc, kind, settings, paid }: { doc: PdfDoc; kind: "DEVIS" | "F
         {doc.notes ? (
           <View style={s.section}><Text style={s.label}>Notes</Text><Text style={s.small}>{doc.notes}</Text></View>
         ) : null}
-        {kind === "FACTURE" && settings?.bankDetails ? (
+        {settings?.bankDetails ? (
           <View style={s.bankBox}><Text style={s.label}>Coordonnées de paiement</Text><Text style={s.small}>{settings.bankDetails}</Text></View>
         ) : null}
         {settings?.paymentTerms ? (
