@@ -119,17 +119,38 @@ certbot remplit les lignes `ssl_certificate*` et gère le renouvellement auto.
 - `https://sokatf.com/admin` → tableau de bord (login `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
 - Soumettez le formulaire de contact → le prospect apparaît dans `/admin`.
 
-## Mettre à jour (déploiement d'une nouvelle version)
+## Mettre à jour (déploiement d'une nouvelle version / nouveaux modules)
+
+**En une commande** (recommandé) — sauvegarde la base, pull, install, migre le
+schéma, rebuild front + back, recharge pm2 :
+
+```bash
+cd /var/www/apis/sokatf && bash deploy/update.sh
+```
+
+Ou manuellement :
 
 ```bash
 cd /var/www/apis/sokatf
 git pull
-pnpm install
-pnpm --filter @sokatf/api db:push     # si le schéma a changé
-pnpm build
-pm2 reload sokatf-api                  # recharge le backend sans coupure
+pnpm install                          # si des dépendances ont été ajoutées
+pnpm --filter @sokatf/api db:push     # si le schéma Prisma a changé (nouveaux modèles/champs)
+pnpm build                            # rebuild front statique + backend
+pm2 reload sokatf-api                 # recharge le backend sans coupure
 # le front statique est déjà à jour (nginx sert apps/web/dist)
 ```
+
+> **Selon ce que contient le nouveau module :**
+> - **Nouvelle variable d'env** (ex. `OPENAI_API_KEY`) → ajoutez-la dans
+>   `apps/api/.env` **avant** `pnpm build`, puis `pm2 reload sokatf-api`.
+> - **Changement de schéma Prisma** → `db:push` suffit tant que vous **ajoutez**
+>   des modèles/champs. Renommer ou supprimer une colonne peut **effacer des
+>   données** : la sauvegarde faite par `update.sh` (`backups/prod-*.db`) vous
+>   protège.
+> - **Front seulement** (Astro) → un `pnpm build` régénère `apps/web/dist`,
+>   nginx le sert aussitôt (pas besoin de reload pm2).
+> - **Rien ne change ?** Videz le cache navigateur / Ctrl-Shift-R : le front est
+>   servi en statique et peut être mis en cache.
 
 ## Notes
 - **DNS** : faites pointer `sokatf.com` et `www.sokatf.com` (enregistrements A/AAAA) vers l'IP du VPS avant certbot.
